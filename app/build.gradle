@@ -6,9 +6,11 @@ android {
     defaultConfig {
         applicationId "com.openclassrooms.realestatemanager"
         minSdkVersion 19
+        //noinspection OldTargetApi
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

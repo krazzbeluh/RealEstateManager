@@ -1,9 +1,7 @@
-package com.openclassrooms.realestatemanager
+package com.openclassrooms.realestatemanager.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
@@ -11,8 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.openclassrooms.realestatemanager.dummy.DummyContent
-import com.openclassrooms.realestatemanager.dummy.DummyContent.DummyItem
+import com.openclassrooms.realestatemanager.AddEstateActivity
+import com.openclassrooms.realestatemanager.R
+import com.openclassrooms.realestatemanager.model.Estate
 
 /**
  * An activity representing a list of Items. This activity
@@ -30,15 +29,10 @@ class MainActivity : AppCompatActivity() {
     private var mTwoPane = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_item_list)
+        setContentView(R.layout.activity_main)
         val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
         toolbar.title = title
-        val fab = findViewById<View>(R.id.fab) as FloatingActionButton
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
         if (findViewById<View?>(R.id.item_detail_container) != null) {
             // The detail container view will be present only in the
             // large-screen layouts (res/values-w900dp).
@@ -50,19 +44,21 @@ class MainActivity : AppCompatActivity() {
         setupRecyclerView(recyclerView as RecyclerView)
     }
 
+    fun addEstateButtonClicked(@Suppress("UNUSED_PARAMETER") v: View) = startActivity(Intent(this, AddEstateActivity::class.java))
+
     private fun setupRecyclerView(recyclerView: RecyclerView) {
-        recyclerView.adapter = SimpleItemRecyclerViewAdapter(this, DummyContent.ITEMS,
+        recyclerView.adapter = SimpleItemRecyclerViewAdapter(this, listOf(),
                 mTwoPane)
     }
 
     private class SimpleItemRecyclerViewAdapter internal constructor(private val mParentActivity: MainActivity,
-                                                                     private val mValues: List<DummyItem>,
+                                                                     private val mValues: List<Estate>,
                                                                      private val mTwoPane: Boolean) : RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>() {
         private val mOnClickListener = View.OnClickListener { view ->
-            val item = view.tag as DummyItem
+            val item = view.tag as Estate
             if (mTwoPane) {
                 val arguments = Bundle()
-                arguments.putString(MainDetailFragment.ARG_ITEM_ID, item.id)
+                arguments.putString(MainDetailFragment.ARG_ESTATE_ID, item.id.toString())
                 val fragment = MainDetailFragment()
                 fragment.arguments = arguments
                 mParentActivity.supportFragmentManager.beginTransaction()
@@ -71,20 +67,19 @@ class MainActivity : AppCompatActivity() {
             } else {
                 val context = view.context
                 val intent = Intent(context, MainDetailActivity::class.java)
-                intent.putExtra(MainDetailFragment.ARG_ITEM_ID, item.id)
+                intent.putExtra(MainDetailFragment.ARG_ESTATE_ID, item.id)
                 context.startActivity(intent)
             }
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_list_content, parent, false)
+                    .inflate(R.layout.estate_list_content, parent, false)
             return ViewHolder(view)
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            holder.mIdView.text = mValues[position].id
-            holder.mContentView.text = mValues[position].content
+            holder.mIdView.text = mValues[position].id.toString()
             holder.itemView.tag = mValues[position]
             holder.itemView.setOnClickListener(mOnClickListener)
         }
@@ -94,13 +89,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         internal inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val mIdView: TextView
-            val mContentView: TextView
+            val mIdView: TextView = view.findViewById<View>(R.id.id_text) as TextView
+            val mContentView: TextView = view.findViewById<View>(R.id.content) as TextView
 
-            init {
-                mIdView = view.findViewById<View>(R.id.id_text) as TextView
-                mContentView = view.findViewById<View>(R.id.content) as TextView
-            }
         }
 
     }

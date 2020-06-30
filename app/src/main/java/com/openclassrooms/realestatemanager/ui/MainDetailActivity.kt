@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager
+package com.openclassrooms.realestatemanager.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
+import com.openclassrooms.realestatemanager.R
 
 /**
  * An activity representing a single Item detail screen. This
@@ -18,7 +19,7 @@ import android.view.View
 class MainDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_item_detail)
+        setContentView(R.layout.activity_main_detail)
         val toolbar = findViewById<View>(R.id.detail_toolbar) as Toolbar
         setSupportActionBar(toolbar)
         val fab = findViewById<View>(R.id.fab) as FloatingActionButton
@@ -44,8 +45,8 @@ class MainDetailActivity : AppCompatActivity() {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             val arguments = Bundle()
-            arguments.putString(MainDetailFragment.ARG_ITEM_ID,
-                    intent.getStringExtra(MainDetailFragment.ARG_ITEM_ID))
+            arguments.putString(MainDetailFragment.ARG_ESTATE_ID,
+                    intent.getStringExtra(MainDetailFragment.ARG_ESTATE_ID))
             val fragment = MainDetailFragment()
             fragment.arguments = arguments
             supportFragmentManager.beginTransaction()
