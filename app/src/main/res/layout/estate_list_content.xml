@@ -34,7 +34,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/id_text"
+            android:id="@+id/estate_list_row_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#000000"
@@ -44,19 +44,19 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/content"
+            android:id="@+id/estate_list_row_city"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/id_text"
-            app:layout_constraintTop_toBottomOf="@+id/id_text" />
+            app:layout_constraintStart_toStartOf="@+id/estate_list_row_type"
+            app:layout_constraintTop_toBottomOf="@+id/estate_list_row_type" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/estate_list_row_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/content" />
+            app:layout_constraintTop_toBottomOf="@+id/estate_list_row_city" />
     </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>

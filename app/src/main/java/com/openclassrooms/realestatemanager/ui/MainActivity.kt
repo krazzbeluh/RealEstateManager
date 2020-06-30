@@ -11,7 +11,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.openclassrooms.realestatemanager.AddEstateActivity
 import com.openclassrooms.realestatemanager.R
+import com.openclassrooms.realestatemanager.model.Address
 import com.openclassrooms.realestatemanager.model.Estate
+import com.openclassrooms.realestatemanager.model.Photo
 
 /**
  * An activity representing a list of Items. This activity
@@ -47,7 +49,11 @@ class MainActivity : AppCompatActivity() {
     fun addEstateButtonClicked(@Suppress("UNUSED_PARAMETER") v: View) = startActivity(Intent(this, AddEstateActivity::class.java))
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
-        recyclerView.adapter = SimpleItemRecyclerViewAdapter(this, listOf(),
+        recyclerView.adapter = SimpleItemRecyclerViewAdapter(this, listOf(Estate(0,
+                Address(26, "Rue Gustave Flaubert", "Dieppe", 76200,
+                        "France"), Estate.EstateType.HOUSE, 128000, 3, 80,
+                "Petite maison à Dieppe", listOf(Photo(null, "Super photo")),
+                listOf(), "Paul Leclerc")),
                 mTwoPane)
     }
 
@@ -89,8 +95,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         internal inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val mIdView: TextView = view.findViewById<View>(R.id.id_text) as TextView
-            val mContentView: TextView = view.findViewById<View>(R.id.content) as TextView
+            val mIdView: TextView = view.findViewById<View>(R.id.estate_list_row_type) as TextView
+            val mContentView: TextView = view.findViewById<View>(R.id.estate_list_row_city) as TextView
 
         }
 
