@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager.ui
+package com.openclassrooms.realestatemanager.ui.main
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -22,6 +22,6 @@ class MainDetailFragment : Fragment() {
     }
 
     companion object {
-        const val ARG_ESTATE_ID = "estate_id"
+        const val ARG_ESTATE = "estate"
     }
 }

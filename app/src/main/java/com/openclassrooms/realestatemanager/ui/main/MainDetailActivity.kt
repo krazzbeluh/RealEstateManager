@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager.ui
+package com.openclassrooms.realestatemanager.ui.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
 import com.openclassrooms.realestatemanager.R
+import com.openclassrooms.realestatemanager.ui.main.MainDetailFragment.Companion.ARG_ESTATE
 
 /**
  * An activity representing a single Item detail screen. This
@@ -45,8 +46,8 @@ class MainDetailActivity : AppCompatActivity() {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             val arguments = Bundle()
-            arguments.putString(MainDetailFragment.ARG_ESTATE_ID,
-                    intent.getStringExtra(MainDetailFragment.ARG_ESTATE_ID))
+            arguments.putSerializable(ARG_ESTATE,
+            intent.getSerializableExtra(ARG_ESTATE))
             val fragment = MainDetailFragment()
             fragment.arguments = arguments
             supportFragmentManager.beginTransaction()

@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager.ui
+package com.openclassrooms.realestatemanager.ui.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.openclassrooms.realestatemanager.AddEstateActivity
+import com.openclassrooms.realestatemanager.ui.AddEstateActivity
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.model.Address
 import com.openclassrooms.realestatemanager.model.Estate
@@ -55,50 +55,5 @@ class MainActivity : AppCompatActivity() {
                 "Petite maison à Dieppe", listOf(Photo(null, "Super photo")),
                 listOf(), "Paul Leclerc")),
                 mTwoPane)
-    }
-
-    private class SimpleItemRecyclerViewAdapter internal constructor(private val mParentActivity: MainActivity,
-                                                                     private val mValues: List<Estate>,
-                                                                     private val mTwoPane: Boolean) : RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>() {
-        private val mOnClickListener = View.OnClickListener { view ->
-            val item = view.tag as Estate
-            if (mTwoPane) {
-                val arguments = Bundle()
-                arguments.putString(MainDetailFragment.ARG_ESTATE_ID, item.id.toString())
-                val fragment = MainDetailFragment()
-                fragment.arguments = arguments
-                mParentActivity.supportFragmentManager.beginTransaction()
-                        .replace(R.id.item_detail_container, fragment)
-                        .commit()
-            } else {
-                val context = view.context
-                val intent = Intent(context, MainDetailActivity::class.java)
-                intent.putExtra(MainDetailFragment.ARG_ESTATE_ID, item.id)
-                context.startActivity(intent)
-            }
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.estate_list_content, parent, false)
-            return ViewHolder(view)
-        }
-
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            holder.mIdView.text = mValues[position].id.toString()
-            holder.itemView.tag = mValues[position]
-            holder.itemView.setOnClickListener(mOnClickListener)
-        }
-
-        override fun getItemCount(): Int {
-            return mValues.size
-        }
-
-        internal inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val mIdView: TextView = view.findViewById<View>(R.id.estate_list_row_type) as TextView
-            val mContentView: TextView = view.findViewById<View>(R.id.estate_list_row_city) as TextView
-
-        }
-
     }
 }

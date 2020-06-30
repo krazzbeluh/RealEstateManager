@@ -5,6 +5,7 @@ import android.net.wifi.WifiManager
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.roundToInt
 
 /**
  * Created by Philippe on 21/02/2018.
@@ -17,7 +18,7 @@ object Utils {
      * @return converted value in euro
      */
     fun convertDollarToEuro(dollars: Int): Int {
-        return Math.round(dollars * 0.812).toInt()
+        return (dollars * 0.812).roundToInt()
     }
 
     /**

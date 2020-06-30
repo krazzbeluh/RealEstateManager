@@ -13,9 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
-        <activity android:name=".AddEstateActivity" />
+        <activity android:name=".ui.AddEstateActivity" />
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.main.MainActivity"
             android:label="@string/title_main_activity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -25,13 +25,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.MainDetailActivity"
+            android:name=".ui.main.MainDetailActivity"
             android:label="@string/title_main_detail"
-            android:parentActivityName=".ui.MainActivity"
+            android:parentActivityName=".ui.main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.openclassrooms.realestatemanager.ui.MainActivity" />
+                android:value="com.openclassrooms.realestatemanager.ui.main.MainActivity" />
         </activity>
     </application>
 
