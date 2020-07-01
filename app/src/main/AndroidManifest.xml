@@ -33,6 +33,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.openclassrooms.realestatemanager.ui.main.MainActivity" />
         </activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDDIsxmIg2ZD3CN6ysXBiuJSxc07RVyqQs"/>
     </application>
 
 </manifest>

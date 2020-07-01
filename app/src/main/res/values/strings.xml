@@ -3,4 +3,6 @@
     <string name="title_main_activity">Items</string>
     <string name="title_main_detail">Item Detail</string>
     <string name="estate_picture_description">Estate photo</string>
+    <string name="photos">Photos</string>
+    <string name="surface">Surface</string>
 </resources>
