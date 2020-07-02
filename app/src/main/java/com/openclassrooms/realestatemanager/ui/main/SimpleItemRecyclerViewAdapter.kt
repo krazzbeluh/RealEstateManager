@@ -2,32 +2,37 @@ package com.openclassrooms.realestatemanager.ui.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.model.Estate
+import com.openclassrooms.realestatemanager.ui.main.detail.MainDetailActivity
+import com.openclassrooms.realestatemanager.ui.main.detail.MainDetailFragment
+import com.openclassrooms.realestatemanager.ui.main.detail.MainDetailFragment.Companion.ARG_ESTATE
 
-internal class SimpleItemRecyclerViewAdapter internal constructor(private val mParentActivity: MainActivity,
+internal class SimpleItemRecyclerViewAdapter internal constructor(private val parentActivity: MainActivity,
                                                                   private val estates: List<Estate>,
                                                                   private val mTwoPane: Boolean) : RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>() {
     private val onClickListener = View.OnClickListener { view ->
         val item = view.tag as Estate
         if (mTwoPane) {
-            val arguments = Bundle()
-            arguments.putSerializable(MainDetailFragment.ARG_ESTATE, item)
-            val fragment = MainDetailFragment()
-            fragment.arguments = arguments
-            mParentActivity.supportFragmentManager.beginTransaction()
+            val fragment = MainDetailFragment().apply {
+                arguments = Bundle().apply {
+                    putSerializable(ARG_ESTATE, item)
+                }
+            }
+            parentActivity.supportFragmentManager
+                    .beginTransaction()
                     .replace(R.id.item_detail_container, fragment)
                     .commit()
         } else {
             val context = view.context
             val intent = Intent(context, MainDetailActivity::class.java)
-            intent.putExtra(MainDetailFragment.ARG_ESTATE, item)
+            intent.putExtra(ARG_ESTATE, item)
             context.startActivity(intent)
         }
     }
@@ -42,7 +47,7 @@ internal class SimpleItemRecyclerViewAdapter internal constructor(private val mP
         holder.typeTextView.text = estates[position].type.toString()
         holder.cityTextView.text = estates[position].address.city
         holder.priceTextView.text = estates[position].price.toString()
-        holder.imageView.setImageBitmap(estates[position].photos[0].photo)
+        // TODO: holder.imageView.setImageBitmap()
         holder.itemView.setOnClickListener(onClickListener)
         holder.itemView.tag = estates[position]
     }
