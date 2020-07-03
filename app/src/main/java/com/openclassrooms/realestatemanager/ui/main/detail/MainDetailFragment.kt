@@ -46,6 +46,15 @@ class MainDetailFragment : androidx.fragment.app.Fragment() {
         view.findViewById<TextView>(R.id.main_detail_location).apply {
             text = estate.address.toFormattedAddress()
         }
+        view.findViewById<TextView>(R.id.main_detail_poi).apply {
+            text = estate.getPois()
+        }
+        view.findViewById<TextView>(R.id.main_detail_available).apply {
+            text = if (estate.sold) getString(R.string.no) else getString(R.string.yes)
+        }
+        view.findViewById<TextView>(R.id.main_detail_agent).apply {
+            text = estate.agent
+        }
 
         return view
     }

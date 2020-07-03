@@ -14,4 +14,9 @@
     <string name="price_description">Price picture</string>
     <string name="location_description">Location picture</string>
     <string name="photo_description">Room photo</string>
+    <string name="points_of_interest">Points of interests</string>
+    <string name="available">Available</string>
+    <string name="agent">Agent</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
 </resources>
