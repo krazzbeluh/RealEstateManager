@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.model.Estate
@@ -17,6 +19,10 @@ import com.openclassrooms.realestatemanager.ui.main.detail.MainDetailFragment.Co
 internal class SimpleItemRecyclerViewAdapter internal constructor(private val parentActivity: MainActivity,
                                                                   private val estates: List<Estate>,
                                                                   private val mTwoPane: Boolean) : RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>() {
+    companion object {
+        private var selectedItem: Int? = null
+    }
+
     private val onClickListener = View.OnClickListener { view ->
         val item = view.tag as Estate
         if (mTwoPane) {
@@ -48,7 +54,28 @@ internal class SimpleItemRecyclerViewAdapter internal constructor(private val pa
         holder.cityTextView.text = estates[position].address.city
         holder.priceTextView.text = estates[position].price.toString()
         // TODO: holder.imageView.setImageBitmap()
-        holder.itemView.setOnClickListener(onClickListener)
+        holder.itemView.setOnClickListener { view ->
+            val item = view.tag as Estate
+            if (mTwoPane) {
+                holder.background.setBackgroundColor(ContextCompat.getColor(parentActivity, R.color.colorAccent))
+                selectedItem?.let { notifyItemChanged(it) }
+                selectedItem = position
+                val fragment = MainDetailFragment().apply {
+                    arguments = Bundle().apply {
+                        putSerializable(ARG_ESTATE, item)
+                    }
+                }
+                parentActivity.supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.item_detail_container, fragment)
+                        .commit()
+            } else {
+                val context = view.context
+                val intent = Intent(context, MainDetailActivity::class.java)
+                intent.putExtra(ARG_ESTATE, item)
+                context.startActivity(intent)
+            }
+        }
         holder.itemView.tag = estates[position]
     }
 
@@ -57,6 +84,7 @@ internal class SimpleItemRecyclerViewAdapter internal constructor(private val pa
     }
 
     internal class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val background: ConstraintLayout = view.findViewById(R.id.estate_list_content_background)
         val imageView: ImageView = view.findViewById(R.id.estate_list_row_image)
         val typeTextView: TextView = view.findViewById(R.id.estate_list_row_type)
         val cityTextView: TextView = view.findViewById(R.id.estate_list_row_city)

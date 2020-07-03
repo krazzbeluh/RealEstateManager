@@ -19,4 +19,7 @@
     <string name="agent">Agent</string>
     <string name="yes">yes</string>
     <string name="no">no</string>
+    <string name="agent_description">Agent picture</string>
+    <string name="Available_description">Available picture</string>
+    <string name="poi_description">Points of interests picture</string>
 </resources>
