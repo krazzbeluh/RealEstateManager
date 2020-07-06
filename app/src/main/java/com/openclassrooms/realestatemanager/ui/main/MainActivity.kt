@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         recyclerView.adapter = SimpleItemRecyclerViewAdapter(this, listOf(Estate(0,
-                Address(26, "Rue Gustave Flaubert", "Dieppe", 76200,
+                Address(0, 26, "Rue Gustave Flaubert", "Dieppe", 76200,
                         "France"), Estate.EstateType.HOUSE, 128000, 3, 80,
                 "Petite maison à Dieppe", listOf(Photo(null, "Super photo")),
                 listOf(Estate.POI.SCHOOL, Estate.POI.SUPERMARKET), "Paul Leclerc")),

@@ -22,4 +22,10 @@
     <string name="agent_description">Agent picture</string>
     <string name="Available_description">Available picture</string>
     <string name="poi_description">Points of interests picture</string>
+    <string name="address">Address</string>
+    <string name="type">Type</string>
+    <string name="school">School</string>
+    <string name="park">Park</string>
+    <string name="supermarket">Supermarket</string>
+    <string name="sold">Sold</string>
 </resources>

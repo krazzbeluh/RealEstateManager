@@ -1,11 +1,22 @@
 package com.openclassrooms.realestatemanager.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.io.Serializable
 import java.util.*
 
-data class Estate(val id: Int, val address: Address, val type: EstateType, val price: Int,
-                  val rooms: Int, val area: Int, val description: String, val photos: List<Photo>,
-                  val nearbyPointsOfInterests: List<POI>, val agent: String, val sold: Boolean = false): Serializable {
+@Entity
+data class Estate(@PrimaryKey(autoGenerate = true) val id: Int,
+                  val address: Address,
+                  val type: EstateType,
+                  val price: Int,
+                  val rooms: Int,
+                  val area: Int,
+                  val description: String,
+                  val photos: List<Photo>,
+                  val nearbyPointsOfInterests: List<POI>,
+                  val agent: String,
+                  val sold: Boolean = false) : Serializable {
 
     fun getPois(): String {
         var s = ""
