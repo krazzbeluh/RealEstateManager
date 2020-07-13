@@ -51,7 +51,7 @@ class MainDetailFragment : androidx.fragment.app.Fragment() {
             text = estate.price.toString()
         }
         view.findViewById<TextView>(R.id.main_detail_location).apply {
-            text = estate.address.toFormattedAddress()
+            text = estate.address.format()
         }
         view.findViewById<TextView>(R.id.main_detail_poi).apply {
             text = estate.getPois()

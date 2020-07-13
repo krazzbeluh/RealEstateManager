@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager.model
 
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
@@ -7,7 +8,7 @@ import java.util.*
 
 @Entity
 data class Estate(@PrimaryKey(autoGenerate = true) val id: Int,
-                  val address: Address,
+                  @Embedded val address: Address,
                   val type: EstateType,
                   val price: Int,
                   val rooms: Int,

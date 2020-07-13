@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
-        <activity android:name=".ui.AddEstateActivity" />
+        <activity android:name=".ui.add.AddEstateActivity" />
         <activity
             android:name=".ui.main.MainActivity"
             android:label="@string/title_main_activity"

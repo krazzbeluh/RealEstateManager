@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.AddEstateActivity">
+    tools:context=".ui.add.AddEstateActivity">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:clickable="true"
+        android:onClick="addButtonClicked"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/scrollView2"
         app:srcCompat="@drawable/add" />
@@ -23,7 +23,7 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
@@ -41,135 +41,152 @@
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:labelFor="@id/add_estate_address"
+                app:layout_constraintBottom_toBottomOf="@+id/add_estate_address"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/add_estate_address" />
 
             <EditText
-                android:id="@+id/editTextTextPostalAddress"
+                android:id="@+id/add_estate_address"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:ems="10"
+                android:autofillHints=""
                 android:inputType="textPostalAddress"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/textView6"
-                app:layout_constraintTop_toTopOf="@+id/textView6" />
+                android:enabled="true"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:text="@string/type"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/add_estate_type"
                 app:layout_constraintStart_toStartOf="@+id/textView6"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextPostalAddress" />
+                app:layout_constraintTop_toTopOf="@+id/add_estate_type" />
 
             <Spinner
-                android:id="@+id/spinner"
+                android:id="@+id/add_estate_type"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                app:layout_constraintEnd_toEndOf="@+id/editTextTextPostalAddress"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/add_estate_address"
                 app:layout_constraintStart_toEndOf="@+id/textView10"
-                app:layout_constraintTop_toTopOf="@+id/textView10" />
+                app:layout_constraintTop_toBottomOf="@+id/add_estate_address" />
 
             <TextView
                 android:id="@+id/textView13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:text="@string/price"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:labelFor="@id/add_estate_price"
+                app:layout_constraintBottom_toBottomOf="@+id/add_estate_price"
                 app:layout_constraintStart_toStartOf="@+id/textView10"
-                app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                app:layout_constraintTop_toTopOf="@+id/add_estate_price" />
 
             <EditText
-                android:id="@+id/editTextNumber"
+                android:id="@+id/add_estate_price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:ems="10"
                 android:inputType="number"
-                app:layout_constraintEnd_toEndOf="@+id/spinner"
+                android:autofillHints=""
                 app:layout_constraintStart_toEndOf="@+id/textView13"
-                app:layout_constraintTop_toTopOf="@+id/textView13" />
+                app:layout_constraintEnd_toEndOf="@+id/add_estate_type"
+                app:layout_constraintTop_toBottomOf="@+id/add_estate_type" />
 
             <TextView
                 android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:text="@string/number_rooms"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:labelFor="@id/add_estate_rooms"
+                app:layout_constraintBottom_toBottomOf="@+id/add_estate_rooms"
                 app:layout_constraintStart_toStartOf="@+id/textView13"
-                app:layout_constraintTop_toBottomOf="@+id/editTextNumber" />
+                app:layout_constraintTop_toTopOf="@+id/add_estate_rooms" />
 
             <EditText
-                android:id="@+id/editTextNumber2"
+                android:id="@+id/add_estate_rooms"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:ems="10"
                 android:inputType="number"
-                app:layout_constraintEnd_toEndOf="@+id/editTextNumber"
+                android:autofillHints=""
                 app:layout_constraintStart_toEndOf="@+id/textView14"
-                app:layout_constraintTop_toTopOf="@+id/textView14" />
+                app:layout_constraintEnd_toEndOf="@+id/add_estate_price"
+                app:layout_constraintTop_toBottomOf="@+id/add_estate_price" />
 
             <TextView
                 android:id="@+id/textView15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:text="@string/surface"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:labelFor="@id/add_estate_area"
+                app:layout_constraintBottom_toBottomOf="@+id/add_estate_area"
                 app:layout_constraintStart_toStartOf="@+id/textView14"
-                app:layout_constraintTop_toBottomOf="@+id/editTextNumber2" />
+                app:layout_constraintTop_toTopOf="@+id/add_estate_area" />
 
             <EditText
-                android:id="@+id/editTextNumber3"
+                android:id="@+id/add_estate_area"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:ems="10"
                 android:inputType="number"
-                app:layout_constraintEnd_toEndOf="@+id/editTextNumber2"
+                android:autofillHints=""
                 app:layout_constraintStart_toEndOf="@+id/textView15"
-                app:layout_constraintTop_toBottomOf="@+id/editTextNumber2" />
+                app:layout_constraintEnd_toEndOf="@+id/add_estate_rooms"
+                app:layout_constraintTop_toBottomOf="@+id/add_estate_rooms" />
 
             <TextView
                 android:id="@+id/textView16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:text="@string/description"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:labelFor="@+id/add_estate_description"
+                app:layout_constraintBottom_toBottomOf="@+id/add_estate_description"
                 app:layout_constraintStart_toStartOf="@+id/textView15"
-                app:layout_constraintTop_toBottomOf="@+id/editTextNumber3" />
+                app:layout_constraintTop_toTopOf="@+id/add_estate_description" />
 
             <EditText
-                android:id="@+id/editTextTextMultiLine"
+                android:id="@+id/add_estate_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:ems="10"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
-                app:layout_constraintEnd_toEndOf="@+id/editTextNumber3"
+                android:autofillHints=""
                 app:layout_constraintStart_toEndOf="@+id/textView16"
-                app:layout_constraintTop_toTopOf="@+id/textView16" />
+                app:layout_constraintEnd_toEndOf="@+id/add_estate_area"
+                app:layout_constraintTop_toBottomOf="@+id/add_estate_area" />
 
             <TextView
                 android:id="@+id/textView17"
@@ -181,33 +198,33 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/textView16"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine" />
+                app:layout_constraintTop_toBottomOf="@+id/add_estate_description" />
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/chipGroup"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                app:layout_constraintEnd_toEndOf="@+id/editTextTextMultiLine"
-                app:layout_constraintStart_toEndOf="@+id/textView17"
-                app:layout_constraintTop_toTopOf="@+id/textView17">
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/add_estate_description"
+                app:layout_constraintStart_toStartOf="@+id/textView17"
+                app:layout_constraintTop_toBottomOf="@+id/textView17">
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chip2"
+                    android:id="@+id/add_estate_school"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checkable="true"
                     android:text="@string/school" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chip3"
+                    android:id="@+id/add_estate_park"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checkable="true"
                     android:text="@string/park" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chip4"
+                    android:id="@+id/add_estate_supermarket"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checkable="true"
@@ -215,32 +232,34 @@
             </com.google.android.material.chip.ChipGroup>
 
             <TextView
-                android:id="@+id/textView18"
+                android:id="@+id/add_estate_agent_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:labelFor="@id/add_estate_agent"
                 android:text="@string/agent"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/add_estate_agent"
                 app:layout_constraintStart_toStartOf="@+id/textView17"
-                app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
+                app:layout_constraintTop_toTopOf="@+id/add_estate_agent" />
 
             <EditText
-                android:id="@+id/editTextTextPersonName"
+                android:id="@+id/add_estate_agent"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Name"
                 app:layout_constraintEnd_toEndOf="@+id/chipGroup"
-                app:layout_constraintStart_toEndOf="@+id/textView18"
-                app:layout_constraintTop_toTopOf="@+id/textView18" />
+                android:autofillHints=""
+                app:layout_constraintStart_toEndOf="@+id/add_estate_agent_label"
+                app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
 
             <Switch
-                android:id="@+id/switch1"
-                android:layout_width="0dp"
+                android:id="@+id/add_estate_sold"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@string/sold"
@@ -248,9 +267,8 @@
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
-                app:layout_constraintStart_toStartOf="@+id/textView18"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+                app:layout_constraintStart_toStartOf="@+id/add_estate_agent_label"
+                app:layout_constraintTop_toBottomOf="@+id/add_estate_agent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

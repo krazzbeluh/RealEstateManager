@@ -10,7 +10,7 @@ import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.model.Address
 import com.openclassrooms.realestatemanager.model.Estate
 import com.openclassrooms.realestatemanager.model.Photo
-import com.openclassrooms.realestatemanager.ui.AddEstateActivity
+import com.openclassrooms.realestatemanager.ui.add.AddEstateActivity
 
 class MainActivity : AppCompatActivity() {
     /**

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:fontFamily="sans-serif-medium"
+        android:padding="8dp"
+        android:text="@string/address"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/address_dialog_number"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/number"
+        android:inputType="number"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+    <EditText
+        android:id="@+id/address_dialog_route"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="24dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/route"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="@+id/address_dialog_number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/address_dialog_number"
+        app:layout_constraintTop_toTopOf="@+id/address_dialog_number" />
+
+    <EditText
+        android:id="@+id/address_dialog_postcode"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/postcode"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@+id/address_dialog_number"
+        app:layout_constraintStart_toStartOf="@+id/address_dialog_number"
+        app:layout_constraintTop_toBottomOf="@+id/address_dialog_number" />
+
+    <EditText
+        android:id="@+id/address_dialog_city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/city"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/address_dialog_route"
+        app:layout_constraintStart_toStartOf="@+id/address_dialog_route"
+        app:layout_constraintTop_toBottomOf="@+id/address_dialog_route" />
+
+    <Button
+        android:id="@+id/address_dialog_done_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:text="@string/done"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/address_dialog_country" />
+
+    <EditText
+        android:id="@+id/address_dialog_country"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/country"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toStartOf="@+id/address_dialog_done_button"
+        app:layout_constraintStart_toStartOf="@+id/address_dialog_postcode"
+        app:layout_constraintTop_toBottomOf="@+id/address_dialog_postcode" />
+</androidx.constraintlayout.widget.ConstraintLayout>
