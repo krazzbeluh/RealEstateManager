@@ -8,8 +8,8 @@ import com.openclassrooms.realestatemanager.model.Estate
 class POIConverter {
     @TypeConverter
     fun toPoi(s: String): List<Estate.POI> {
-        val listPois = object : TypeToken<String>() {}.type
-        return Gson().fromJson(s, listPois)
+        val listPois = object : TypeToken<Array<Estate.POI>>() {}.type
+        return (Gson().fromJson(s, listPois) as Array<Estate.POI>).toList()
     }
 
     @TypeConverter

@@ -57,7 +57,7 @@ class AddressDialogFragment(val completionHandler: (Address) -> Unit) : DialogFr
         val country = if (countryEditText.text.isNotEmpty()) countryEditText.text.toString() else null
 
         if (number != null && postcode != null && route != null && city != null && country != null) {
-            completionHandler(Address(0, number, route, city, postcode, country))
+            completionHandler(Address(number, route, city, postcode, country))
         }
 
         super.onDismiss(dialog)

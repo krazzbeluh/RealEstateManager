@@ -13,7 +13,7 @@ class PhotoConverter {
 
     @TypeConverter
     fun toPhoto(s: String): List<Photo> {
-        val listPhotos = object : TypeToken<Photo>() {}.type
-        return Gson().fromJson(s, listPhotos)
+        val listPhotos = object : TypeToken<Array<Photo>>() {}.type
+        return (Gson().fromJson(s, listPhotos) as Array<Photo>).toList()
     }
 }

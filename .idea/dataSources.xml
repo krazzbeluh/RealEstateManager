@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="Android SQLite" uuid="8917ac77-aab1-4271-a445-4b48fe06146d">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$USER_HOME$/Library/Caches/JetBrains/IntelliJIdea2020.1/android/databases/EMULATOR_Pixel_C_API_29/com.openclassrooms.realestatemanager/internal/RealEstateManager.db</jdbc-url>
+    </data-source>
+  </component>
+</project>
