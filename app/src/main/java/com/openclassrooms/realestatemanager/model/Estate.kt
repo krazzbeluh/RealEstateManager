@@ -7,7 +7,7 @@ import java.io.Serializable
 import java.util.*
 
 @Entity
-data class Estate(@PrimaryKey(autoGenerate = true) val id: Int,
+data class Estate(@PrimaryKey(autoGenerate = true) val id: Int?,
                   @Embedded val address: Address,
                   val type: EstateType,
                   val price: Int,

@@ -36,7 +36,7 @@ class AddEstateActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_estate)
 
-        val viewModelFactory = Injection.provideViewModelFactory(this)
+        val viewModelFactory = Injection.provideViewModelFactory(application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(AddEstateViewModel::class.java)
 
         findViewById<EditText>(R.id.add_estate_address).apply {

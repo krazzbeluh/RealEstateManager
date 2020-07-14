@@ -13,5 +13,7 @@ class POIConverter {
     }
 
     @TypeConverter
-    fun toString(pois: List<Estate.POI>): String = Gson().toJson(pois)
+    fun toString(pois: List<Estate.POI>): String {
+        return Gson().toJson(pois)
+    }
 }
