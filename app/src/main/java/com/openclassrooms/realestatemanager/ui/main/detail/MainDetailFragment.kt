@@ -41,7 +41,7 @@ class MainDetailFragment : androidx.fragment.app.Fragment() {
         view.findViewById<TextView>(R.id.main_detail_description).apply {
             text = estate.description
         }
-        view.findViewById<TextView>(R.id.main_detail_surface).apply {
+        /*view.findViewById<TextView>(R.id.main_detail_surface).apply {
             text = estate.area.toString()
         }
         view.findViewById<TextView>(R.id.main_detail_rooms).apply {
@@ -61,7 +61,7 @@ class MainDetailFragment : androidx.fragment.app.Fragment() {
         }
         view.findViewById<TextView>(R.id.main_detail_agent).apply {
             text = estate.agent
-        }
+        }*/
         mapView = view.findViewById<MapView>(R.id.mapView).apply {
             onCreate(savedInstanceState)
             getMapAsync { map ->

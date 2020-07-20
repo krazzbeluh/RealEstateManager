@@ -6,5 +6,23 @@
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:$USER_HOME$/Library/Caches/JetBrains/IntelliJIdea2020.1/android/databases/EMULATOR_Pixel_C_API_29/com.openclassrooms.realestatemanager/internal/RealEstateManager.db</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="Android SQLite" uuid="a440365b-11c1-401f-bf62-b12904aee7e3">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$USER_HOME$/Library/Caches/JetBrains/IntelliJIdea2020.1/android/databases/EMULATOR_Pixel_C_API_29/com.openclassrooms.realestatemanager/internal/RealEstateManager.db</jdbc-url>
+      <libraries>
+        <library>
+          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.31.1/sqlite-jdbc-3.31.1.jar</url>
+        </library>
+        <library>
+          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.31.1/license.txt</url>
+        </library>
+      </libraries>
+    </data-source>
+    <data-source source="LOCAL" name="Android SQLite" uuid="ce5d3448-c8f5-4031-a904-243a113d9752">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$USER_HOME$/Library/Caches/JetBrains/IntelliJIdea2020.1/android/databases/EMULATOR_Pixel_C_API_29/com.openclassrooms.realestatemanager/internal/RealEstateManager.db</jdbc-url>
+    </data-source>
   </component>
 </project>

@@ -21,7 +21,7 @@ class EstateDaoTest {
     private lateinit var database: RealEstateManagerDatabase
 
     private val addressForTests = Address(12, "rue de la paix", "Paris", 75000, "France")
-    private val estateForTests = Estate(null, addressForTests, Estate.EstateType.FLAT, 291000, 3, 40, "Little appartment in Paris", listOf(), listOf(Estate.POI.SCHOOL, Estate.POI.PARK), "Paul Leclerc")
+    private val estateForTests = Estate(0, addressForTests, Estate.EstateType.FLAT, 291000, 3, 40, "Little apartment in Paris", listOf(), listOf(Estate.POI.SCHOOL, Estate.POI.PARK), "Paul Leclerc", false)
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()

@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
                 Address(26, "Rue Gustave Flaubert", "Dieppe", 76200,
                         "France"), Estate.EstateType.HOUSE, 128000, 3, 80,
                 "Petite maison à Dieppe", listOf(Photo(null, "Super photo")),
-                listOf(Estate.POI.SCHOOL, Estate.POI.SUPERMARKET), "Paul Leclerc")),
+                listOf(Estate.POI.SCHOOL, Estate.POI.SUPERMARKET), "Paul Leclerc", false)),
                 mTwoPane)
     }
 }

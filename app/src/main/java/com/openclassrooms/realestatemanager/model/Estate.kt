@@ -4,10 +4,9 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
-import java.util.*
 
 @Entity
-data class Estate(@PrimaryKey(autoGenerate = true) val id: Int?,
+data class Estate(@PrimaryKey(autoGenerate = true) val id: Int,
                   @Embedded val address: Address,
                   val type: EstateType,
                   val price: Int,
@@ -17,9 +16,9 @@ data class Estate(@PrimaryKey(autoGenerate = true) val id: Int?,
                   val photos: List<Photo>,
                   val nearbyPointsOfInterests: List<POI>,
                   val agent: String,
-                  val sold: Boolean = false) : Serializable {
+                  val sold: Boolean) : Serializable {
 
-    fun getPois(): String {
+    /*fun getPois(): String {
         var s = ""
 
         for (poi in nearbyPointsOfInterests) {
@@ -28,9 +27,9 @@ data class Estate(@PrimaryKey(autoGenerate = true) val id: Int?,
         }
 
         return s
-    }
+    }*/
 
-    override fun equals(other: Any?): Boolean {
+    /*override fun equals(other: Any?): Boolean {
         return if (other is Estate) {
             other.address == address
                     && other.type == type
@@ -43,9 +42,9 @@ data class Estate(@PrimaryKey(autoGenerate = true) val id: Int?,
                     && other.agent == agent
                     && other.sold == sold
         } else false
-    }
+    }*/
 
-    override fun hashCode(): Int {
+    /*override fun hashCode(): Int {
         var result = address.hashCode()
         result = 31 * result + type.hashCode()
         result = 31 * result + price
@@ -57,7 +56,7 @@ data class Estate(@PrimaryKey(autoGenerate = true) val id: Int?,
         result = 31 * result + agent.hashCode()
         result = 31 * result + sold.hashCode()
         return result
-    }
+    }*/
 
     enum class EstateType {
         FLAT,
