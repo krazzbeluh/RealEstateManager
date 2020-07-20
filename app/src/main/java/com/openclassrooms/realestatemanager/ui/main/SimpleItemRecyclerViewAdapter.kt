@@ -17,10 +17,15 @@ import com.openclassrooms.realestatemanager.ui.main.detail.MainDetailFragment
 import com.openclassrooms.realestatemanager.ui.main.detail.MainDetailFragment.Companion.ARG_ESTATE
 
 internal class SimpleItemRecyclerViewAdapter internal constructor(private val parentActivity: MainActivity,
-                                                                  private val estates: List<Estate>,
                                                                   private val mTwoPane: Boolean) : RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>() {
     companion object {
         private var selectedItem: Int? = null
+    }
+
+    private var estates = listOf<Estate>()
+    fun setEstates(estates: List<Estate>) {
+        this.estates = estates
+        this.notifyDataSetChanged()
     }
 
     private val onClickListener = View.OnClickListener { view ->

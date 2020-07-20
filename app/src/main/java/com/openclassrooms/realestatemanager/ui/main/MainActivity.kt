@@ -5,14 +5,18 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.R
-import com.openclassrooms.realestatemanager.model.Address
-import com.openclassrooms.realestatemanager.model.Estate
-import com.openclassrooms.realestatemanager.model.Photo
+import com.openclassrooms.realestatemanager.injection.Injection
 import com.openclassrooms.realestatemanager.ui.add.AddEstateActivity
+import com.openclassrooms.realestatemanager.ui.main.detail.MainViewModel
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var viewModel: MainViewModel
+    private lateinit var adapter: SimpleItemRecyclerViewAdapter
+
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
@@ -21,6 +25,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val viewModelFactory = Injection.provideViewModelFactory(application)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+
         val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
         toolbar.title = title
@@ -38,11 +46,10 @@ class MainActivity : AppCompatActivity() {
     fun addEstateButtonClicked(@Suppress("UNUSED_PARAMETER") v: View) = startActivity(Intent(this, AddEstateActivity::class.java))
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
-        recyclerView.adapter = SimpleItemRecyclerViewAdapter(this, listOf(Estate(0,
-                Address(26, "Rue Gustave Flaubert", "Dieppe", 76200,
-                        "France"), Estate.EstateType.HOUSE, 128000, 3, 80,
-                "Petite maison à Dieppe", listOf(Photo(null, "Super photo")),
-                listOf(Estate.POI.SCHOOL, Estate.POI.SUPERMARKET), "Paul Leclerc", false)),
-                mTwoPane)
+        adapter = SimpleItemRecyclerViewAdapter(this, mTwoPane)
+        recyclerView.adapter = adapter
+        viewModel.getEstates().observe(this, Observer { estates ->
+            adapter.setEstates(estates)
+        })
     }
 }
