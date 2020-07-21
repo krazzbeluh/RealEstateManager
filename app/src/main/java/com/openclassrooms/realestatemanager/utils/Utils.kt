@@ -1,7 +1,9 @@
 package com.openclassrooms.realestatemanager.utils
 
 import android.content.Context
-import android.net.wifi.WifiManager
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -21,16 +23,22 @@ object Utils {
         return (dollars * 0.812).roundToInt()
     }
 
+    fun convertEuroToDollar(euro: Int): Int {
+        return (euro / 0.812).roundToInt()
+    }
+
     /**
      * Conversion de la date d'aujourd'hui en un format plus approprié
      * NOTE : NE PAS SUPPRIMER, A MONTRER DURANT LA SOUTENANCE
      * @return today date formatted in yyyy/mm/dd
      */
-    val todayDate: String
-        get() {
-            val dateFormat: DateFormat = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
-            return dateFormat.format(Date())
-        }
+    fun getTodayDate(context: Context): String {
+        @Suppress("DEPRECATION") val locale = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            context.resources.configuration.locales.get(0)
+        } else context.resources.configuration.locale
+        val dateFormat: DateFormat = SimpleDateFormat("dd/MM/yyyy", locale)
+        return dateFormat.format(Date())
+    }
 
     /**
      * Vérification de la connexion réseau
@@ -39,8 +47,26 @@ object Utils {
      * @return if internet is available
      */
     fun isInternetAvailable(context: Context): Boolean {
-        val wifi = context.applicationContext.getSystemService(Context.WIFI_SERVICE) as? WifiManager
+        val connectivityManager = context.applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
                 ?: return false
-        return wifi.isWifiEnabled
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val networkCapabilities = connectivityManager.activeNetwork ?: return false
+            val actNw = connectivityManager.getNetworkCapabilities(networkCapabilities)
+                    ?: return false
+            return actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+                    || actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
+                    || actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
+        } else {
+            connectivityManager.run {
+                @Suppress("DEPRECATION")
+                connectivityManager.activeNetworkInfo?.run {
+                    return type == ConnectivityManager.TYPE_WIFI
+                            || type == ConnectivityManager.TYPE_MOBILE
+                            || type == ConnectivityManager.TYPE_ETHERNET
+                }
+                return false
+            }
+        }
     }
 }

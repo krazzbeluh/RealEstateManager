@@ -4,6 +4,7 @@
     package="com.openclassrooms.realestatemanager">
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -30,9 +31,7 @@
         </activity>
         <activity
             android:name=".ui.main.detail.MainDetailActivity"
-            android:label="@string/title_main_detail"
-            android:parentActivityName=".ui.main.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:parentActivityName=".ui.main.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.openclassrooms.realestatemanager.ui.main.MainActivity" />
