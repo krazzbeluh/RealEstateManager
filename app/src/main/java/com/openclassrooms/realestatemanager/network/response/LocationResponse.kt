@@ -19,8 +19,8 @@ class LocationResponse {
 
     fun getLatLnt(): LatLng {
         val latLng = features?.get(0)?.geometry?.coordinates
-        val lat = latLng?.get(0)
-        val lng = latLng?.get(1)
+        val lng = latLng?.get(0)
+        val lat = latLng?.get(1)
 
         if (lat == null || lng == null) throw NullPointerException("Lat or Lng is null in OSM call")
         else return LatLng(lat, lng)

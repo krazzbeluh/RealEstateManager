@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.MapView
-import com.google.android.gms.maps.model.LatLng
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.model.Estate
 
@@ -64,9 +63,13 @@ class MainDetailFragment : androidx.fragment.app.Fragment() {
         }
         mapView = view.findViewById<MapView>(R.id.mapView).apply {
             onCreate(savedInstanceState)
-            getMapAsync { map ->
-                map.moveCamera(CameraUpdateFactory.newLatLng(LatLng(40.7005, -73.9882))) // TODO: set real location
-                mapView?.onResume()
+            val location = estate.address.getLocation()
+            if (location != null) {
+                getMapAsync { map ->
+                    map.moveCamera(CameraUpdateFactory.newLatLng(location))
+                    mapView?.onResume()
+                }
+                visibility = View.VISIBLE
             }
         }
         return view
