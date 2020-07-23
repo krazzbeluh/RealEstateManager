@@ -10,7 +10,11 @@ import java.io.Serializable
         childColumns = ["estateId"],
         onUpdate = ForeignKey.CASCADE,
         onDelete = ForeignKey.CASCADE)])
-data class AssociatedPOI(@PrimaryKey var estateId: Long, val poi: POI) : Serializable {
+data class AssociatedPOI(
+        @PrimaryKey(autoGenerate = true) val id: Long,
+        var estateId: Long,
+        val poi: POI
+) : Serializable {
     enum class POI {
         SCHOOL,
         PARK,

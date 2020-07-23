@@ -2,12 +2,16 @@ package com.openclassrooms.realestatemanager.model.estate
 
 import androidx.room.Embedded
 import androidx.room.Relation
+import com.openclassrooms.realestatemanager.model.Photo
 import java.io.Serializable
 import java.util.*
 
 data class Estate(@Embedded var estate: SimpleEstate) : Serializable {
     @Relation(parentColumn = "id", entityColumn = "estateId", entity = AssociatedPOI::class)
     var nearbyPointsOfInterests = mutableListOf<AssociatedPOI>()
+
+    @Relation(parentColumn = "id", entityColumn = "estateId", entity = Photo::class)
+    var photos: List<Photo> = listOf()
 
     fun getPois(): String {
         var s = ""
