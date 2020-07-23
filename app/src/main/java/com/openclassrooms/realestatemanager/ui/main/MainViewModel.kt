@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.google.android.gms.maps.model.LatLng
-import com.openclassrooms.realestatemanager.model.Estate
+import com.openclassrooms.realestatemanager.model.estate.Estate
 import com.openclassrooms.realestatemanager.repository.EstateDataRepository
 import com.openclassrooms.realestatemanager.repository.LocationRepository
 import java.util.concurrent.Executor
@@ -21,7 +21,7 @@ class MainViewModel(private val estateDataRepository: EstateDataRepository, priv
 
     suspend fun checkAddresses(estates: List<Estate>) {
         estates.forEach { estate ->
-            val locationResponse = locationRepository.checkAddress(estate.address)
+            val locationResponse = locationRepository.checkAddress(estate.estate.address)
             if (!locationResponse.isValid()) return@forEach
             val location: LatLng
             try {
@@ -31,7 +31,7 @@ class MainViewModel(private val estateDataRepository: EstateDataRepository, priv
                 Log.e(TAG, "checkAddresses: ", e)
                 return@forEach
             }
-            estate.address.setLocation(location)
+            estate.estate.address.setLocation(location)
             estateDataRepository.updateEstate(estate)
         }
     }

@@ -12,7 +12,8 @@ import com.google.android.material.chip.Chip
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.injection.Injection
 import com.openclassrooms.realestatemanager.model.Address
-import com.openclassrooms.realestatemanager.model.Estate
+import com.openclassrooms.realestatemanager.model.estate.AssociatedPOI
+import com.openclassrooms.realestatemanager.model.estate.Estate
 import com.openclassrooms.realestatemanager.ui.dialog.AddressDialogFragment
 import com.openclassrooms.realestatemanager.utils.toEditable
 
@@ -76,11 +77,11 @@ class AddEstateActivity : AppCompatActivity() {
         viewModel.addEstate(address, type, price, rooms, area, description, listOf(), agent, getPois(), isSold)
     }
 
-    private fun getPois(): List<Estate.POI> {
-        val pois = mutableListOf<Estate.POI>()
-        if (schoolChip.isChecked) pois.add(Estate.POI.SCHOOL)
-        if (parkChip.isChecked) pois.add(Estate.POI.PARK)
-        if (supermarketChip.isChecked) pois.add(Estate.POI.SUPERMARKET)
+    private fun getPois(): List<AssociatedPOI.POI> {
+        val pois = mutableListOf<AssociatedPOI.POI>()
+        if (schoolChip.isChecked) pois.add(AssociatedPOI.POI.SCHOOL)
+        if (parkChip.isChecked) pois.add(AssociatedPOI.POI.PARK)
+        if (supermarketChip.isChecked) pois.add(AssociatedPOI.POI.SUPERMARKET)
         return pois
     }
 }

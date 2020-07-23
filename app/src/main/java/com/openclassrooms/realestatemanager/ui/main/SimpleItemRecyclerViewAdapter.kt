@@ -11,7 +11,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.R
-import com.openclassrooms.realestatemanager.model.Estate
+import com.openclassrooms.realestatemanager.model.estate.Estate
 import com.openclassrooms.realestatemanager.ui.main.detail.MainDetailActivity
 import com.openclassrooms.realestatemanager.ui.main.detail.MainDetailFragment
 import com.openclassrooms.realestatemanager.ui.main.detail.MainDetailFragment.Companion.ARG_ESTATE
@@ -55,9 +55,9 @@ internal class SimpleItemRecyclerViewAdapter internal constructor(private val pa
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.typeTextView.text = estates[position].type.toString()
-        holder.cityTextView.text = estates[position].address.city
-        holder.priceTextView.text = estates[position].price.toString()
+        holder.typeTextView.text = estates[position].estate.type.toString()
+        holder.cityTextView.text = estates[position].estate.address.city
+        holder.priceTextView.text = estates[position].estate.price.toString()
         // TODO: holder.imageView.setImageBitmap()
         holder.itemView.setOnClickListener { view ->
             val item = view.tag as Estate

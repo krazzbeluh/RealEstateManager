@@ -6,7 +6,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.openclassrooms.realestatemanager.database.RealEstateManagerDatabase
 import com.openclassrooms.realestatemanager.model.Address
-import com.openclassrooms.realestatemanager.model.Estate
+import com.openclassrooms.realestatemanager.model.estate.Estate
 import com.openclassrooms.realestatemanager.utils.LiveDataTestUtil
 import org.junit.After
 import org.junit.Assert.assertEquals

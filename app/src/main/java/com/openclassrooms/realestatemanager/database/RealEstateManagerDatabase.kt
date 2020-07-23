@@ -9,9 +9,10 @@ import com.openclassrooms.realestatemanager.database.dao.EstateDao
 import com.openclassrooms.realestatemanager.database.typeconverter.EstateTypeConverter
 import com.openclassrooms.realestatemanager.database.typeconverter.POIConverter
 import com.openclassrooms.realestatemanager.database.typeconverter.PhotoConverter
-import com.openclassrooms.realestatemanager.model.Estate
+import com.openclassrooms.realestatemanager.model.estate.AssociatedPOI
+import com.openclassrooms.realestatemanager.model.estate.SimpleEstate
 
-@Database(entities = [Estate::class], version = 1, exportSchema = false)
+@Database(entities = [SimpleEstate::class, AssociatedPOI::class], version = 1, exportSchema = false)
 @TypeConverters(EstateTypeConverter::class, POIConverter::class, PhotoConverter::class)
 abstract class RealEstateManagerDatabase : RoomDatabase() {
     abstract fun estateDao(): EstateDao

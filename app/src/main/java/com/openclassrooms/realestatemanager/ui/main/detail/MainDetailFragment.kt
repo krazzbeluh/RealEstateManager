@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.MapView
 import com.openclassrooms.realestatemanager.R
-import com.openclassrooms.realestatemanager.model.Estate
+import com.openclassrooms.realestatemanager.model.estate.Estate
 
 class MainDetailFragment : androidx.fragment.app.Fragment() {
     companion object {
@@ -38,32 +38,32 @@ class MainDetailFragment : androidx.fragment.app.Fragment() {
         val view = inflater.inflate(R.layout.fragment_main_detail, container, false)
 
         view.findViewById<TextView>(R.id.main_detail_description).apply {
-            text = estate.description
+            text = estate.estate.description
         }
         view.findViewById<TextView>(R.id.main_detail_surface).apply {
-            text = estate.area.toString()
+            text = estate.estate.area.toString()
         }
         view.findViewById<TextView>(R.id.main_detail_rooms).apply {
-            text = estate.rooms.toString()
+            text = estate.estate.rooms.toString()
         }
         view.findViewById<TextView>(R.id.main_detail_price).apply {
-            text = estate.price.toString()
+            text = estate.estate.price.toString()
         }
         view.findViewById<TextView>(R.id.main_detail_location).apply {
-            text = estate.address.format()
+            text = estate.estate.address.format()
         }
         view.findViewById<TextView>(R.id.main_detail_poi).apply {
             text = estate.getPois()
         }
         view.findViewById<TextView>(R.id.main_detail_available).apply {
-            text = if (estate.sold) getString(R.string.no) else getString(R.string.yes)
+            text = if (estate.estate.sold) getString(R.string.no) else getString(R.string.yes)
         }
         view.findViewById<TextView>(R.id.main_detail_agent).apply {
-            text = estate.agent
+            text = estate.estate.agent
         }
         mapView = view.findViewById<MapView>(R.id.mapView).apply {
             onCreate(savedInstanceState)
-            val location = estate.address.getLocation()
+            val location = estate.estate.address.getLocation()
             if (location != null) {
                 getMapAsync { map ->
                     map.moveCamera(CameraUpdateFactory.newLatLng(location))

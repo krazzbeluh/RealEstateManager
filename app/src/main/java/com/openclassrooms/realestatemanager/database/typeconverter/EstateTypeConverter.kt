@@ -1,7 +1,7 @@
 package com.openclassrooms.realestatemanager.database.typeconverter
 
 import androidx.room.TypeConverter
-import com.openclassrooms.realestatemanager.model.Estate
+import com.openclassrooms.realestatemanager.model.estate.Estate
 
 class EstateTypeConverter {
     @TypeConverter

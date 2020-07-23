@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.injection.Injection
-import com.openclassrooms.realestatemanager.model.Estate
+import com.openclassrooms.realestatemanager.model.estate.Estate
 import com.openclassrooms.realestatemanager.ui.add.AddEstateActivity
 import com.openclassrooms.realestatemanager.utils.Utils
 import kotlinx.coroutines.CoroutineScope
@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.getEstates().observe(this, Observer { estates ->
             if (!Utils.isInternetAvailable(this)) return@Observer
             val estatesToGetLocation = mutableListOf<Estate>()
-            for (estate in estates) if (estate.address.getLocation() == null) {
+            for (estate in estates) if (estate.estate.address.getLocation() == null) {
                 estatesToGetLocation.add(estate)
             }
 
