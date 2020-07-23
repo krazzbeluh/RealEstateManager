@@ -31,7 +31,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:listitem="@layout/fragment_main_detail_content">
+        tools:listitem="@layout/photo_row">
 
     </androidx.recyclerview.widget.RecyclerView>
 

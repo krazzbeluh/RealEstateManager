@@ -8,6 +8,8 @@ import android.widget.Spinner
 import android.widget.Switch
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.injection.Injection
@@ -32,6 +34,7 @@ class AddEstateActivity : AppCompatActivity() {
     private lateinit var schoolChip: Chip
     private lateinit var parkChip: Chip
     private lateinit var supermarketChip: Chip
+    private lateinit var photosRecyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +67,10 @@ class AddEstateActivity : AppCompatActivity() {
         schoolChip = findViewById(R.id.add_estate_school)
         parkChip = findViewById(R.id.add_estate_park)
         supermarketChip = findViewById(R.id.add_estate_supermarket)
+        photosRecyclerView = findViewById<RecyclerView>(R.id.add_estate_photos_recyclerview).apply {
+            layoutManager = LinearLayoutManager(this@AddEstateActivity, LinearLayoutManager.HORIZONTAL, false)
+            adapter = AddPhotosRecyclerViewAdapter(listOf(), this@AddEstateActivity)
+        }
     }
 
     fun addButtonClicked(@Suppress("UNUSED_PARAMETER") v: View) {
