@@ -12,15 +12,9 @@ import androidx.fragment.app.DialogFragment
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.model.Address
 
-class AddressDialogFragment(val completionHandler: (Address) -> Unit) : DialogFragment() {
+class AddressDialogFragment private constructor(val completionHandler: (Address) -> Unit) : DialogFragment() {
     companion object {
-        fun newInstance(title: String, completionHandler: (Address) -> Unit): AddressDialogFragment {
-            val frag = AddressDialogFragment(completionHandler)
-            val args = Bundle()
-            args.putString("title", title)
-            frag.arguments = args
-            return frag
-        }
+        fun newInstance(completionHandler: (Address) -> Unit) = AddressDialogFragment(completionHandler)
     }
 
     private lateinit var numberEditText: EditText
@@ -36,8 +30,7 @@ class AddressDialogFragment(val completionHandler: (Address) -> Unit) : DialogFr
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val title = arguments?.getString("title", "Enter Name")
-        dialog?.setTitle(title)
+        dialog?.setTitle(getString(R.string.address))
 
         dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
 

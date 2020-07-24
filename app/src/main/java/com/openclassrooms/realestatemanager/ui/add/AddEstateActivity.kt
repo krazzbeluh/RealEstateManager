@@ -7,6 +7,8 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Switch
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,13 +16,21 @@ import com.google.android.material.chip.Chip
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.injection.Injection
 import com.openclassrooms.realestatemanager.model.Address
+import com.openclassrooms.realestatemanager.model.Photo
 import com.openclassrooms.realestatemanager.model.estate.AssociatedPOI
 import com.openclassrooms.realestatemanager.model.estate.Estate
 import com.openclassrooms.realestatemanager.ui.dialog.AddressDialogFragment
+import com.openclassrooms.realestatemanager.ui.dialog.photo.PhotoDialogFragment
 import com.openclassrooms.realestatemanager.utils.toEditable
 
 class AddEstateActivity : AppCompatActivity() {
+    companion object {
+        @Suppress("unused")
+        val TAG = AddEstateActivity::class.java.simpleName
+    }
+
     private lateinit var viewModel: AddEstateViewModel
+    private val photos = MutableLiveData(mutableListOf<Photo>())
 
     var address: Address? = null
     private lateinit var typeSpinner: Spinner
@@ -47,7 +57,7 @@ class AddEstateActivity : AppCompatActivity() {
             isFocusable = false
             isClickable = true
             setOnClickListener {
-                val addressDialog = AddressDialogFragment.newInstance("Address") { address ->
+                val addressDialog = AddressDialogFragment.newInstance { address ->
                     this@AddEstateActivity.address = address
                     text = address.toString().toEditable()
                 }
@@ -69,8 +79,21 @@ class AddEstateActivity : AppCompatActivity() {
         supermarketChip = findViewById(R.id.add_estate_supermarket)
         photosRecyclerView = findViewById<RecyclerView>(R.id.add_estate_photos_recyclerview).apply {
             layoutManager = LinearLayoutManager(this@AddEstateActivity, LinearLayoutManager.HORIZONTAL, false)
-            adapter = AddPhotosRecyclerViewAdapter(listOf(), this@AddEstateActivity)
+            adapter = AddPhotosRecyclerViewAdapter(this@AddEstateActivity)
+
+            photos.observe(this@AddEstateActivity, Observer { photos ->
+                if (adapter is AddPhotosRecyclerViewAdapter)
+                    (adapter as AddPhotosRecyclerViewAdapter).setPhotos(photos)
+            })
         }
+    }
+
+    fun addPhotoButtonClicked(@Suppress("UNUSED_PARAMETER") v: View) {
+        PhotoDialogFragment.newInstance { photo ->
+            val photos = this.photos.value
+            photos?.add(photo)
+            this.photos.value = photos
+        }.show(supportFragmentManager, "fragment_photo")
     }
 
     fun addButtonClicked(@Suppress("UNUSED_PARAMETER") v: View) {

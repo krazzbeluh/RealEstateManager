@@ -63,6 +63,7 @@
                 android:layout_marginBottom="8dp"
                 android:clickable="true"
                 android:focusable="true"
+                android:onClick="addPhotoButtonClicked"
                 app:layout_constraintBottom_toBottomOf="@+id/add_estate_photos_recyclerview"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:srcCompat="@drawable/add" />

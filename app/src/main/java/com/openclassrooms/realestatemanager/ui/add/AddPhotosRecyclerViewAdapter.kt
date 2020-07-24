@@ -12,7 +12,8 @@ import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.model.Photo
 import java.io.File
 
-class AddPhotosRecyclerViewAdapter(private var photos: List<Photo>, private val parentContext: Context) : RecyclerView.Adapter<AddPhotosRecyclerViewAdapter.ViewHolder>() {
+class AddPhotosRecyclerViewAdapter(private val parentContext: Context) : RecyclerView.Adapter<AddPhotosRecyclerViewAdapter.ViewHolder>() {
+    private var photos: List<Photo> = listOf()
     fun setPhotos(photos: List<Photo>) {
         this.photos = photos
         notifyDataSetChanged()
