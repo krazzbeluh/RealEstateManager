@@ -6,10 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.MapView
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.model.estate.Estate
+import com.openclassrooms.realestatemanager.ui.PhotosRecyclerViewAdapter
 
 class MainDetailFragment : androidx.fragment.app.Fragment() {
     companion object {
@@ -36,40 +39,47 @@ class MainDetailFragment : androidx.fragment.app.Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_main_detail, container, false)
-
-        view.findViewById<TextView>(R.id.main_detail_description).apply {
-            text = estate.estate.description
-        }
-        view.findViewById<TextView>(R.id.main_detail_surface).apply {
-            text = estate.estate.area.toString()
-        }
-        view.findViewById<TextView>(R.id.main_detail_rooms).apply {
-            text = estate.estate.rooms.toString()
-        }
-        view.findViewById<TextView>(R.id.main_detail_price).apply {
-            text = estate.estate.price.toString()
-        }
-        view.findViewById<TextView>(R.id.main_detail_location).apply {
-            text = estate.estate.address.format()
-        }
-        view.findViewById<TextView>(R.id.main_detail_poi).apply {
-            text = estate.getPois()
-        }
-        view.findViewById<TextView>(R.id.main_detail_available).apply {
-            text = if (estate.estate.sold) getString(R.string.no) else getString(R.string.yes)
-        }
-        view.findViewById<TextView>(R.id.main_detail_agent).apply {
-            text = estate.estate.agent
-        }
-        mapView = view.findViewById<MapView>(R.id.mapView).apply {
-            onCreate(savedInstanceState)
-            val location = estate.estate.address.getLocation()
-            if (location != null) {
-                getMapAsync { map ->
-                    map.moveCamera(CameraUpdateFactory.newLatLng(location))
-                    mapView?.onResume()
+        view.apply {
+            findViewById<TextView>(R.id.main_detail_description).apply {
+                text = estate.estate.description
+            }
+            findViewById<TextView>(R.id.main_detail_surface).apply {
+                text = estate.estate.area.toString()
+            }
+            findViewById<TextView>(R.id.main_detail_rooms).apply {
+                text = estate.estate.rooms.toString()
+            }
+            findViewById<TextView>(R.id.main_detail_price).apply {
+                text = estate.estate.price.toString()
+            }
+            findViewById<TextView>(R.id.main_detail_location).apply {
+                text = estate.estate.address.format()
+            }
+            findViewById<TextView>(R.id.main_detail_poi).apply {
+                text = estate.getPois()
+            }
+            findViewById<TextView>(R.id.main_detail_available).apply {
+                text = if (estate.estate.sold) getString(R.string.no) else getString(R.string.yes)
+            }
+            findViewById<TextView>(R.id.main_detail_agent).apply {
+                text = estate.estate.agent
+            }
+            findViewById<RecyclerView>(R.id.main_detail_photos).apply {
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                val adapter = PhotosRecyclerViewAdapter(context)
+                adapter.setPhotos(estate.photos)
+                this.adapter = adapter
+            }
+            mapView = findViewById<MapView>(R.id.mapView).apply {
+                onCreate(savedInstanceState)
+                val location = estate.estate.address.getLocation()
+                if (location != null) {
+                    getMapAsync { map ->
+                        map.moveCamera(CameraUpdateFactory.newLatLng(location))
+                        mapView?.onResume()
+                    }
+                    visibility = View.VISIBLE
                 }
-                visibility = View.VISIBLE
             }
         }
         return view

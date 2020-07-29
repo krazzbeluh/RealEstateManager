@@ -144,7 +144,7 @@ private constructor(val completionHandler: (Photo) -> Unit) : DialogFragment() {
 
     private fun saveToInternalStorage(bitmapImage: Bitmap) {
         val directory = context?.filesDir
-        val fileName = UUID.randomUUID().toString()
+        val fileName = UUID.randomUUID().toString() + ".png"
         val photoPath = File(directory, fileName)
         var fos: FileOutputStream? = null
         try {

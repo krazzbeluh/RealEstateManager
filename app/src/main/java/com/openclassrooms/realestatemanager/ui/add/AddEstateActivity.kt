@@ -19,6 +19,7 @@ import com.openclassrooms.realestatemanager.model.Address
 import com.openclassrooms.realestatemanager.model.Photo
 import com.openclassrooms.realestatemanager.model.estate.AssociatedPOI
 import com.openclassrooms.realestatemanager.model.estate.Estate
+import com.openclassrooms.realestatemanager.ui.PhotosRecyclerViewAdapter
 import com.openclassrooms.realestatemanager.ui.dialog.AddressDialogFragment
 import com.openclassrooms.realestatemanager.ui.dialog.photo.PhotoDialogFragment
 import com.openclassrooms.realestatemanager.utils.toEditable
@@ -79,11 +80,11 @@ class AddEstateActivity : AppCompatActivity() {
         supermarketChip = findViewById(R.id.add_estate_supermarket)
         photosRecyclerView = findViewById<RecyclerView>(R.id.add_estate_photos_recyclerview).apply {
             layoutManager = LinearLayoutManager(this@AddEstateActivity, LinearLayoutManager.HORIZONTAL, false)
-            adapter = AddPhotosRecyclerViewAdapter(this@AddEstateActivity)
+            adapter = PhotosRecyclerViewAdapter(this@AddEstateActivity)
 
             photos.observe(this@AddEstateActivity, Observer { photos ->
-                if (adapter is AddPhotosRecyclerViewAdapter)
-                    (adapter as AddPhotosRecyclerViewAdapter).setPhotos(photos)
+                if (adapter is PhotosRecyclerViewAdapter)
+                    (adapter as PhotosRecyclerViewAdapter).setPhotos(photos)
             })
         }
     }

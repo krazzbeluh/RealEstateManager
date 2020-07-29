@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private lateinit var viewModel: MainViewModel
-    private lateinit var adapter: SimpleItemRecyclerViewAdapter
+    private lateinit var adapter: MainEstateListRecyclerViewAdapter
 
     private val parentJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.Main + parentJob)
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
     fun addEstateButtonClicked(@Suppress("UNUSED_PARAMETER") v: View) = startActivity(Intent(this, AddEstateActivity::class.java))
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
-        adapter = SimpleItemRecyclerViewAdapter(this, mTwoPane)
+        adapter = MainEstateListRecyclerViewAdapter(this, mTwoPane)
         recyclerView.adapter = adapter
         viewModel.getEstates().observe(this, Observer { estates ->
             adapter.setEstates(estates)

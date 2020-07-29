@@ -1,6 +1,8 @@
 package com.openclassrooms.realestatemanager.ui.main
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,15 +12,15 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.model.estate.Estate
 import com.openclassrooms.realestatemanager.ui.main.detail.MainDetailActivity
 import com.openclassrooms.realestatemanager.ui.main.detail.MainDetailFragment
 import com.openclassrooms.realestatemanager.ui.main.detail.MainDetailFragment.Companion.ARG_ESTATE
+import java.io.File
 
-internal class SimpleItemRecyclerViewAdapter internal constructor(private val parentActivity: MainActivity,
-                                                                  private val mTwoPane: Boolean) : RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>() {
+internal class MainEstateListRecyclerViewAdapter internal constructor(private val parentActivity: MainActivity,
+                                                                      private val mTwoPane: Boolean) : RecyclerView.Adapter<MainEstateListRecyclerViewAdapter.ViewHolder>() {
     companion object {
         private var selectedItem: Int? = null
     }
@@ -82,17 +84,19 @@ internal class SimpleItemRecyclerViewAdapter internal constructor(private val pa
                     context.startActivity(intent)
                 }
             }
-
-            Glide.with(itemView)
-                    .load(estates[position].photos[0])
-                    .into(imageView)
-
+            imageView.setImageBitmap(fetchPhoto(position))
             itemView.tag = estates[position]
         }
     }
 
     override fun getItemCount(): Int {
         return estates.size
+    }
+
+    private fun fetchPhoto(position: Int): Bitmap? {
+        val directory = parentActivity.filesDir
+        val file = File(directory, estates[position].photos[0].fileName)
+        return BitmapFactory.decodeFile(file.toString())
     }
 
     internal class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

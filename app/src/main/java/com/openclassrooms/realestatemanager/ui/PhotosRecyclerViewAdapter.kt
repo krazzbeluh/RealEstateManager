@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager.ui.add
+package com.openclassrooms.realestatemanager.ui
 
 import android.content.Context
 import android.graphics.BitmapFactory
@@ -12,7 +12,7 @@ import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.model.Photo
 import java.io.File
 
-class AddPhotosRecyclerViewAdapter(private val parentContext: Context) : RecyclerView.Adapter<AddPhotosRecyclerViewAdapter.ViewHolder>() {
+class PhotosRecyclerViewAdapter(private val parentContext: Context) : RecyclerView.Adapter<PhotosRecyclerViewAdapter.ViewHolder>() {
     private var photos: List<Photo> = listOf()
     fun setPhotos(photos: List<Photo>) {
         this.photos = photos
@@ -31,7 +31,7 @@ class AddPhotosRecyclerViewAdapter(private val parentContext: Context) : Recycle
         holder.photoDescription.text = photos[position].description
 
         val directory = parentContext.filesDir
-        val photoPath = File(directory, photos[0].fileName)
+        val photoPath = File(directory, photos[position].fileName)
 
         val bitmap = BitmapFactory.decodeFile(photoPath.toString())
         holder.photoImageView.setImageBitmap(bitmap)
