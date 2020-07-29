@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.model.estate.Estate
 import com.openclassrooms.realestatemanager.ui.main.detail.MainDetailActivity
@@ -55,33 +56,39 @@ internal class SimpleItemRecyclerViewAdapter internal constructor(private val pa
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.typeTextView.text = estates[position].estate.type.toString()
-        holder.cityTextView.text = estates[position].estate.address.city
-        holder.priceTextView.text = estates[position].estate.price.toString()
-        // TODO: holder.imageView.setImageBitmap()
-        holder.itemView.setOnClickListener { view ->
-            val item = view.tag as Estate
-            if (mTwoPane) {
-                holder.background.setBackgroundColor(ContextCompat.getColor(parentActivity, R.color.colorAccent))
-                selectedItem?.let { notifyItemChanged(it) }
-                selectedItem = position
-                val fragment = MainDetailFragment().apply {
-                    arguments = Bundle().apply {
-                        putSerializable(ARG_ESTATE, item)
+        holder.apply {
+            typeTextView.text = estates[position].estate.type.toString()
+            cityTextView.text = estates[position].estate.address.city
+            priceTextView.text = estates[position].estate.price.toString()
+            itemView.setOnClickListener { view ->
+                val item = view.tag as Estate
+                if (mTwoPane) {
+                    holder.background.setBackgroundColor(ContextCompat.getColor(parentActivity, R.color.colorAccent))
+                    selectedItem?.let { notifyItemChanged(it) }
+                    selectedItem = position
+                    val fragment = MainDetailFragment().apply {
+                        arguments = Bundle().apply {
+                            putSerializable(ARG_ESTATE, item)
+                        }
                     }
+                    parentActivity.supportFragmentManager
+                            .beginTransaction()
+                            .replace(R.id.item_detail_container, fragment)
+                            .commit()
+                } else {
+                    val context = view.context
+                    val intent = Intent(context, MainDetailActivity::class.java)
+                    intent.putExtra(ARG_ESTATE, item)
+                    context.startActivity(intent)
                 }
-                parentActivity.supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.item_detail_container, fragment)
-                        .commit()
-            } else {
-                val context = view.context
-                val intent = Intent(context, MainDetailActivity::class.java)
-                intent.putExtra(ARG_ESTATE, item)
-                context.startActivity(intent)
             }
+
+            Glide.with(itemView)
+                    .load(estates[position].photos[0])
+                    .into(imageView)
+
+            itemView.tag = estates[position]
         }
-        holder.itemView.tag = estates[position]
     }
 
     override fun getItemCount(): Int {

@@ -8,11 +8,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.openclassrooms.realestatemanager.repository.LocalStorageRepository
 
-class PhotoDialogViewModel(private val repository: LocalStorageRepository, application: Application) : AndroidViewModel(application) {
+class PhotoDialogViewModel(private val localStorageRepository: LocalStorageRepository, application: Application) : AndroidViewModel(application) {
     private val image = MutableLiveData<Bitmap>()
     fun getImage() = image as LiveData<Bitmap>
 
     fun getImageFromUri(uri: Uri) {
-
+        localStorageRepository.moveImageToAppDir(uri)
     }
 }

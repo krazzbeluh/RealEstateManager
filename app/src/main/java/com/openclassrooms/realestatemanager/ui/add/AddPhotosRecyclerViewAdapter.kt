@@ -1,13 +1,13 @@
 package com.openclassrooms.realestatemanager.ui.add
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.model.Photo
 import java.io.File
@@ -29,9 +29,12 @@ class AddPhotosRecyclerViewAdapter(private val parentContext: Context) : Recycle
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.photoDescription.text = photos[position].description
-        Glide.with(parentContext)
-                .load(File(photos[0].photo.path ?: ""))
-                .into(holder.photoImageView)
+
+        val directory = parentContext.filesDir
+        val photoPath = File(directory, photos[0].fileName)
+
+        val bitmap = BitmapFactory.decodeFile(photoPath.toString())
+        holder.photoImageView.setImageBitmap(bitmap)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -4,6 +4,8 @@ import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -15,11 +17,19 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.openclassrooms.realestatemanager.R
+import com.openclassrooms.realestatemanager.injection.Injection
 import com.openclassrooms.realestatemanager.model.Photo
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.util.*
 
 class PhotoDialogFragment
 private constructor(val completionHandler: (Photo) -> Unit) : DialogFragment() {
@@ -29,11 +39,15 @@ private constructor(val completionHandler: (Photo) -> Unit) : DialogFragment() {
         private const val PERM = Manifest.permission.READ_EXTERNAL_STORAGE
         private const val GET_STORAGE_PERMS = 872
         private const val RESULT_LOAD_IMAGE = 169
+
+        @Suppress("unused")
+        private val TAG = PhotoDialogFragment::class.java.simpleName
     }
 
     private lateinit var descriptionTextView: TextView
     private lateinit var photoImageButton: ImageButton
-    private var image: Uri? = null
+    private lateinit var viewModel: PhotoDialogViewModel
+    private var image: String? = null
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -45,6 +59,9 @@ private constructor(val completionHandler: (Photo) -> Unit) : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val viewModelFactory = Injection.provideViewModelFactory(requireActivity().application)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(PhotoDialogViewModel::class.java)
 
         dialog?.setTitle(getString(R.string.add_photo))
 
@@ -96,21 +113,53 @@ private constructor(val completionHandler: (Photo) -> Unit) : DialogFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null)
-            data.data?.let { setImage(it) }
+            data.data?.let {
+                setImage(it)
+            }
     }
 
     private fun setImage(uri: Uri) {
-        image = uri
         Glide.with(this)
+                .asBitmap()
                 .load(uri)
-                .into(photoImageButton)
+                .into(object : CustomTarget<Bitmap>() {
+                    override fun onLoadCleared(placeholder: Drawable?) {
+                        photoImageButton.setImageDrawable(placeholder)
+                    }
+
+                    override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                        photoImageButton.setImageBitmap(resource)
+                        saveToInternalStorage(resource)
+                    }
+                })
     }
 
     override fun onDismiss(dialog: DialogInterface) {
         val description = descriptionTextView.text.toString()
         if (image != null && description.isNotEmpty())
-            completionHandler(Photo(0, 0, image!!, description))
+            completionHandler(Photo(0, 0, image.toString(), description))
 
         super.onDismiss(dialog)
+    }
+
+    private fun saveToInternalStorage(bitmapImage: Bitmap) {
+        val directory = context?.filesDir
+        val fileName = UUID.randomUUID().toString()
+        val photoPath = File(directory, fileName)
+        var fos: FileOutputStream? = null
+        try {
+            fos = FileOutputStream(photoPath)
+            // Use the compress method on the BitMap object to write image to the OutputStream
+            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            try {
+                fos?.close()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+        image = fileName
     }
 }

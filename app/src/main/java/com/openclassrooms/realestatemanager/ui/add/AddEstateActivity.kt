@@ -102,9 +102,14 @@ class AddEstateActivity : AppCompatActivity() {
         val rooms = roomsEditText.text.toString().toIntOrNull()
         val area = areaEditText.text.toString().toIntOrNull()
         val description = descriptionEditText.text.toString()
+        val photos = this.photos.value
         val agent = agentEditText.text.toString()
         val isSold = soldSwitch.isActivated
-        viewModel.addEstate(address, type, price, rooms, area, description, listOf(), agent, getPois(), isSold)
+
+        if (photos != null) {
+            viewModel.addEstate(address, type, price, rooms, area, description, photos, agent, getPois(), isSold)
+            finish()
+        }
     }
 
     private fun getPois(): List<AssociatedPOI.POI> {
