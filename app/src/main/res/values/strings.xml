@@ -37,4 +37,12 @@
     <string name="add_photo">Add photo</string>
     <string name="estate_photo">Estate photo</string>
     <string name="need_storage_permission_message">RealEstateManager needs to access your library and storage.</string>
+    <string name="find">Search around</string>
+    <string name="ok">OK</string>
+    <string name="internet_required">Internet required !</string>
+    <string name="internet_required_detail">RealEstateManager needs to be connected to the internet to show you the map.</string>
+    <string name="required_location">Location required !</string>
+    <string name="required_location_detail">RealEstateManager needs your location to show estates on map !</string>
+    <string name="search">Advanced search</string>
+    <string name="add_an_estate">Add an estate</string>
 </resources>

@@ -4,7 +4,9 @@
     package="com.openclassrooms.realestatemanager">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -20,6 +22,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
+        <activity android:name=".ui.map.MapActivity" />
         <activity android:name=".ui.add.AddEstateActivity" />
         <activity
             android:name=".ui.main.MainActivity"
@@ -31,17 +34,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.main.detail.MainDetailActivity"
-            android:parentActivityName=".ui.main.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.openclassrooms.realestatemanager.ui.main.MainActivity" />
-        </activity>
+        <activity android:name=".ui.main.detail.MainDetailActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDDIsxmIg2ZD3CN6ysXBiuJSxc07RVyqQs"/>
+            android:value="AIzaSyDDIsxmIg2ZD3CN6ysXBiuJSxc07RVyqQs" />
     </application>
 
 </manifest>

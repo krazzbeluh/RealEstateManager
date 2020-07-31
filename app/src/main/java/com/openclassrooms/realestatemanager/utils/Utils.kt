@@ -1,9 +1,11 @@
 package com.openclassrooms.realestatemanager.utils
 
 import android.content.Context
+import android.location.LocationManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import android.util.Log
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -13,6 +15,7 @@ import kotlin.math.roundToInt
  * Created by Philippe on 21/02/2018.
  */
 object Utils {
+    private val TAG = Utils::class.java.simpleName
     /**
      * Conversion d'un prix d'un bien immobilier (Dollars vers Euros)
      * NOTE : NE PAS SUPPRIMER, A MONTRER DURANT LA SOUTENANCE
@@ -68,5 +71,21 @@ object Utils {
                 return false
             }
         }
+    }
+
+    fun isLocationEnabled(context: Context): Boolean {
+        val locationManager = context.applicationContext.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+        var gpsEnabled = false
+        var networkEnabled = false
+
+        try {
+            gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+            networkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+        } catch (e: Exception) {
+            Log.e(TAG, "isLocationEnabled: ", e)
+        }
+
+        return gpsEnabled || networkEnabled
     }
 }

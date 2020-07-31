@@ -9,39 +9,37 @@ import com.openclassrooms.realestatemanager.repository.LocationRepository
 import com.openclassrooms.realestatemanager.ui.add.AddEstateViewModel
 import com.openclassrooms.realestatemanager.ui.dialog.photo.PhotoDialogViewModel
 import com.openclassrooms.realestatemanager.ui.main.MainViewModel
+import com.openclassrooms.realestatemanager.ui.map.MapViewModel
 import java.util.concurrent.Executor
 
 class ViewModelFactory private constructor(private val application: Application, private val estateDataRepository: EstateDataRepository, private val locationRepository: LocationRepository, private val localStorageRepository: LocalStorageRepository, private val executor: Executor) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return when {
-            MainViewModel::class.java.isAssignableFrom(modelClass) -> {
-                try {
+        return try {
+            when {
+                MainViewModel::class.java.isAssignableFrom(modelClass) -> {
                     modelClass.getConstructor(
                             EstateDataRepository::class.java, LocationRepository::class.java, Executor::class.java, Application::class.java
                     ).newInstance(estateDataRepository, locationRepository, executor, application)
-                } catch (e: Exception) {
-                    throw RuntimeException("Cannot create an instance of $modelClass", e)
                 }
-            }
-            AddEstateViewModel::class.java.isAssignableFrom(modelClass) -> {
-                try {
+                AddEstateViewModel::class.java.isAssignableFrom(modelClass) -> {
                     modelClass.getConstructor(
                             EstateDataRepository::class.java, Executor::class.java, Application::class.java
                     ).newInstance(estateDataRepository, executor, application)
-                } catch (e: Exception) {
-                    throw RuntimeException("Cannot create an instance of $modelClass", e)
                 }
-            }
-            PhotoDialogViewModel::class.java.isAssignableFrom(modelClass) -> {
-                try {
+                PhotoDialogViewModel::class.java.isAssignableFrom(modelClass) -> {
                     modelClass.getConstructor(
                             LocalStorageRepository::class.java, Application::class.java
                     ).newInstance(localStorageRepository, application)
-                } catch (e: Exception) {
-                    throw RuntimeException("Cannot create an instance of $modelClass", e)
                 }
+                MapViewModel::class.java.isAssignableFrom(modelClass) -> {
+                    modelClass.getConstructor(
+                            EstateDataRepository::class.java, Application::class.java
+                    ).newInstance(estateDataRepository, application)
+                }
+                else -> super.create(modelClass)
             }
-            else -> super.create(modelClass)
+        } catch (e: Exception) {
+            throw RuntimeException("Cannot create an instance of $modelClass", e)
         }
     }
 
