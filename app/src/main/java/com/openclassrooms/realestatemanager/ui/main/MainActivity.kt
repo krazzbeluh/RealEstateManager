@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
+import com.openclassrooms.realestatemanager.AdvancedSearchActivity
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.injection.Injection
 import com.openclassrooms.realestatemanager.model.estate.Estate
@@ -75,6 +76,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_map -> openMapActivity()
+            R.id.menu_search -> openSearchActivity()
             else -> return super.onOptionsItemSelected(item)
         }
         return false
@@ -101,6 +103,11 @@ class MainActivity : AppCompatActivity() {
         } else {
             EasyPermissions.requestPermissions(this, getString(R.string.required_location), GET_LOCATION_PERMISSION, LOCATION_PERM)
         }
+    }
+
+    private fun openSearchActivity() {
+        val intent = Intent(this, AdvancedSearchActivity::class.java)
+        startActivity(intent)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
