@@ -12,12 +12,12 @@ import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
-import com.openclassrooms.realestatemanager.AdvancedSearchActivity
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.injection.Injection
 import com.openclassrooms.realestatemanager.model.estate.Estate
 import com.openclassrooms.realestatemanager.ui.add.AddEstateActivity
 import com.openclassrooms.realestatemanager.ui.map.MapActivity
+import com.openclassrooms.realestatemanager.ui.search.AdvancedSearchActivity
 import com.openclassrooms.realestatemanager.utils.Utils
 import com.openclassrooms.realestatemanager.utils.showAlert
 import kotlinx.coroutines.CoroutineScope

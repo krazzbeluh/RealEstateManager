@@ -22,7 +22,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
-        <activity android:name=".AdvancedSearchActivity" />
+        <activity android:name=".ui.search.AdvancedSearchActivity" />
         <activity android:name=".ui.map.MapActivity" />
         <activity android:name=".ui.add.AddEstateActivity" />
         <activity

@@ -1,8 +1,9 @@
-package com.openclassrooms.realestatemanager
+package com.openclassrooms.realestatemanager.ui.search
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.jaygoo.widget.RangeSeekBar
+import com.openclassrooms.realestatemanager.R
 
 class AdvancedSearchActivity : AppCompatActivity() {
     private lateinit var priceRangeSeekBar: RangeSeekBar
