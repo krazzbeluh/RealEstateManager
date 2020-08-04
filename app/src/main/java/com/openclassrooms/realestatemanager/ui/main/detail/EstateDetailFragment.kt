@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager.ui.main.detail
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.MapView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.model.estate.Estate
 import com.openclassrooms.realestatemanager.ui.PhotosRecyclerViewAdapter
+import com.openclassrooms.realestatemanager.ui.loan.LoanActivity
 
 class EstateDetailFragment : androidx.fragment.app.Fragment() {
     companion object {
@@ -80,6 +83,12 @@ class EstateDetailFragment : androidx.fragment.app.Fragment() {
                     }
                     visibility = View.VISIBLE
                 }
+            }
+
+            findViewById<FloatingActionButton>(R.id.estate_detail_simulate).setOnClickListener {
+                val intent = Intent(activity, LoanActivity::class.java)
+                intent.putExtra(ARG_ESTATE, estate)
+                startActivity(intent)
             }
         }
         return view

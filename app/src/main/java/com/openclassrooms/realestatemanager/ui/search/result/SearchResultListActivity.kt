@@ -14,7 +14,7 @@ import com.openclassrooms.realestatemanager.utils.showAlert
 class SearchResultListActivity : AppCompatActivity() {
     companion object {
         @Suppress("unused")
-        private val TAG = this::class.java.simpleName
+        private val TAG = SearchResultListActivity::class.java.simpleName
     }
 
     private lateinit var estates: List<Estate>
