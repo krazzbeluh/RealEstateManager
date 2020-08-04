@@ -45,4 +45,11 @@
     <string name="required_location_detail">RealEstateManager needs your location to show estates on map !</string>
     <string name="search">Advanced search</string>
     <string name="add_an_estate">Add an estate</string>
+    <string name="around">Around</string>
+    <string name="distance">Max distance (km)</string>
+    <string name="order_by">Order by</string>
+    <string name="title_searchresultactivity_list">SearchResult</string>
+    <string name="title_searchresultactivity_detail">SearchResultActivity Detail</string>
+    <string name="error">Error !</string>
+    <string name="error_occurred">An error occurred while performing action.</string>
 </resources>

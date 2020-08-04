@@ -6,6 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".ui.search.AdvancedSearchActivity">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:contentDescription="@string/search"
+        android:focusable="true"
+        android:onClick="onClickOnSearchButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/search" />
+
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -35,6 +49,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cellMode="number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView20"
                 app:lineColorEdge="@color/colorSeekBarDefault"
@@ -54,13 +70,101 @@
                 app:layout_constraintTop_toBottomOf="@+id/advanced_search_price_range_seekbar" />
 
             <com.jaygoo.widget.RangeSeekBar
+                android:id="@+id/advanced_search_surface_range_seekbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cellMode="number"
+                app:layout_constraintEnd_toEndOf="@+id/advanced_search_price_range_seekbar"
                 app:layout_constraintStart_toStartOf="@+id/textView21"
                 app:layout_constraintTop_toTopOf="@+id/textView21"
                 app:lineColorSelected="@color/colorPrimaryDark"
                 app:seekBarMode="range" />
+
+            <com.jaygoo.widget.RangeSeekBar
+                android:id="@+id/advanced_search_rooms_range_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cellMode="number"
+                app:layout_constraintEnd_toEndOf="@+id/advanced_search_surface_range_seekbar"
+                app:layout_constraintStart_toStartOf="@+id/textView21"
+                app:layout_constraintTop_toTopOf="@+id/textView18"
+                app:lineColorSelected="@color/colorPrimaryDark"
+                app:seekBarMode="range" />
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/number_rooms"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/advanced_search_surface_range_seekbar"
+                app:layout_constraintTop_toBottomOf="@+id/advanced_search_surface_range_seekbar" />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/around"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/advanced_search_rooms_range_seekbar"
+                app:layout_constraintTop_toBottomOf="@+id/advanced_search_rooms_range_seekbar" />
+
+            <EditText
+                android:id="@+id/advanced_search_city"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="@string/city"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toStartOf="@+id/guideline7"
+                app:layout_constraintStart_toStartOf="@+id/textView22"
+                app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+            <EditText
+                android:id="@+id/advanced_search_distance"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="@string/distance"
+                android:inputType="number"
+                app:layout_constraintEnd_toEndOf="@+id/advanced_search_rooms_range_seekbar"
+                app:layout_constraintStart_toStartOf="@+id/guideline7"
+                app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.58" />
+
+            <Spinner
+                android:id="@+id/advanced_search_order_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@+id/advanced_search_distance"
+                app:layout_constraintStart_toStartOf="@+id/textView23"
+                app:layout_constraintTop_toBottomOf="@+id/textView23" />
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/order_by"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/advanced_search_city"
+                app:layout_constraintTop_toBottomOf="@+id/advanced_search_city" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

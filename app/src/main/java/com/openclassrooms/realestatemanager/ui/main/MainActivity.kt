@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         val viewModelFactory = Injection.provideViewModelFactory(application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
-        val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
+        val toolbar = findViewById<View>(R.id.main_toolbar) as Toolbar
         setSupportActionBar(toolbar)
         toolbar.title = title
         if (findViewById<View?>(R.id.item_detail_container) != null) {

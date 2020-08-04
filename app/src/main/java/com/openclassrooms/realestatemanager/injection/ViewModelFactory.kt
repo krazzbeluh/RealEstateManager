@@ -10,6 +10,7 @@ import com.openclassrooms.realestatemanager.ui.add.AddEstateViewModel
 import com.openclassrooms.realestatemanager.ui.dialog.photo.PhotoDialogViewModel
 import com.openclassrooms.realestatemanager.ui.main.MainViewModel
 import com.openclassrooms.realestatemanager.ui.map.MapViewModel
+import com.openclassrooms.realestatemanager.ui.search.AdvancedSearchViewModel
 import java.util.concurrent.Executor
 
 class ViewModelFactory private constructor(private val application: Application, private val estateDataRepository: EstateDataRepository, private val locationRepository: LocationRepository, private val localStorageRepository: LocalStorageRepository, private val executor: Executor) : ViewModelProvider.NewInstanceFactory() {
@@ -35,6 +36,10 @@ class ViewModelFactory private constructor(private val application: Application,
                     modelClass.getConstructor(
                             EstateDataRepository::class.java, Application::class.java
                     ).newInstance(estateDataRepository, application)
+                }
+                AdvancedSearchViewModel::class.java.isAssignableFrom(modelClass) -> {
+                    modelClass.getConstructor(EstateDataRepository::class.java, Application::class.java)
+                            .newInstance(estateDataRepository, application)
                 }
                 else -> super.create(modelClass)
             }

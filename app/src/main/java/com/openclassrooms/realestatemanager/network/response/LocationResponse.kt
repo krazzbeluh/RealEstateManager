@@ -5,14 +5,6 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 class LocationResponse {
-    @SerializedName("type")
-    @Expose
-    var type: String? = null
-
-    @SerializedName("geocoding")
-    @Expose
-    var geocoding: Geocoding? = null
-
     @SerializedName("features")
     @Expose
     var features: List<Feature>? = null

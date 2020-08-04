@@ -9,17 +9,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.model.estate.Estate
+import com.openclassrooms.realestatemanager.ui.main.detail.EstateDetailFragment
+import com.openclassrooms.realestatemanager.ui.main.detail.EstateDetailFragment.Companion.ARG_ESTATE
 import com.openclassrooms.realestatemanager.ui.main.detail.MainDetailActivity
-import com.openclassrooms.realestatemanager.ui.main.detail.MainDetailFragment
-import com.openclassrooms.realestatemanager.ui.main.detail.MainDetailFragment.Companion.ARG_ESTATE
 import java.io.File
 
-internal class MainEstateListRecyclerViewAdapter internal constructor(private val parentActivity: MainActivity,
+internal class MainEstateListRecyclerViewAdapter internal constructor(private val parentActivity: AppCompatActivity,
                                                                       private val mTwoPane: Boolean) : RecyclerView.Adapter<MainEstateListRecyclerViewAdapter.ViewHolder>() {
     companion object {
         private var selectedItem: Int? = null
@@ -34,7 +35,7 @@ internal class MainEstateListRecyclerViewAdapter internal constructor(private va
     private val onClickListener = View.OnClickListener { view ->
         val item = view.tag as Estate
         if (mTwoPane) {
-            val fragment = MainDetailFragment().apply {
+            val fragment = EstateDetailFragment().apply {
                 arguments = Bundle().apply {
                     putSerializable(ARG_ESTATE, item)
                 }
@@ -68,7 +69,7 @@ internal class MainEstateListRecyclerViewAdapter internal constructor(private va
                     holder.background.setBackgroundColor(ContextCompat.getColor(parentActivity, R.color.colorAccent))
                     selectedItem?.let { notifyItemChanged(it) }
                     selectedItem = position
-                    val fragment = MainDetailFragment().apply {
+                    val fragment = EstateDetailFragment().apply {
                         arguments = Bundle().apply {
                             putSerializable(ARG_ESTATE, item)
                         }

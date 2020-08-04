@@ -14,7 +14,7 @@ import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.model.estate.Estate
 import com.openclassrooms.realestatemanager.ui.PhotosRecyclerViewAdapter
 
-class MainDetailFragment : androidx.fragment.app.Fragment() {
+class EstateDetailFragment : androidx.fragment.app.Fragment() {
     companion object {
         const val ARG_ESTATE = "estate"
     }
