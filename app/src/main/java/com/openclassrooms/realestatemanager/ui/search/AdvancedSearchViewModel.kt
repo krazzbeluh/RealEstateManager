@@ -12,21 +12,29 @@ class AdvancedSearchViewModel(private val estateDataRepository: EstateDataReposi
 
     fun getEstates() = estateDataRepository.getEstates()
 
-    fun search(estates: List<Estate>, priceRange: IntRange, surfaceRange: IntRange, roomsRange: IntRange, orderBy: EstateOrderField): MutableList<Estate> {
+    fun search(estates: List<Estate>, priceRange: IntRange, surfaceRange: IntRange, roomsRange: IntRange, orderBy: EstateOrderField, ascending: Boolean): MutableList<Estate> {
         var matchingEstates = estates.toSet()
         matchingEstates = getEstatesWithMatchingPrice(matchingEstates, priceRange)
         matchingEstates = getEstatesWithMatchingSurface(matchingEstates, surfaceRange)
         matchingEstates = getEstatesWithMatchingRooms(matchingEstates, roomsRange)
 
         val finalEstates = matchingEstates.toMutableList()
-        finalEstates.sortBy {
-            when (orderBy) {
-                EstateOrderField.PRICE -> it.estate.price
-                EstateOrderField.ROOMS -> it.estate.rooms
-                EstateOrderField.SURFACE -> it.estate.area
+        if (ascending) {
+            finalEstates.sortBy {
+                selectOrderByField(orderBy, it)
+            }
+        } else {
+            finalEstates.sortByDescending {
+                selectOrderByField(orderBy, it = it)
             }
         }
         return finalEstates
+    }
+
+    private fun selectOrderByField(orderBy: EstateOrderField, it: Estate) = when (orderBy) {
+        EstateOrderField.PRICE -> it.estate.price
+        EstateOrderField.ROOMS -> it.estate.rooms
+        EstateOrderField.SURFACE -> it.estate.area
     }
 
     private fun getEstatesWithMatchingPrice(estates: Set<Estate>, priceRange: IntRange): Set<Estate> {

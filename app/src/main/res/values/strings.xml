@@ -52,4 +52,6 @@
     <string name="title_searchresultactivity_detail">SearchResultActivity Detail</string>
     <string name="error">Error !</string>
     <string name="error_occurred">An error occurred while performing action.</string>
+    <string name="ascending">Ascending</string>
+    <string name="descending">Descending</string>
 </resources>

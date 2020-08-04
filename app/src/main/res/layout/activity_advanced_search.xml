@@ -148,9 +148,9 @@
 
             <Spinner
                 android:id="@+id/advanced_search_order_spinner"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@+id/advanced_search_distance"
+                app:layout_constraintEnd_toStartOf="@+id/advnced_search_order_checkbox"
                 app:layout_constraintStart_toStartOf="@+id/textView23"
                 app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
@@ -165,6 +165,18 @@
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="@+id/advanced_search_city"
                 app:layout_constraintTop_toBottomOf="@+id/advanced_search_city" />
+
+            <CheckBox
+                android:id="@+id/advnced_search_order_checkbox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:button="@drawable/order_checkbox"
+                android:text="@string/descending"
+                android:textAlignment="viewStart"
+                app:layout_constraintBottom_toBottomOf="@+id/advanced_search_order_spinner"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline7"
+                app:layout_constraintTop_toTopOf="@+id/advanced_search_order_spinner" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
