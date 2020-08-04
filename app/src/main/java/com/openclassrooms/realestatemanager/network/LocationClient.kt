@@ -18,4 +18,5 @@ class LocationClient {
     private val service = retrofit.create(LocationDao::class.java)
 
     suspend fun getLocation(address: Address) = service.getLocationWithAddress("${address.number} ${address.route}", address.city, address.country, address.postCode.toString())
+    suspend fun getLocation(city: String) = service.getLocationWithCityName(city)
 }

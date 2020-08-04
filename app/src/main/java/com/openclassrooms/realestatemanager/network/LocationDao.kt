@@ -7,4 +7,7 @@ import retrofit2.http.Query
 interface LocationDao {
     @GET("search?format=geocodejson")
     suspend fun getLocationWithAddress(@Query("street") street: String, @Query("city") city: String, @Query("country") country: String, @Query("postalCode") postalCode: String): LocationResponse
+
+    @GET("search?format=geocodejson")
+    suspend fun getLocationWithCityName(@Query("city") city: String): LocationResponse
 }

@@ -16,6 +16,10 @@ import com.openclassrooms.realestatemanager.injection.Injection
 import com.openclassrooms.realestatemanager.model.estate.Estate
 import com.openclassrooms.realestatemanager.ui.main.detail.EstateDetailFragment.Companion.ARG_ESTATE
 import com.openclassrooms.realestatemanager.ui.search.result.SearchResultListActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import java.io.Serializable
 
 class AdvancedSearchActivity : AppCompatActivity() {
@@ -25,6 +29,9 @@ class AdvancedSearchActivity : AppCompatActivity() {
     }
 
     private lateinit var viewModel: AdvancedSearchViewModel
+
+    private val parentJob = Job()
+    private val coroutineScope = CoroutineScope(Dispatchers.Main + parentJob)
 
     private lateinit var priceRangeSeekBar: RangeSeekBar
     private lateinit var roomsRangeSeekBar: RangeSeekBar
@@ -105,15 +112,21 @@ class AdvancedSearchActivity : AppCompatActivity() {
 
     fun onClickOnSearchButton(@Suppress("UNUSED_PARAMETER") v: View) {
         val orderBy = orderBySpinner.selectedItem as? EstateOrderField
-        val filteredEstates = viewModel.search(estates,
-                priceRangeSeekBar.currentRange[0].toInt()..priceRangeSeekBar.currentRange[1].toInt(),
-                surfaceRangeSeekBar.currentRange[0].toInt()..surfaceRangeSeekBar.currentRange[1].toInt(),
-                roomsRangeSeekBar.currentRange[0].toInt()..roomsRangeSeekBar.currentRange[1].toInt(),
-                orderBy ?: EstateOrderField.PRICE,
-                orderCheckBox.isChecked)
+        val city = cityEditText.text.toString()
+        val distance = distanceEditText.text.toString().toIntOrNull()
+        coroutineScope.launch(Dispatchers.IO) {
+            val filteredEstates = viewModel.search(estates,
+                    priceRangeSeekBar.currentRange[0].toInt()..priceRangeSeekBar.currentRange[1].toInt(),
+                    surfaceRangeSeekBar.currentRange[0].toInt()..surfaceRangeSeekBar.currentRange[1].toInt(),
+                    roomsRangeSeekBar.currentRange[0].toInt()..roomsRangeSeekBar.currentRange[1].toInt(),
+                    if (city.isNotEmpty() && distance != null) city else null,
+                    if (city.isNotEmpty()) distance else null,
+                    orderBy ?: EstateOrderField.PRICE,
+                    orderCheckBox.isChecked)
 
-        val intent = Intent(this, SearchResultListActivity::class.java)
-        intent.putExtra(ARG_ESTATE, filteredEstates as? Serializable)
-        startActivity(intent)
+            val intent = Intent(this@AdvancedSearchActivity, SearchResultListActivity::class.java)
+            intent.putExtra(ARG_ESTATE, filteredEstates as? Serializable)
+            startActivity(intent)
+        }
     }
 }

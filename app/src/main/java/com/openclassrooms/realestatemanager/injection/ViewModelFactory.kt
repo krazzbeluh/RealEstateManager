@@ -13,33 +13,50 @@ import com.openclassrooms.realestatemanager.ui.map.MapViewModel
 import com.openclassrooms.realestatemanager.ui.search.AdvancedSearchViewModel
 import java.util.concurrent.Executor
 
-class ViewModelFactory private constructor(private val application: Application, private val estateDataRepository: EstateDataRepository, private val locationRepository: LocationRepository, private val localStorageRepository: LocalStorageRepository, private val executor: Executor) : ViewModelProvider.NewInstanceFactory() {
+class ViewModelFactory private constructor(
+        private val application: Application,
+        private val estateDataRepository: EstateDataRepository,
+        private val locationRepository: LocationRepository,
+        private val localStorageRepository: LocalStorageRepository,
+        private val executor: Executor
+) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return try {
             when {
                 MainViewModel::class.java.isAssignableFrom(modelClass) -> {
                     modelClass.getConstructor(
-                            EstateDataRepository::class.java, LocationRepository::class.java, Executor::class.java, Application::class.java
+                            EstateDataRepository::class.java,
+                            LocationRepository::class.java,
+                            Executor::class.java,
+                            Application::class.java
                     ).newInstance(estateDataRepository, locationRepository, executor, application)
                 }
                 AddEstateViewModel::class.java.isAssignableFrom(modelClass) -> {
                     modelClass.getConstructor(
-                            EstateDataRepository::class.java, Executor::class.java, Application::class.java
+                            EstateDataRepository::class.java,
+                            Executor::class.java,
+                            Application::class.java
                     ).newInstance(estateDataRepository, executor, application)
                 }
                 PhotoDialogViewModel::class.java.isAssignableFrom(modelClass) -> {
                     modelClass.getConstructor(
-                            LocalStorageRepository::class.java, Application::class.java
+                            LocalStorageRepository::class.java,
+                            Application::class.java
                     ).newInstance(localStorageRepository, application)
                 }
                 MapViewModel::class.java.isAssignableFrom(modelClass) -> {
                     modelClass.getConstructor(
-                            EstateDataRepository::class.java, Application::class.java
+                            EstateDataRepository::class.java,
+                            Application::class.java
                     ).newInstance(estateDataRepository, application)
                 }
                 AdvancedSearchViewModel::class.java.isAssignableFrom(modelClass) -> {
-                    modelClass.getConstructor(EstateDataRepository::class.java, Application::class.java)
-                            .newInstance(estateDataRepository, application)
+                    modelClass.getConstructor(
+                            EstateDataRepository::class.java,
+                            LocationRepository::class.java,
+                            Application::class.java
+                    )
+                            .newInstance(estateDataRepository, locationRepository, application)
                 }
                 else -> super.create(modelClass)
             }
@@ -58,7 +75,13 @@ class ViewModelFactory private constructor(private val application: Application,
                 executor: Executor
         ): ViewModelFactory {
             if (instance == null) {
-                instance = ViewModelFactory(application, estateDataRepository, locationRepository, localStorageRepository, executor)
+                instance = ViewModelFactory(
+                        application,
+                        estateDataRepository,
+                        locationRepository,
+                        localStorageRepository,
+                        executor
+                )
             }
             return instance as ViewModelFactory
         }
