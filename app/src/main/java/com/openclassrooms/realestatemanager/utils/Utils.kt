@@ -14,21 +14,11 @@ import kotlin.math.roundToInt
 /**
  * Created by Philippe on 21/02/2018.
  */
+fun Int.convertToEuro() = (this * 0.812).roundToInt()
+fun Int.convertToDollar() = (this / 0.812).roundToInt()
+
 object Utils {
     private val TAG = Utils::class.java.simpleName
-    /**
-     * Conversion d'un prix d'un bien immobilier (Dollars vers Euros)
-     * NOTE : NE PAS SUPPRIMER, A MONTRER DURANT LA SOUTENANCE
-     * @param dollars value in dollar to be converted
-     * @return converted value in euro
-     */
-    fun convertDollarToEuro(dollars: Int): Int {
-        return (dollars * 0.812).roundToInt()
-    }
-
-    fun convertEuroToDollar(euro: Int): Int {
-        return (euro / 0.812).roundToInt()
-    }
 
     /**
      * Conversion de la date d'aujourd'hui en un format plus approprié

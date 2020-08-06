@@ -7,8 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import com.openclassrooms.realestatemanager.model.Loan
 
 class LoanViewModel(application: Application) : AndroidViewModel(application) {
-    val loan = MutableLiveData<Loan?>()
-    val isAlertShown = MutableLiveData<Boolean>(false)
+    private val loan = MutableLiveData<Loan?>()
+    private val isAlertShown = MutableLiveData<Boolean>(false)
 
     fun getLoan() = loan as LiveData<Loan?>
 

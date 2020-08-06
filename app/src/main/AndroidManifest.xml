@@ -22,7 +22,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
-        <activity android:name=".ui.loan.LoanActivity"></activity>
+        <activity android:name=".ui.loan.LoanActivity" />
         <activity
             android:name=".ui.search.result.SearchResultListActivity"
             android:label="@string/title_searchresultactivity_list"

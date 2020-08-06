@@ -3,6 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <group>
         <item
+            android:id="@+id/menu_convert"
+            android:icon="@drawable/euro"
+            android:title=""
+            app:showAsAction="ifRoom" />
+        <item
             android:id="@+id/menu_map"
             android:icon="@drawable/location"
             android:title="@string/find"

@@ -1,13 +1,14 @@
 package com.openclassrooms.realestatemanager.ui.main
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.injection.Injection
 import com.openclassrooms.realestatemanager.model.estate.Estate
+import com.openclassrooms.realestatemanager.ui.EstatesContainerActivity
 import com.openclassrooms.realestatemanager.ui.add.AddEstateActivity
 import com.openclassrooms.realestatemanager.ui.map.MapActivity
 import com.openclassrooms.realestatemanager.ui.search.AdvancedSearchActivity
@@ -27,7 +29,7 @@ import kotlinx.coroutines.launch
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : EstatesContainerActivity() {
     companion object {
         private val TAG = MainActivity::class.java.simpleName
 
@@ -35,8 +37,12 @@ class MainActivity : AppCompatActivity() {
         private const val LOCATION_PERM = Manifest.permission.ACCESS_FINE_LOCATION
     }
 
+    override var isDollar = true
+    override val context: Context = this
+    override lateinit var preferences: SharedPreferences
     private lateinit var viewModel: MainViewModel
-    private lateinit var adapter: MainEstateListRecyclerViewAdapter
+    override lateinit var adapter: MainEstateListRecyclerViewAdapter
+    override lateinit var recyclerView: RecyclerView
 
     private val parentJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.Main + parentJob)
@@ -50,6 +56,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        preferences = getPreferences(Context.MODE_PRIVATE)
         val viewModelFactory = Injection.provideViewModelFactory(application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
@@ -63,13 +70,14 @@ class MainActivity : AppCompatActivity() {
             // activity should be in two-pane mode.
             mTwoPane = true
         }
-        val recyclerView = findViewById<RecyclerView>(R.id.item_list)
+        recyclerView = findViewById(R.id.item_list)
         setupRecyclerView(recyclerView)
         checkAddressForEstates()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
+        menu?.getItem(0)?.setIcon(if (isDollar) R.drawable.euro else R.drawable.dollar)
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -77,9 +85,15 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.menu_map -> openMapActivity()
             R.id.menu_search -> openSearchActivity()
+            R.id.menu_convert -> didTapConvert(item)
             else -> return super.onOptionsItemSelected(item)
         }
         return false
+    }
+
+    override fun didTapConvert(item: MenuItem) {
+        super.didTapConvert(item)
+        convertRecyclerViewItems()
     }
 
     fun addEstateButtonClicked(@Suppress("UNUSED_PARAMETER") v: View) = startActivity(Intent(this, AddEstateActivity::class.java))
@@ -114,7 +128,8 @@ class MainActivity : AppCompatActivity() {
         adapter = MainEstateListRecyclerViewAdapter(this, mTwoPane)
         recyclerView.adapter = adapter
         viewModel.getEstates().observe(this, Observer { estates ->
-            adapter.setEstates(estates)
+            adapter.estates = estates
+            convertRecyclerViewItems()
         })
     }
 

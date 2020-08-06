@@ -1,24 +1,28 @@
 package com.openclassrooms.realestatemanager.ui.search.result
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.model.estate.Estate
+import com.openclassrooms.realestatemanager.ui.EstatesContainerActivity
 import com.openclassrooms.realestatemanager.ui.main.MainEstateListRecyclerViewAdapter
 import com.openclassrooms.realestatemanager.ui.main.detail.EstateDetailFragment
 import com.openclassrooms.realestatemanager.utils.showAlert
 
-class SearchResultListActivity : AppCompatActivity() {
+class SearchResultListActivity : EstatesContainerActivity() {
     companion object {
         @Suppress("unused")
         private val TAG = SearchResultListActivity::class.java.simpleName
     }
 
     private lateinit var estates: List<Estate>
-    private lateinit var adapter: MainEstateListRecyclerViewAdapter
+    override lateinit var adapter: MainEstateListRecyclerViewAdapter
+    override lateinit var recyclerView: RecyclerView
+    override lateinit var preferences: SharedPreferences
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -28,6 +32,8 @@ class SearchResultListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_result_list)
+
+        preferences = getPreferences(Context.MODE_PRIVATE)
 
         @Suppress("UNCHECKED_CAST") val extras = intent.getSerializableExtra(EstateDetailFragment.ARG_ESTATE) as? List<Estate>
         if (extras != null) {
@@ -48,14 +54,14 @@ class SearchResultListActivity : AppCompatActivity() {
             // activity should be in two-pane mode.
             mTwoPane = true
         }
-        val recyclerView = findViewById<RecyclerView>(R.id.searchresultactivity_list)
-        setupRecyclerView(recyclerView)
+        recyclerView = findViewById(R.id.searchresultactivity_list)
+        setupRecyclerView()
     }
 
-    private fun setupRecyclerView(recyclerView: RecyclerView) {
+    private fun setupRecyclerView() {
         adapter = MainEstateListRecyclerViewAdapter(this, mTwoPane)
         recyclerView.adapter = adapter
-        adapter.setEstates(estates)
+        adapter.estates = estates
     }
 
     lateinit var estate: Estate
