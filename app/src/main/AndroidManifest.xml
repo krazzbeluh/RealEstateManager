@@ -40,7 +40,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.main.detail.MainDetailActivity" />
+        <activity
+            android:name=".ui.main.detail.MainDetailActivity"
+            android:theme="@style/AppTheme.ToolbarStyle" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
