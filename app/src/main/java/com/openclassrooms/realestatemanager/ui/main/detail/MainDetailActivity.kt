@@ -1,10 +1,13 @@
 package com.openclassrooms.realestatemanager.ui.main.detail
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.openclassrooms.realestatemanager.R
+import com.openclassrooms.realestatemanager.ui.ConvertibleActivity
 import com.openclassrooms.realestatemanager.ui.main.MainActivity
 import com.openclassrooms.realestatemanager.ui.main.detail.EstateDetailFragment.Companion.ARG_ESTATE
 
@@ -14,7 +17,10 @@ import com.openclassrooms.realestatemanager.ui.main.detail.EstateDetailFragment.
  * item details are presented side-by-side with a list of items
  * in a [MainActivity].
  */
-class MainDetailActivity : AppCompatActivity() {
+class MainDetailActivity : AppCompatActivity(), ConvertibleActivity {
+    override val context: Context = this
+    override var preferences: SharedPreferences = getPreferences(Context.MODE_PRIVATE)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_detail)
@@ -25,7 +31,7 @@ class MainDetailActivity : AppCompatActivity() {
             val arguments = Bundle()
             arguments.putSerializable(ARG_ESTATE,
             intent.getSerializableExtra(ARG_ESTATE))
-            val fragment = EstateDetailFragment()
+            val fragment = EstateDetailFragment(isDollar)
             fragment.arguments = arguments
             supportFragmentManager.beginTransaction()
                     .add(R.id.item_detail_container, fragment)

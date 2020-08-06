@@ -34,26 +34,6 @@ class MainEstateListRecyclerViewAdapter internal constructor(private val parentA
             this.notifyDataSetChanged()
         }
 
-    private val onClickListener = View.OnClickListener { view ->
-        val item = view.tag as Estate
-        if (mTwoPane) {
-            val fragment = EstateDetailFragment().apply {
-                arguments = Bundle().apply {
-                    putSerializable(ARG_ESTATE, item)
-                }
-            }
-            parentActivity.supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.item_detail_container, fragment)
-                    .commit()
-        } else {
-            val context = view.context
-            val intent = Intent(context, MainDetailActivity::class.java)
-            intent.putExtra(ARG_ESTATE, item)
-            context.startActivity(intent)
-        }
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.estate_list_content, parent, false)
@@ -72,15 +52,12 @@ class MainEstateListRecyclerViewAdapter internal constructor(private val parentA
                     holder.background.setBackgroundColor(ContextCompat.getColor(parentActivity, R.color.colorAccent))
                     selectedItem?.let { notifyItemChanged(it) }
                     selectedItem = position
-                    val fragment = EstateDetailFragment().apply {
+                    val fragment = EstateDetailFragment(parentActivity.isDollar).apply {
                         arguments = Bundle().apply {
                             putSerializable(ARG_ESTATE, item)
                         }
                     }
-                    parentActivity.supportFragmentManager
-                            .beginTransaction()
-                            .replace(R.id.item_detail_container, fragment)
-                            .commit()
+                    parentActivity.fragment = fragment
                 } else {
                     val context = view.context
                     val intent = Intent(context, MainDetailActivity::class.java)
@@ -109,7 +86,7 @@ class MainEstateListRecyclerViewAdapter internal constructor(private val parentA
         val imageView: ImageView = view.findViewById(R.id.estate_list_row_image)
         val typeTextView: TextView = view.findViewById(R.id.estate_list_row_type)
         val cityTextView: TextView = view.findViewById(R.id.estate_list_row_city)
-        val priceTextView: TextView = view.findViewById(R.id.estate_list_row_price)
+        private val priceTextView: TextView = view.findViewById(R.id.estate_list_row_price)
 
         @SuppressLint("SetTextI18n")
         fun convert(toDollar: Boolean) {

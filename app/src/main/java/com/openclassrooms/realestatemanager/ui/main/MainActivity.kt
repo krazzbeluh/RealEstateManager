@@ -94,6 +94,7 @@ class MainActivity : EstatesContainerActivity() {
     override fun didTapConvert(item: MenuItem) {
         super.didTapConvert(item)
         convertRecyclerViewItems()
+        fragment?.convert(isDollar)
     }
 
     fun addEstateButtonClicked(@Suppress("UNUSED_PARAMETER") v: View) = startActivity(Intent(this, AddEstateActivity::class.java))

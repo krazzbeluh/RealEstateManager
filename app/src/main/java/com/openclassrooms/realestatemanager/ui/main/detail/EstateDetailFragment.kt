@@ -16,8 +16,9 @@ import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.model.estate.Estate
 import com.openclassrooms.realestatemanager.ui.PhotosRecyclerViewAdapter
 import com.openclassrooms.realestatemanager.ui.loan.LoanActivity
+import com.openclassrooms.realestatemanager.utils.convertToEuro
 
-class EstateDetailFragment : androidx.fragment.app.Fragment() {
+class EstateDetailFragment(val isInitiallyDollar: Boolean) : androidx.fragment.app.Fragment() {
     companion object {
         const val ARG_ESTATE = "estate"
     }
@@ -25,6 +26,7 @@ class EstateDetailFragment : androidx.fragment.app.Fragment() {
     private lateinit var viewModel: MainDetailViewModel
 
     private lateinit var estate: Estate
+    private lateinit var priceTextView: TextView
 
     private var mapView: MapView? = null
 
@@ -43,6 +45,8 @@ class EstateDetailFragment : androidx.fragment.app.Fragment() {
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_main_detail, container, false)
         view.apply {
+            priceTextView = findViewById(R.id.main_detail_price)
+            convert(isInitiallyDollar)
             findViewById<TextView>(R.id.main_detail_description).apply {
                 text = estate.estate.description
             }
@@ -51,9 +55,6 @@ class EstateDetailFragment : androidx.fragment.app.Fragment() {
             }
             findViewById<TextView>(R.id.main_detail_rooms).apply {
                 text = estate.estate.rooms.toString()
-            }
-            findViewById<TextView>(R.id.main_detail_price).apply {
-                text = estate.estate.price.toString()
             }
             findViewById<TextView>(R.id.main_detail_location).apply {
                 text = estate.estate.address.format()
@@ -92,6 +93,10 @@ class EstateDetailFragment : androidx.fragment.app.Fragment() {
             }
         }
         return view
+    }
+
+    fun convert(toDollar: Boolean) {
+        priceTextView.text = if (toDollar) "${estate.estate.price} $" else "${estate.estate.price.convertToEuro()} € "
     }
 
     override fun onStart() {
