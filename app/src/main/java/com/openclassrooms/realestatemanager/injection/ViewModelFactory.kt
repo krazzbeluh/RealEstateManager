@@ -8,6 +8,7 @@ import com.openclassrooms.realestatemanager.repository.LocalStorageRepository
 import com.openclassrooms.realestatemanager.repository.LocationRepository
 import com.openclassrooms.realestatemanager.ui.add.AddEstateViewModel
 import com.openclassrooms.realestatemanager.ui.dialog.photo.PhotoDialogViewModel
+import com.openclassrooms.realestatemanager.ui.loan.LoanViewModel
 import com.openclassrooms.realestatemanager.ui.main.MainViewModel
 import com.openclassrooms.realestatemanager.ui.map.MapViewModel
 import com.openclassrooms.realestatemanager.ui.search.AdvancedSearchViewModel
@@ -55,8 +56,11 @@ class ViewModelFactory private constructor(
                             EstateDataRepository::class.java,
                             LocationRepository::class.java,
                             Application::class.java
-                    )
-                            .newInstance(estateDataRepository, locationRepository, application)
+                    ).newInstance(estateDataRepository, locationRepository, application)
+                }
+                LoanViewModel::class.java.isAssignableFrom(modelClass) -> {
+                    modelClass.getConstructor(Application::class.java)
+                            .newInstance(application)
                 }
                 else -> super.create(modelClass)
             }

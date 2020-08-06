@@ -54,4 +54,11 @@
     <string name="error_occurred">An error occurred while performing action.</string>
     <string name="ascending">Ascending</string>
     <string name="descending">Descending</string>
+    <string name="not_a_number_error">All values must be numbers !</string>
+    <string name="loan_result_text">Borrowed capital: %1$s\nMonthly payment: %2$s\nRendering: %3$s\nInterests: %4$s</string>
+    <string name="calculate">Calculate</string>
+    <string name="contribution">Contribution</string>
+    <string name="rate">Rate</string>
+    <string name="duration_year">Duration (Year)</string>
+    <string name="needed_amount">Needed amount</string>
 </resources>

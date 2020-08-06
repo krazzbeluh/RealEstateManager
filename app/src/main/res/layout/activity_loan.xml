@@ -1,8 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="8dp"
     tools:context=".ui.loan.LoanActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <EditText
+        android:id="@+id/loan_amount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:ems="10"
+        android:hint="@string/needed_amount"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        app:layout_constraintEnd_toStartOf="@+id/guideline9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/loan_duration"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:ems="10"
+        android:hint="@string/duration_year"
+        android:importantForAutofill="no"
+        android:inputType="time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline9"
+        app:layout_constraintTop_toTopOf="@+id/loan_amount" />
+
+    <EditText
+        android:id="@+id/loan_rate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="@string/rate"
+        android:importantForAutofill="no"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="@+id/loan_amount"
+        app:layout_constraintStart_toStartOf="@+id/loan_amount"
+        app:layout_constraintTop_toBottomOf="@+id/loan_amount" />
+
+    <EditText
+        android:id="@+id/loan_contribution"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="@string/contribution"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@+id/loan_duration"
+        app:layout_constraintStart_toStartOf="@+id/loan_duration"
+        app:layout_constraintTop_toBottomOf="@+id/loan_duration" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:onClick="onClickOnCalculateButton"
+        android:text="@string/calculate"
+        app:layout_constraintEnd_toEndOf="@+id/loan_contribution"
+        app:layout_constraintTop_toBottomOf="@+id/loan_contribution" />
+
+    <TextView
+        android:id="@+id/loan_result"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
