@@ -1,12 +1,13 @@
 package com.openclassrooms.realestatemanager.ui.search
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.Spinner
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -14,15 +15,17 @@ import com.jaygoo.widget.RangeSeekBar
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.injection.Injection
 import com.openclassrooms.realestatemanager.model.estate.Estate
+import com.openclassrooms.realestatemanager.ui.ConvertibleActivity
 import com.openclassrooms.realestatemanager.ui.main.detail.EstateDetailFragment.Companion.ARG_ESTATE
 import com.openclassrooms.realestatemanager.ui.search.result.SearchResultListActivity
+import com.openclassrooms.realestatemanager.utils.convertToEuro
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.io.Serializable
 
-class AdvancedSearchActivity : AppCompatActivity() {
+class AdvancedSearchActivity : AppCompatActivity(), ConvertibleActivity {
     companion object {
         @Suppress("unused")
         private val TAG = AdvancedSearchActivity::class.java.simpleName
@@ -33,6 +36,10 @@ class AdvancedSearchActivity : AppCompatActivity() {
     private val parentJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.Main + parentJob)
 
+    override val context = this as Context
+    override lateinit var preferences: SharedPreferences
+
+    private lateinit var priceTextView: TextView
     private lateinit var priceRangeSeekBar: RangeSeekBar
     private lateinit var roomsRangeSeekBar: RangeSeekBar
     private lateinit var surfaceRangeSeekBar: RangeSeekBar
@@ -51,6 +58,9 @@ class AdvancedSearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_advanced_search)
 
+        preferences = getPreferences(Context.MODE_PRIVATE)
+
+        priceTextView = findViewById(R.id.advanced_search_price_textview)
         priceRangeSeekBar = findViewById(R.id.advanced_search_price_range_seekbar)
         roomsRangeSeekBar = findViewById(R.id.advanced_search_rooms_range_seekbar)
         surfaceRangeSeekBar = findViewById(R.id.advanced_search_surface_range_seekbar)
@@ -84,15 +94,10 @@ class AdvancedSearchActivity : AppCompatActivity() {
     }
 
     private fun configureInputs() {
-        configurePriceSeekBar()
+        convert()
         configureRoomsSeekBar()
         configureSurfaceSeekBar()
         configureOrderInputs()
-    }
-
-    private fun configurePriceSeekBar() {
-        priceRangeSeekBar.setRange(priceRange.first.toFloat(), priceRange.last.toFloat())
-        priceRangeSeekBar.setValue(priceRange.first.toFloat(), priceRange.last.toFloat())
     }
 
     private fun configureRoomsSeekBar() {
@@ -128,5 +133,35 @@ class AdvancedSearchActivity : AppCompatActivity() {
             intent.putExtra(ARG_ESTATE, filteredEstates as? Serializable)
             startActivity(intent)
         }
+    }
+
+    private fun convert() {
+        priceTextView.setText(if (isDollar) R.string.price_dollar else R.string.price_euro)
+        priceRangeSeekBar.setRange(
+                if (isDollar) priceRange.first.toFloat() else priceRange.first.convertToEuro().toFloat(),
+                if (isDollar) priceRange.last.toFloat() else priceRange.last.convertToEuro().toFloat()
+        )
+        priceRangeSeekBar.setValue(
+                if (isDollar) priceRange.first.toFloat() else priceRange.first.convertToEuro().toFloat(),
+                if (isDollar) priceRange.last.toFloat() else priceRange.last.convertToEuro().toFloat()
+        )
+    }
+
+    override fun didTapConvert(item: MenuItem) {
+        super.didTapConvert(item)
+        convert()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.convert_menu, menu)
+        menu?.getItem(0)?.setIcon(if (isDollar) R.drawable.euro else R.drawable.dollar)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_convert -> didTapConvert(item)
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

@@ -1,11 +1,12 @@
 package com.openclassrooms.realestatemanager.ui.add
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.Spinner
-import android.widget.Switch
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -19,22 +20,28 @@ import com.openclassrooms.realestatemanager.model.Address
 import com.openclassrooms.realestatemanager.model.Photo
 import com.openclassrooms.realestatemanager.model.estate.AssociatedPOI
 import com.openclassrooms.realestatemanager.model.estate.Estate
+import com.openclassrooms.realestatemanager.ui.ConvertibleActivity
 import com.openclassrooms.realestatemanager.ui.PhotosRecyclerViewAdapter
 import com.openclassrooms.realestatemanager.ui.dialog.AddressDialogFragment
 import com.openclassrooms.realestatemanager.ui.dialog.photo.PhotoDialogFragment
+import com.openclassrooms.realestatemanager.utils.convertToDollar
 import com.openclassrooms.realestatemanager.utils.toEditable
 
-class AddEstateActivity : AppCompatActivity() {
+class AddEstateActivity : AppCompatActivity(), ConvertibleActivity {
     companion object {
         @Suppress("unused")
         val TAG = AddEstateActivity::class.java.simpleName
     }
+
+    override val context = this as Context
+    override lateinit var preferences: SharedPreferences
 
     private lateinit var viewModel: AddEstateViewModel
     private val photos = MutableLiveData(mutableListOf<Photo>())
 
     var address: Address? = null
     private lateinit var typeSpinner: Spinner
+    private lateinit var priceTextView: TextView
     private lateinit var priceEditText: EditText
     private lateinit var roomsEditText: EditText
     private lateinit var areaEditText: EditText
@@ -50,6 +57,8 @@ class AddEstateActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_estate)
+
+        preferences = getPreferences(Context.MODE_PRIVATE)
 
         val viewModelFactory = Injection.provideViewModelFactory(application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(AddEstateViewModel::class.java)
@@ -70,6 +79,9 @@ class AddEstateActivity : AppCompatActivity() {
             adapter = ArrayAdapter<Estate.EstateType>(this@AddEstateActivity, android.R.layout.simple_list_item_1, Estate.EstateType.values())
         }
         priceEditText = findViewById(R.id.add_estate_price)
+        priceTextView = findViewById<TextView>(R.id.add_estate_price_text_view).apply {
+            text = getString(if (isDollar) R.string.price_dollar else R.string.price_euro)
+        }
         roomsEditText = findViewById(R.id.add_estate_rooms)
         areaEditText = findViewById(R.id.add_estate_area)
         descriptionEditText = findViewById(R.id.add_estate_description)
@@ -108,8 +120,8 @@ class AddEstateActivity : AppCompatActivity() {
         val isSold = soldSwitch.isActivated
 
         if (photos != null) {
-            viewModel.addEstate(address, type, price, rooms, area, description, photos, agent, getPois(), isSold)
-            finish()
+            viewModel.addEstate(address, type, if (isDollar) price else price?.convertToDollar(), rooms, area, description, photos, agent, getPois(), isSold)
+            finish() // TODO: 06/08/2020 Check if all values are not null
         }
     }
 
@@ -119,5 +131,23 @@ class AddEstateActivity : AppCompatActivity() {
         if (parkChip.isChecked) pois.add(AssociatedPOI.POI.PARK)
         if (supermarketChip.isChecked) pois.add(AssociatedPOI.POI.SUPERMARKET)
         return pois
+    }
+
+    override fun didTapConvert(item: MenuItem) {
+        super.didTapConvert(item)
+        priceTextView.text = getString(if (isDollar) R.string.price_dollar else R.string.price_euro)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.convert_menu, menu)
+        menu?.getItem(0)?.setIcon(if (isDollar) R.drawable.euro else R.drawable.dollar)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_convert -> didTapConvert(item)
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

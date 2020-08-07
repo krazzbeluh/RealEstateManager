@@ -15,6 +15,7 @@
         android:onClick="addButtonClicked"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/scrollView2"
+        android:contentDescription="@string/save"
         app:srcCompat="@drawable/add" />
 
     <ScrollView
@@ -66,6 +67,7 @@
                 android:onClick="addPhotoButtonClicked"
                 app:layout_constraintBottom_toBottomOf="@+id/add_estate_photos_recyclerview"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:contentDescription="@string/add_photo"
                 app:srcCompat="@drawable/add" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -126,11 +128,11 @@
                     app:layout_constraintTop_toBottomOf="@+id/add_estate_address" />
 
                 <TextView
-                    android:id="@+id/textView13"
+                    android:id="@+id/add_estate_price_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:labelFor="@id/add_estate_price"
-                    android:text="@string/price"
+                    android:text="@string/price_dollar"
                     android:textColor="#000000"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -148,7 +150,7 @@
                     android:ems="10"
                     android:inputType="number"
                     app:layout_constraintEnd_toEndOf="@+id/add_estate_type"
-                    app:layout_constraintStart_toEndOf="@+id/textView13"
+                    app:layout_constraintStart_toEndOf="@+id/add_estate_price_text_view"
                     app:layout_constraintTop_toBottomOf="@+id/add_estate_type" />
 
                 <TextView
@@ -161,7 +163,7 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/add_estate_rooms"
-                    app:layout_constraintStart_toStartOf="@+id/textView13"
+                    app:layout_constraintStart_toStartOf="@+id/add_estate_price_text_view"
                     app:layout_constraintTop_toTopOf="@+id/add_estate_rooms" />
 
                 <EditText

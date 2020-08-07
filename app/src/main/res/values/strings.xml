@@ -6,7 +6,7 @@
     <string name="photos">Photos</string>
     <string name="surface">Surface (m²)</string>
     <string name="number_rooms">Number of rooms</string>
-    <string name="price">Price ($)</string>
+    <string name="price_dollar">Price ($)</string>
     <string name="location">Location</string>
     <string name="description">Description</string>
     <string name="surface_description">Surface picture</string>
@@ -61,4 +61,7 @@
     <string name="rate">Rate</string>
     <string name="duration_year">Duration (Year)</string>
     <string name="needed_amount">Needed amount</string>
+    <string name="price_euro">Price (€)</string>
+    <string name="simulate_loan">Simulate a real estate loan</string>
+    <string name="save">Save</string>
 </resources>

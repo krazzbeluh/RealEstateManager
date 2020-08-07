@@ -16,6 +16,7 @@
         android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/simulate_loan"
         map:srcCompat="@drawable/wallet" />
 
     <ScrollView
@@ -185,7 +186,7 @@
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/price"
+                android:text="@string/price_dollar"
                 android:textColor="#000000"
                 android:textSize="14sp"
                 android:textStyle="bold"
