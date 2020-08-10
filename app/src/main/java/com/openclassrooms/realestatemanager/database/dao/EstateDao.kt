@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager.database.dao
 
+import android.database.Cursor
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.openclassrooms.realestatemanager.model.Photo
@@ -15,6 +16,9 @@ interface EstateDao {
     @Transaction
     @Query("select * from SimpleEstate")
     fun getEstates(): LiveData<List<Estate>>
+
+    @Query("SELECT * FROM SimpleEstate")
+    fun getEstatesWithCursor(): Cursor
 
     /**
      * INSERT
