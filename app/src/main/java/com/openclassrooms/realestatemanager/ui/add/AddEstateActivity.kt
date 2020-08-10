@@ -29,6 +29,7 @@ import com.openclassrooms.realestatemanager.ui.PhotosRecyclerViewAdapter
 import com.openclassrooms.realestatemanager.ui.dialog.AddressDialogFragment
 import com.openclassrooms.realestatemanager.ui.dialog.photo.PhotoDialogFragment
 import com.openclassrooms.realestatemanager.utils.convertToDollar
+import com.openclassrooms.realestatemanager.utils.showAlert
 import com.openclassrooms.realestatemanager.utils.toEditable
 
 // TODO: 10/08/2020 Edit estate
@@ -124,10 +125,19 @@ class AddEstateActivity : AppCompatActivity(), ConvertibleActivity {
         val agent = agentEditText.text.toString()
         val isSold = soldSwitch.isActivated
 
-        if (photos != null) {
-            viewModel.addEstate(address, type, if (isDollar) price else price?.convertToDollar(), rooms, area, description, photos, agent, getPois(), isSold)
-            finish() // TODO: 06/08/2020 Check if all values are not null
-        }
+        if (photos != null
+                && address != null
+                && type != null
+                && price != null
+                && rooms != null
+                && area != null
+                && description.isNotEmpty()
+                && photos.isNotEmpty()
+                && agent.isNotEmpty()
+                && getPois().isNotEmpty()) {
+            viewModel.addEstate(address, type, if (isDollar) price else price.convertToDollar(), rooms, area, description, photos, agent, getPois(), isSold)
+            finish()
+        } else showAlert(getString(R.string.error), getString(R.string.complete_form))
     }
 
     private fun getPois(): List<AssociatedPOI.POI> {
