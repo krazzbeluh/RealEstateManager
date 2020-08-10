@@ -32,13 +32,13 @@ interface EstateDao {
      * UPDATE
      */
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun updateSimpleEstate(estate: SimpleEstate)
+    fun updateSimpleEstate(estate: SimpleEstate): Int
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun updateAssociatedPOI(poi: AssociatedPOI)
+    fun updateAssociatedPOI(poi: AssociatedPOI): Int
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun updatePhoto(photo: Photo)
+    fun updatePhoto(photo: Photo): Int
 
     /**
      * DELETE
@@ -61,10 +61,11 @@ interface EstateDao {
     }
 
     @Transaction
-    fun updateEstate(estate: Estate) {
-        updateSimpleEstate(estate.estate)
-        estate.nearbyPointsOfInterests.forEach { updateAssociatedPOI(it) }
-        estate.photos.forEach { updatePhoto(it) }
+    fun updateEstate(estate: Estate): Int {
+        var sum = updateSimpleEstate(estate.estate)
+        estate.nearbyPointsOfInterests.forEach { sum += updateAssociatedPOI(it) }
+        estate.photos.forEach { sum += updatePhoto(it) }
+        return sum
     }
 
     @Transaction

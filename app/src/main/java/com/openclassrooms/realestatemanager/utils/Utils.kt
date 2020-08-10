@@ -23,13 +23,10 @@ object Utils {
     /**
      * Conversion de la date d'aujourd'hui en un format plus approprié
      * NOTE : NE PAS SUPPRIMER, A MONTRER DURANT LA SOUTENANCE
-     * @return today date formatted in yyyy/mm/dd
+     * @return today date formatted in dd/mm/yyyy
      */
-    fun getTodayDate(context: Context): String {
-        @Suppress("DEPRECATION") val locale = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            context.resources.configuration.locales.get(0)
-        } else context.resources.configuration.locale
-        val dateFormat: DateFormat = SimpleDateFormat("dd/MM/yyyy", locale)
+    fun getTodayDate(): String {
+        val dateFormat: DateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         return dateFormat.format(Date())
     }
 

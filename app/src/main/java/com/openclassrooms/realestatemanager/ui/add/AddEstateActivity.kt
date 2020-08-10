@@ -6,7 +6,10 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.*
+import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.Spinner
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -14,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
+import com.google.android.material.switchmaterial.SwitchMaterial
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.injection.Injection
 import com.openclassrooms.realestatemanager.model.Address
@@ -27,6 +31,7 @@ import com.openclassrooms.realestatemanager.ui.dialog.photo.PhotoDialogFragment
 import com.openclassrooms.realestatemanager.utils.convertToDollar
 import com.openclassrooms.realestatemanager.utils.toEditable
 
+// TODO: 10/08/2020 Edit estate
 class AddEstateActivity : AppCompatActivity(), ConvertibleActivity {
     companion object {
         @Suppress("unused")
@@ -47,7 +52,7 @@ class AddEstateActivity : AppCompatActivity(), ConvertibleActivity {
     private lateinit var areaEditText: EditText
     private lateinit var descriptionEditText: EditText
     private lateinit var agentEditText: EditText
-    private lateinit var soldSwitch: Switch
+    private lateinit var soldSwitch: SwitchMaterial
 
     private lateinit var schoolChip: Chip
     private lateinit var parkChip: Chip

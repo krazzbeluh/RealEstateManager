@@ -13,6 +13,7 @@ import com.openclassrooms.realestatemanager.model.Photo
 import com.openclassrooms.realestatemanager.model.estate.AssociatedPOI
 import com.openclassrooms.realestatemanager.model.estate.SimpleEstate
 
+// TODO: 10/08/2020 Make ContentProvider
 @Database(entities = [SimpleEstate::class, AssociatedPOI::class, Photo::class], version = 1, exportSchema = false)
 @TypeConverters(EstateTypeConverter::class, POIConverter::class, UriConverter::class)
 abstract class RealEstateManagerDatabase : RoomDatabase() {

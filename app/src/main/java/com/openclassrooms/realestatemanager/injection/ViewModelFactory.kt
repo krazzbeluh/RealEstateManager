@@ -4,10 +4,8 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.openclassrooms.realestatemanager.repository.EstateDataRepository
-import com.openclassrooms.realestatemanager.repository.LocalStorageRepository
 import com.openclassrooms.realestatemanager.repository.LocationRepository
 import com.openclassrooms.realestatemanager.ui.add.AddEstateViewModel
-import com.openclassrooms.realestatemanager.ui.dialog.photo.PhotoDialogViewModel
 import com.openclassrooms.realestatemanager.ui.loan.LoanViewModel
 import com.openclassrooms.realestatemanager.ui.main.MainViewModel
 import com.openclassrooms.realestatemanager.ui.map.MapViewModel
@@ -18,7 +16,6 @@ class ViewModelFactory private constructor(
         private val application: Application,
         private val estateDataRepository: EstateDataRepository,
         private val locationRepository: LocationRepository,
-        private val localStorageRepository: LocalStorageRepository,
         private val executor: Executor
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -38,12 +35,6 @@ class ViewModelFactory private constructor(
                             Executor::class.java,
                             Application::class.java
                     ).newInstance(estateDataRepository, executor, application)
-                }
-                PhotoDialogViewModel::class.java.isAssignableFrom(modelClass) -> {
-                    modelClass.getConstructor(
-                            LocalStorageRepository::class.java,
-                            Application::class.java
-                    ).newInstance(localStorageRepository, application)
                 }
                 MapViewModel::class.java.isAssignableFrom(modelClass) -> {
                     modelClass.getConstructor(
@@ -75,7 +66,6 @@ class ViewModelFactory private constructor(
                 application: Application,
                 estateDataRepository: EstateDataRepository,
                 locationRepository: LocationRepository,
-                localStorageRepository: LocalStorageRepository,
                 executor: Executor
         ): ViewModelFactory {
             if (instance == null) {
@@ -83,7 +73,6 @@ class ViewModelFactory private constructor(
                         application,
                         estateDataRepository,
                         locationRepository,
-                        localStorageRepository,
                         executor
                 )
             }

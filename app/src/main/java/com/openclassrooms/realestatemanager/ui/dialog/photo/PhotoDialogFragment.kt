@@ -17,12 +17,10 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.openclassrooms.realestatemanager.R
-import com.openclassrooms.realestatemanager.injection.Injection
 import com.openclassrooms.realestatemanager.model.Photo
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
@@ -46,7 +44,6 @@ private constructor(val completionHandler: (Photo) -> Unit) : DialogFragment() {
 
     private lateinit var descriptionTextView: TextView
     private lateinit var photoImageButton: ImageButton
-    private lateinit var viewModel: PhotoDialogViewModel
     private var image: String? = null
 
     override fun onCreateView(
@@ -59,9 +56,6 @@ private constructor(val completionHandler: (Photo) -> Unit) : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val viewModelFactory = Injection.provideViewModelFactory(requireActivity().application)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(PhotoDialogViewModel::class.java)
 
         dialog?.setTitle(getString(R.string.add_photo))
 

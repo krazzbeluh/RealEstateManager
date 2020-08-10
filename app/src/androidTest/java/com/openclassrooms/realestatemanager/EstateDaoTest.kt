@@ -23,7 +23,7 @@ class EstateDaoTest {
     private lateinit var database: RealEstateManagerDatabase
 
     private val addressForTests = Address(12, "rue de la paix", "Paris", 75000, "France")
-    val simpleEstate = SimpleEstate(0, addressForTests, Estate.EstateType.FLAT, 987654, 3, 234, "Little apartment in Paris", "Paul Leclerc", false)
+    private val simpleEstate = SimpleEstate(0, addressForTests, Estate.EstateType.FLAT, 987654, 3, 234, "Little apartment in Paris", "Paul Leclerc", false)
     private val estateForTests = Estate(simpleEstate)
 
     @get:Rule
@@ -43,7 +43,7 @@ class EstateDaoTest {
         database.estateDao().insertEstate(estateForTests)
 
         val estates = LiveDataTestUtil.getValue(database.estateDao().getEstates())
-        assertEquals(estates.first(), estateForTests)
+        assertEquals(estates?.first(), estateForTests)
     }
 
     @After
