@@ -3,6 +3,8 @@ package com.openclassrooms.realestatemanager.ui.search.result
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.RecyclerView
@@ -48,10 +50,6 @@ class SearchResultListActivity : EstatesContainerActivity() {
         setSupportActionBar(toolbar)
         toolbar.title = title
         if (findViewById<View?>(R.id.item_detail_container) != null) {
-            // The detail container view will be present only in the
-            // large-screen layouts (res/values-w900dp).
-            // If this view is present, then the
-            // activity should be in two-pane mode.
             mTwoPane = true
         }
         recyclerView = findViewById(R.id.searchresultactivity_list)
@@ -62,6 +60,24 @@ class SearchResultListActivity : EstatesContainerActivity() {
         adapter = MainEstateListRecyclerViewAdapter(this, mTwoPane)
         recyclerView.adapter = adapter
         adapter.estates = estates
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.convert_menu, menu)
+        menu?.getItem(0)?.setIcon(if (isDollar) R.drawable.euro else R.drawable.dollar)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_convert -> didTapConvert(item)
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun didTapConvert(item: MenuItem) {
+        super.didTapConvert(item)
+        convertRecyclerViewItems()
     }
 
     lateinit var estate: Estate

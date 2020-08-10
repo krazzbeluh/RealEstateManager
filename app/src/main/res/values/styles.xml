@@ -6,6 +6,9 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="drawableTint">@color/white</item>
+        <item name="drawerArrowStyle">@color/white</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -17,10 +20,10 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="AppTheme.ToolbarStyle">
+    <!--<style name="AppTheme.ToolbarStyle">
         <item name="android:textColorPrimary">@color/white</item>
         <item name="drawableTint">@color/white</item>
         <item name="drawerArrowStyle">@color/white</item>
-    </style>
+    </style>-->
 
 </resources>
