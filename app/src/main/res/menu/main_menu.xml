@@ -8,6 +8,12 @@
             android:title=""
             app:showAsAction="ifRoom" />
         <item
+            android:id="@+id/menu_edit"
+            android:icon="@drawable/edit"
+            android:title=""
+            android:visible="false"
+            app:showAsAction="ifRoom" />
+        <item
             android:id="@+id/menu_map"
             android:icon="@drawable/location"
             android:title="@string/find"

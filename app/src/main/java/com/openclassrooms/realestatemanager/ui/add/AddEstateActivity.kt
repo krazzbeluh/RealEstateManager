@@ -28,11 +28,11 @@ import com.openclassrooms.realestatemanager.ui.ConvertibleActivity
 import com.openclassrooms.realestatemanager.ui.PhotosRecyclerViewAdapter
 import com.openclassrooms.realestatemanager.ui.dialog.AddressDialogFragment
 import com.openclassrooms.realestatemanager.ui.dialog.photo.PhotoDialogFragment
+import com.openclassrooms.realestatemanager.ui.main.detail.EstateDetailFragment
 import com.openclassrooms.realestatemanager.utils.convertToDollar
 import com.openclassrooms.realestatemanager.utils.showAlert
 import com.openclassrooms.realestatemanager.utils.toEditable
 
-// TODO: 10/08/2020 Edit estate
 class AddEstateActivity : AppCompatActivity(), ConvertibleActivity {
     companion object {
         @Suppress("unused")
@@ -43,10 +43,12 @@ class AddEstateActivity : AppCompatActivity(), ConvertibleActivity {
     override lateinit var preferences: SharedPreferences
 
     private lateinit var viewModel: AddEstateViewModel
+    private var estate: Estate? = null
     private val photos = MutableLiveData(mutableListOf<Photo>())
 
     var address: Address? = null
     private lateinit var typeSpinner: Spinner
+    private lateinit var spinnerAdapter: ArrayAdapter<Estate.EstateType>
     private lateinit var priceTextView: TextView
     private lateinit var priceEditText: EditText
     private lateinit var roomsEditText: EditText
@@ -66,6 +68,8 @@ class AddEstateActivity : AppCompatActivity(), ConvertibleActivity {
 
         preferences = getPreferences(Context.MODE_PRIVATE)
 
+        spinnerAdapter = ArrayAdapter(this@AddEstateActivity, android.R.layout.simple_list_item_1, Estate.EstateType.values())
+
         val viewModelFactory = Injection.provideViewModelFactory(application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(AddEstateViewModel::class.java)
 
@@ -82,7 +86,7 @@ class AddEstateActivity : AppCompatActivity(), ConvertibleActivity {
         }
 
         typeSpinner = findViewById<Spinner>(R.id.add_estate_type).apply {
-            adapter = ArrayAdapter<Estate.EstateType>(this@AddEstateActivity, android.R.layout.simple_list_item_1, Estate.EstateType.values())
+            adapter = spinnerAdapter
         }
         priceEditText = findViewById(R.id.add_estate_price)
         priceTextView = findViewById<TextView>(R.id.add_estate_price_text_view).apply {
@@ -104,6 +108,24 @@ class AddEstateActivity : AppCompatActivity(), ConvertibleActivity {
                 if (adapter is PhotosRecyclerViewAdapter)
                     (adapter as PhotosRecyclerViewAdapter).setPhotos(photos)
             })
+        }
+
+        estate = (intent.getSerializableExtra(EstateDetailFragment.ARG_ESTATE) as? Estate).apply {
+            if (this == null) return@apply
+            this@AddEstateActivity.photos.value?.addAll(this.photos)
+            this@AddEstateActivity.address = this.estate.address
+            this@AddEstateActivity.typeSpinner.setSelection(spinnerAdapter.getPosition(estate.type))
+            this@AddEstateActivity.priceEditText.setText(estate.price.toString())
+            this@AddEstateActivity.roomsEditText.setText(estate.rooms.toString())
+            this@AddEstateActivity.areaEditText.setText(estate.area.toString())
+            this@AddEstateActivity.descriptionEditText.setText(estate.description)
+            this@AddEstateActivity.agentEditText.setText(estate.agent)
+            this@AddEstateActivity.soldSwitch.isActivated = estate.sold
+            this.nearbyPointsOfInterests.forEach { poi ->
+                if (poi.poi == AssociatedPOI.POI.SCHOOL) this@AddEstateActivity.schoolChip.isChecked = true
+                if (poi.poi == AssociatedPOI.POI.PARK) this@AddEstateActivity.parkChip.isChecked = true
+                if (poi.poi == AssociatedPOI.POI.SUPERMARKET) this@AddEstateActivity.supermarketChip.isChecked = true
+            }
         }
     }
 
@@ -135,7 +157,7 @@ class AddEstateActivity : AppCompatActivity(), ConvertibleActivity {
                 && photos.isNotEmpty()
                 && agent.isNotEmpty()
                 && getPois().isNotEmpty()) {
-            viewModel.addEstate(address, type, if (isDollar) price else price.convertToDollar(), rooms, area, description, photos, agent, getPois(), isSold)
+            viewModel.addEstate(address, type, if (isDollar) price else price.convertToDollar(), rooms, area, description, photos, agent, getPois(), isSold, estate?.estate?.id)
             finish()
         } else showAlert(getString(R.string.error), getString(R.string.complete_form))
     }

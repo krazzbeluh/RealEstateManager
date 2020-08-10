@@ -301,7 +301,7 @@
                     app:layout_constraintStart_toEndOf="@+id/add_estate_agent_label"
                     app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
 
-                <Switch
+                <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/add_estate_sold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

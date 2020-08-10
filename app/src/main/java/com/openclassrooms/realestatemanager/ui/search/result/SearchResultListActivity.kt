@@ -63,22 +63,14 @@ class SearchResultListActivity : EstatesContainerActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        this.menu = menu
         menuInflater.inflate(R.menu.convert_menu, menu)
         menu?.getItem(0)?.setIcon(if (isDollar) R.drawable.euro else R.drawable.dollar)
         return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menu_convert -> didTapConvert(item)
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     override fun didTapConvert(item: MenuItem) {
         super.didTapConvert(item)
         convertRecyclerViewItems()
     }
-
-    lateinit var estate: Estate
 }

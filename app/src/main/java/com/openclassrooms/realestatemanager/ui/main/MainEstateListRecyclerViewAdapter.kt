@@ -58,6 +58,7 @@ class MainEstateListRecyclerViewAdapter internal constructor(private val parentA
                         }
                     }
                     parentActivity.fragment = fragment
+                    parentActivity.estate = estate
                 } else {
                     val context = view.context
                     val intent = Intent(context, MainDetailActivity::class.java)

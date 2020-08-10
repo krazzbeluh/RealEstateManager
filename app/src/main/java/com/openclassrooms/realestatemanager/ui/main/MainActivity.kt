@@ -63,19 +63,14 @@ class MainActivity : EstatesContainerActivity() {
         val toolbar = findViewById<View>(R.id.main_toolbar) as Toolbar
         setSupportActionBar(toolbar)
         toolbar.title = title
-        if (findViewById<View?>(R.id.item_detail_container) != null) {
-            // The detail container view will be present only in the
-            // large-screen layouts (res/values-w900dp).
-            // If this view is present, then the
-            // activity should be in two-pane mode.
-            mTwoPane = true
-        }
+        mTwoPane = (findViewById<View?>(R.id.item_detail_container) != null)
         recyclerView = findViewById(R.id.item_list)
         setupRecyclerView(recyclerView)
         checkAddressForEstates()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        this.menu = menu
         menuInflater.inflate(R.menu.main_menu, menu)
         menu?.getItem(0)?.setIcon(if (isDollar) R.drawable.euro else R.drawable.dollar)
         return super.onCreateOptionsMenu(menu)
@@ -85,7 +80,6 @@ class MainActivity : EstatesContainerActivity() {
         when (item.itemId) {
             R.id.menu_map -> openMapActivity()
             R.id.menu_search -> openSearchActivity()
-            R.id.menu_convert -> didTapConvert(item)
             else -> return super.onOptionsItemSelected(item)
         }
         return false
@@ -133,8 +127,6 @@ class MainActivity : EstatesContainerActivity() {
             convertRecyclerViewItems()
         })
     }
-
-    lateinit var estate: Estate
 
     private fun checkAddressForEstates() {
         viewModel.getEstates().observe(this, Observer { estates ->

@@ -20,10 +20,4 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <!--<style name="AppTheme.ToolbarStyle">
-        <item name="android:textColorPrimary">@color/white</item>
-        <item name="drawableTint">@color/white</item>
-        <item name="drawerArrowStyle">@color/white</item>
-    </style>-->
-
 </resources>
