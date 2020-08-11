@@ -21,6 +21,8 @@ class SearchResultListActivity : EstatesContainerActivity() {
         private val TAG = SearchResultListActivity::class.java.simpleName
     }
 
+    override val context = this as Context
+
     private lateinit var estates: List<Estate>
     override lateinit var adapter: MainEstateListRecyclerViewAdapter
     override lateinit var recyclerView: RecyclerView
@@ -65,7 +67,7 @@ class SearchResultListActivity : EstatesContainerActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         this.menu = menu
         menuInflater.inflate(R.menu.convert_menu, menu)
-        menu?.getItem(0)?.setIcon(if (isDollar) R.drawable.euro else R.drawable.dollar)
+        menu?.findItem(R.id.menu_convert)?.setIcon(if (isDollar) R.drawable.euro else R.drawable.dollar)
         return super.onCreateOptionsMenu(menu)
     }
 

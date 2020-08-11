@@ -1,6 +1,5 @@
 package com.openclassrooms.realestatemanager.ui
 
-import android.content.Context
 import android.content.Intent
 import android.view.Menu
 import android.view.MenuItem
@@ -14,7 +13,6 @@ import com.openclassrooms.realestatemanager.ui.main.detail.EstateDetailFragment
 import com.openclassrooms.realestatemanager.ui.main.detail.EstateDetailFragment.Companion.ARG_ESTATE
 
 abstract class EstatesContainerActivity : AppCompatActivity(), ConvertibleActivity {
-    override val context: Context = this
     abstract var adapter: MainEstateListRecyclerViewAdapter
     abstract var recyclerView: RecyclerView
     var estate: Estate? = null

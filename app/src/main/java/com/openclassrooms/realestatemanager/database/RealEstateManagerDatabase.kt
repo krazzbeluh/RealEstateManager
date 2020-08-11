@@ -8,13 +8,12 @@ import androidx.room.TypeConverters
 import com.openclassrooms.realestatemanager.database.dao.EstateDao
 import com.openclassrooms.realestatemanager.database.typeconverter.EstateTypeConverter
 import com.openclassrooms.realestatemanager.database.typeconverter.POIConverter
-import com.openclassrooms.realestatemanager.database.typeconverter.UriConverter
 import com.openclassrooms.realestatemanager.model.Photo
 import com.openclassrooms.realestatemanager.model.estate.AssociatedPOI
 import com.openclassrooms.realestatemanager.model.estate.SimpleEstate
 
 @Database(entities = [SimpleEstate::class, AssociatedPOI::class, Photo::class], version = 1, exportSchema = false)
-@TypeConverters(EstateTypeConverter::class, POIConverter::class, UriConverter::class)
+@TypeConverters(EstateTypeConverter::class, POIConverter::class)
 abstract class RealEstateManagerDatabase : RoomDatabase() {
     abstract fun estateDao(): EstateDao
 

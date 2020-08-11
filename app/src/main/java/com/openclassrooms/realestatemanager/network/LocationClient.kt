@@ -8,7 +8,7 @@ class LocationClient {
     companion object {
         @Suppress("unused")
         private val TAG = LocationClient::class.java.simpleName
-        private val BASE_URL = "https://nominatim.openstreetmap.org"
+        private const val BASE_URL = "https://nominatim.openstreetmap.org"
     }
 
     private val retrofit = Retrofit.Builder()

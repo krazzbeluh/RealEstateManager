@@ -72,7 +72,7 @@ class MainActivity : EstatesContainerActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         this.menu = menu
         menuInflater.inflate(R.menu.main_menu, menu)
-        menu?.getItem(0)?.setIcon(if (isDollar) R.drawable.euro else R.drawable.dollar)
+        menu?.findItem(R.id.menu_convert)?.setIcon(if (isDollar) R.drawable.euro else R.drawable.dollar)
         return super.onCreateOptionsMenu(menu)
     }
 

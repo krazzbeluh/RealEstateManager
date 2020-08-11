@@ -7,7 +7,6 @@
     tools:context=".ui.add.AddEstateActivity">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -57,7 +56,6 @@
                 app:layout_constraintGuide_percent="0.25" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/add_estate_add_photo_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -71,7 +69,6 @@
                 app:srcCompat="@drawable/add" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="8dp"

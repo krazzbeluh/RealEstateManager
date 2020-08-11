@@ -177,7 +177,7 @@ class AddEstateActivity : AppCompatActivity(), ConvertibleActivity {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.convert_menu, menu)
-        menu?.getItem(0)?.setIcon(if (isDollar) R.drawable.euro else R.drawable.dollar)
+        menu?.findItem(R.id.menu_convert)?.setIcon(if (isDollar) R.drawable.euro else R.drawable.dollar)
         return super.onCreateOptionsMenu(menu)
     }
 

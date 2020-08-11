@@ -8,9 +8,8 @@ import com.google.android.gms.maps.model.LatLng
 import com.openclassrooms.realestatemanager.model.estate.Estate
 import com.openclassrooms.realestatemanager.repository.EstateDataRepository
 import com.openclassrooms.realestatemanager.repository.LocationRepository
-import java.util.concurrent.Executor
 
-class MainViewModel(private val estateDataRepository: EstateDataRepository, private val locationRepository: LocationRepository, private val executor: Executor, application: Application) : AndroidViewModel(application) {
+class MainViewModel(private val estateDataRepository: EstateDataRepository, private val locationRepository: LocationRepository, application: Application) : AndroidViewModel(application) {
     companion object {
         val TAG = MainViewModel::class.java.simpleName
     }

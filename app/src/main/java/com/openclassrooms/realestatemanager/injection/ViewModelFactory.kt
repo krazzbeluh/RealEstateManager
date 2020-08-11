@@ -25,9 +25,8 @@ class ViewModelFactory private constructor(
                     modelClass.getConstructor(
                             EstateDataRepository::class.java,
                             LocationRepository::class.java,
-                            Executor::class.java,
                             Application::class.java
-                    ).newInstance(estateDataRepository, locationRepository, executor, application)
+                    ).newInstance(estateDataRepository, locationRepository, application)
                 }
                 AddEstateViewModel::class.java.isAssignableFrom(modelClass) -> {
                     modelClass.getConstructor(

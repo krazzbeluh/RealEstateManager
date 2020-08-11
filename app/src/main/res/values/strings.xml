@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Real Estate Manager</string>
-    <string name="title_main_activity">Items</string>
-    <string name="title_main_detail">Item Detail</string>
     <string name="estate_picture_description">Estate photo</string>
     <string name="photos">Photos</string>
     <string name="surface">Surface (m²)</string>
@@ -49,7 +47,6 @@
     <string name="distance">Max distance (km)</string>
     <string name="order_by">Order by</string>
     <string name="title_searchresultactivity_list">SearchResult</string>
-    <string name="title_searchresultactivity_detail">SearchResultActivity Detail</string>
     <string name="error">Error !</string>
     <string name="error_occurred">An error occurred while performing action.</string>
     <string name="ascending">Ascending</string>
