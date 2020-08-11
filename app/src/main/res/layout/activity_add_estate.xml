@@ -12,11 +12,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:contentDescription="@string/save"
         android:onClick="addButtonClicked"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/scrollView2"
-        android:contentDescription="@string/save"
-        app:srcCompat="@drawable/add" />
+        app:srcCompat="@drawable/save" />
 
     <ScrollView
         android:id="@+id/scrollView2"

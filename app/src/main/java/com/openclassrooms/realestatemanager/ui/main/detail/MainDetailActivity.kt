@@ -8,7 +8,9 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.openclassrooms.realestatemanager.R
+import com.openclassrooms.realestatemanager.model.estate.Estate
 import com.openclassrooms.realestatemanager.ui.ConvertibleActivity
+import com.openclassrooms.realestatemanager.ui.add.AddEstateActivity
 import com.openclassrooms.realestatemanager.ui.main.MainActivity
 import com.openclassrooms.realestatemanager.ui.main.detail.EstateDetailFragment.Companion.ARG_ESTATE
 
@@ -22,6 +24,7 @@ class MainDetailActivity : AppCompatActivity(), ConvertibleActivity {
     override val context: Context = this
     override lateinit var preferences: SharedPreferences
     private lateinit var fragment: EstateDetailFragment
+    private lateinit var estate: Estate
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,10 +34,12 @@ class MainDetailActivity : AppCompatActivity(), ConvertibleActivity {
 
         if (savedInstanceState == null) {
             // Create the detail fragment and add it to the activity
-            // using a fragment transaction.
+            // using a fragment transaction
+            estate = intent.getSerializableExtra(ARG_ESTATE) as? Estate
+                    ?: throw NullPointerException("Estate should not be null !")
             val arguments = Bundle()
             arguments.putSerializable(ARG_ESTATE,
-                    intent.getSerializableExtra(ARG_ESTATE))
+                    estate)
             fragment = EstateDetailFragment(isDollar)
             fragment.arguments = arguments
             supportFragmentManager.beginTransaction()
@@ -46,22 +51,18 @@ class MainDetailActivity : AppCompatActivity(), ConvertibleActivity {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.convert_menu, menu)
         menu?.getItem(0)?.setIcon(if (isDollar) R.drawable.euro else R.drawable.dollar)
+        menu?.findItem(R.id.menu_edit)?.isVisible = true
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            android.R.id.home -> {
-                // This ID represents the Home or Up button. In the case of this
-                // activity, the Up button is shown. For
-                // more details, see the Navigation pattern on Android Design:
-                //
-                // http://developer.android.com/design/patterns/navigation.html#up-vs-back
-                //
-                navigateUpTo(Intent(this, MainActivity::class.java))
-                return true
-            }
             R.id.menu_convert -> didTapConvert(item)
+            R.id.menu_edit -> {
+                val intent = Intent(this, AddEstateActivity::class.java)
+                intent.putExtra(ARG_ESTATE, estate)
+                startActivity(intent)
+            }
         }
         return super.onOptionsItemSelected(item)
     }

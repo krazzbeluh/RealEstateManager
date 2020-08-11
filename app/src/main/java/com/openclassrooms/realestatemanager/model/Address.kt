@@ -13,9 +13,9 @@ data class Address(val number: Int, val route: String, val city: String, val pos
     }
 
     fun getLocation(): LatLng? = if (lat != null && lng != null) LatLng(lat!!, lng!!) else null
-    fun setLocation(location: LatLng) {
-        this.lat = location.latitude
-        this.lng = location.longitude
+    fun setLocation(location: LatLng?) {
+        this.lat = location?.latitude
+        this.lng = location?.longitude
     }
 
     fun getLat(): Double? {
