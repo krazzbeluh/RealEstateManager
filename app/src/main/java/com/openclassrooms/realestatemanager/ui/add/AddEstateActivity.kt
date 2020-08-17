@@ -29,6 +29,7 @@ import com.openclassrooms.realestatemanager.ui.PhotosRecyclerViewAdapter
 import com.openclassrooms.realestatemanager.ui.dialog.AddressDialogFragment
 import com.openclassrooms.realestatemanager.ui.dialog.photo.PhotoDialogFragment
 import com.openclassrooms.realestatemanager.ui.main.detail.EstateDetailFragment
+import com.openclassrooms.realestatemanager.utils.PREFERENCES_NAME
 import com.openclassrooms.realestatemanager.utils.convertToDollar
 import com.openclassrooms.realestatemanager.utils.showAlert
 import com.openclassrooms.realestatemanager.utils.toEditable
@@ -66,7 +67,7 @@ class AddEstateActivity : AppCompatActivity(), ConvertibleActivity {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_estate)
 
-        preferences = getPreferences(Context.MODE_PRIVATE)
+        preferences = getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
 
         spinnerAdapter = ArrayAdapter(this@AddEstateActivity, android.R.layout.simple_list_item_1, Estate.EstateType.values())
 

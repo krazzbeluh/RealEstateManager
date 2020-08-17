@@ -18,6 +18,7 @@ import com.openclassrooms.realestatemanager.model.estate.Estate
 import com.openclassrooms.realestatemanager.ui.ConvertibleActivity
 import com.openclassrooms.realestatemanager.ui.main.detail.EstateDetailFragment.Companion.ARG_ESTATE
 import com.openclassrooms.realestatemanager.ui.search.result.SearchResultListActivity
+import com.openclassrooms.realestatemanager.utils.PREFERENCES_NAME
 import com.openclassrooms.realestatemanager.utils.convertToEuro
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -58,7 +59,7 @@ class AdvancedSearchActivity : AppCompatActivity(), ConvertibleActivity {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_advanced_search)
 
-        preferences = getPreferences(Context.MODE_PRIVATE)
+        preferences = getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
 
         priceTextView = findViewById(R.id.advanced_search_price_textview)
         priceRangeSeekBar = findViewById(R.id.advanced_search_price_range_seekbar)

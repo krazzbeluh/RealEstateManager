@@ -13,6 +13,7 @@ import com.openclassrooms.realestatemanager.model.estate.Estate
 import com.openclassrooms.realestatemanager.ui.EstatesContainerActivity
 import com.openclassrooms.realestatemanager.ui.main.MainEstateListRecyclerViewAdapter
 import com.openclassrooms.realestatemanager.ui.main.detail.EstateDetailFragment
+import com.openclassrooms.realestatemanager.utils.PREFERENCES_NAME
 import com.openclassrooms.realestatemanager.utils.showAlert
 
 class SearchResultListActivity : EstatesContainerActivity() {
@@ -37,7 +38,7 @@ class SearchResultListActivity : EstatesContainerActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_result_list)
 
-        preferences = getPreferences(Context.MODE_PRIVATE)
+        preferences = getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
 
         @Suppress("UNCHECKED_CAST") val extras = intent.getSerializableExtra(EstateDetailFragment.ARG_ESTATE) as? List<Estate>
         if (extras != null) {

@@ -11,9 +11,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
 
-/**
- * Created by Philippe on 21/02/2018.
- */
+const val PREFERENCES_NAME = "GLOBAL_PREFERENCES"
+const val IS_DOLLAR = "IS_DOLLAR_UNIT"
+
 fun Int.convertToEuro() = (this * 0.812).roundToInt()
 fun Int.convertToDollar() = (this / 0.812).roundToInt()
 

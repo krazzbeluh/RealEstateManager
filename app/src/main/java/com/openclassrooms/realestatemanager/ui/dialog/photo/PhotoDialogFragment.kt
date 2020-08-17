@@ -71,7 +71,7 @@ private constructor(val completionHandler: (Photo) -> Unit) : DialogFragment() {
     }
 
     private fun imageButtonTapped(@Suppress("UNUSED_PARAMETER") v: View) {
-        if (EasyPermissions.hasPermissions(requireContext() /* TODO: Ask Nicolas */, PERM))
+        if (EasyPermissions.hasPermissions(requireContext(), PERM))
             fetchImageInLibrary()
         else EasyPermissions.requestPermissions(
                 this,

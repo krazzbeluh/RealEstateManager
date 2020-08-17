@@ -12,6 +12,7 @@ import com.openclassrooms.realestatemanager.model.estate.Estate
 import com.openclassrooms.realestatemanager.ui.ConvertibleActivity
 import com.openclassrooms.realestatemanager.ui.add.AddEstateActivity
 import com.openclassrooms.realestatemanager.ui.main.detail.EstateDetailFragment.Companion.ARG_ESTATE
+import com.openclassrooms.realestatemanager.utils.PREFERENCES_NAME
 
 class MainDetailActivity : AppCompatActivity(), ConvertibleActivity {
     override val context: Context = this
@@ -23,7 +24,7 @@ class MainDetailActivity : AppCompatActivity(), ConvertibleActivity {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_detail)
 
-        preferences = getPreferences(Context.MODE_PRIVATE)
+        preferences = getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
 
         if (savedInstanceState == null) {
             estate = intent.getSerializableExtra(ARG_ESTATE) as? Estate

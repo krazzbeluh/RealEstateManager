@@ -20,6 +20,7 @@ import com.openclassrooms.realestatemanager.ui.EstatesContainerActivity
 import com.openclassrooms.realestatemanager.ui.add.AddEstateActivity
 import com.openclassrooms.realestatemanager.ui.map.MapActivity
 import com.openclassrooms.realestatemanager.ui.search.AdvancedSearchActivity
+import com.openclassrooms.realestatemanager.utils.PREFERENCES_NAME
 import com.openclassrooms.realestatemanager.utils.Utils
 import com.openclassrooms.realestatemanager.utils.showAlert
 import kotlinx.coroutines.CoroutineScope
@@ -56,7 +57,7 @@ class MainActivity : EstatesContainerActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        preferences = getPreferences(Context.MODE_PRIVATE)
+        preferences = getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
         val viewModelFactory = Injection.provideViewModelFactory(application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
