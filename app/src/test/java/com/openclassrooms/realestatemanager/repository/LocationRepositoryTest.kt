@@ -1,6 +1,6 @@
 package com.openclassrooms.realestatemanager.repository
 
-/*class LocationRepositoryTest() {
+/*class LocationRepositoryTest() { todo Ask Nicolas
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 

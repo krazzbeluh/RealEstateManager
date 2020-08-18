@@ -18,7 +18,7 @@ class MainViewModel(private val estateDataRepository: EstateDataRepository, priv
         return estateDataRepository.getEstates()
     }
 
-    suspend fun checkAddresses(estates: List<Estate>) {
+    suspend fun checkAddresses(estates: List<Estate>) { // TODO: 18/08/2020 test
         estates.forEach { estate ->
             val locationResponse = locationRepository.checkAddress(estate.estate.address)
             if (!locationResponse.isValid()) return@forEach
