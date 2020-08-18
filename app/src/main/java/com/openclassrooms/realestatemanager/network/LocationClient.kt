@@ -4,7 +4,7 @@ import com.openclassrooms.realestatemanager.model.Address
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class LocationClient {
+open class LocationClient {
     companion object {
         @Suppress("unused")
         private val TAG = LocationClient::class.java.simpleName

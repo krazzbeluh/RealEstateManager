@@ -7,6 +7,7 @@ import android.net.Uri
 import com.openclassrooms.realestatemanager.database.RealEstateManagerDatabase
 import com.openclassrooms.realestatemanager.model.estate.Estate
 
+
 class EstateContentProvider : ContentProvider() {
     override fun onCreate() = true
     override fun insert(uri: Uri, values: ContentValues?): Nothing? = null
@@ -14,7 +15,7 @@ class EstateContentProvider : ContentProvider() {
     override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?) = 0
 
     override fun query(uri: Uri, projection: Array<out String>?, selection: String?, selectionArgs: Array<out String>?, sortOrder: String?): Cursor? {
-        val exception = IllegalArgumentException("Failed to query row for uri $uri")
+        val exception = IllegalArgumentException("Failed to query uri $uri")
         RealEstateManagerDatabase.getInstance(context
                 ?: throw exception).estateDao().getEstatesWithCursor().apply {
             setNotificationUri(context?.contentResolver, uri)
@@ -26,5 +27,7 @@ class EstateContentProvider : ContentProvider() {
 
     companion object {
         const val AUTHORITY = "com.openclassrooms.realestatemanager.provider"
+        private val TABLE_NAME = Estate::class.java.simpleName
+        val URI_ITEM = Uri.parse("content://$AUTHORITY/$TABLE_NAME")
     }
 }

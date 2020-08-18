@@ -41,12 +41,12 @@ object Utils {
                 ?: return false
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val networkCapabilities = connectivityManager.activeNetwork ?: return false
-            val actNw = connectivityManager.getNetworkCapabilities(networkCapabilities)
+            val network = connectivityManager.activeNetwork ?: return false
+            val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
                     ?: return false
-            return actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
-                    || actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
-                    || actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
+            return networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+                    || networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
+                    || networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
         } else {
             connectivityManager.run {
                 @Suppress("DEPRECATION")

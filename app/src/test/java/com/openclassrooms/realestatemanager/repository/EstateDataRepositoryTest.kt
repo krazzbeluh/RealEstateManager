@@ -5,9 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.openclassrooms.realestatemanager.database.dao.EstateDao
-import com.openclassrooms.realestatemanager.model.Address
-import com.openclassrooms.realestatemanager.model.estate.Estate
-import com.openclassrooms.realestatemanager.model.estate.SimpleEstate
+import com.openclassrooms.realestatemanager.utils.estate
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -24,25 +22,6 @@ class EstateDataRepositoryTest {
         estateDataRepository = EstateDataRepository(estateDao)
     }
 
-    private val estate = Estate(SimpleEstate(
-            0,
-            Address(
-                    12,
-                    "rue des tests",
-                    "Android",
-                    75903,
-                    "Google",
-                    null,
-                    null
-            ),
-            Estate.EstateType.FLAT,
-            12,
-            2,
-            12,
-            "Description",
-            "Paul Leclerc",
-            true
-    ))
     private val estateList = listOf(estate)
     private val estateDao = mock<EstateDao> {
         on { getEstates() } doReturn MutableLiveData(estateList)
