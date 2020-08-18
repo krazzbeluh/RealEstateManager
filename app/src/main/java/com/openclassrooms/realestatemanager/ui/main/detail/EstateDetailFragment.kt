@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -23,8 +22,6 @@ class EstateDetailFragment(private val isInitiallyDollar: Boolean) : androidx.fr
         const val ARG_ESTATE = "estate"
     }
 
-    private lateinit var viewModel: MainDetailViewModel
-
     private lateinit var estate: Estate
     private lateinit var priceTextView: TextView
 
@@ -32,8 +29,6 @@ class EstateDetailFragment(private val isInitiallyDollar: Boolean) : androidx.fr
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        viewModel = ViewModelProvider(this).get(MainDetailViewModel::class.java)
 
         arguments?.let {
             estate = (it.getSerializable(ARG_ESTATE) as? Estate)
