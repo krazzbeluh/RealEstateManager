@@ -57,7 +57,7 @@ class MainActivity : EstatesContainerActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        preferences = getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
+        preferences = getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE) // TODO: 18/08/2020 Ask Nicolas
         val viewModelFactory = Injection.provideViewModelFactory(application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
