@@ -1,6 +1,7 @@
 package com.openclassrooms.realestatemanager.utils
 
 import com.openclassrooms.realestatemanager.model.Address
+import com.openclassrooms.realestatemanager.model.Photo
 import com.openclassrooms.realestatemanager.model.estate.Estate
 import com.openclassrooms.realestatemanager.model.estate.SimpleEstate
 import com.openclassrooms.realestatemanager.network.response.LocationResponse
@@ -24,5 +25,8 @@ val estate = Estate(SimpleEstate(
         "Description",
         "Paul Leclerc",
         true
-))
+)).apply {
+    nearbyPointsOfInterests = mutableListOf()
+    photos = mutableListOf(Photo(0, 0, "Test.ts", "Fake photo for tests"))
+}
 val locationResponse = LocationResponse()

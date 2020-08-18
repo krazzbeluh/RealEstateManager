@@ -3,8 +3,8 @@ package com.openclassrooms.realestatemanager.repository
 import com.openclassrooms.realestatemanager.database.dao.EstateDao
 import com.openclassrooms.realestatemanager.model.estate.Estate
 
-class EstateDataRepository(private val estateDao: EstateDao) {
-    fun getEstates() = estateDao.getEstates()
-    fun addEstate(estate: Estate) = estateDao.insertEstate(estate)
-    fun updateEstate(estate: Estate) = estateDao.updateEstate(estate)
+open class EstateDataRepository(private val estateDao: EstateDao) {
+    open fun getEstates() = estateDao.getEstates()
+    open fun addEstate(estate: Estate) = estateDao.insertEstate(estate)
+    open fun updateEstate(estate: Estate) = estateDao.updateEstate(estate)
 }
