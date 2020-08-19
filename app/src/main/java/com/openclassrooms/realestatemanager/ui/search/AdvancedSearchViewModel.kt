@@ -10,6 +10,7 @@ import com.openclassrooms.realestatemanager.repository.LocationRepository
 import com.openclassrooms.realestatemanager.utils.Utils
 import com.openclassrooms.realestatemanager.utils.distanceWith
 
+// TODO: 18/08/2020 test
 class AdvancedSearchViewModel(private val estateDataRepository: EstateDataRepository, private val locationRepository: LocationRepository, application: Application) : AndroidViewModel(application) {
     companion object {
         private val TAG = AdvancedSearchViewModel::class.java.simpleName

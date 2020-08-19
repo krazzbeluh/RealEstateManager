@@ -19,7 +19,7 @@ import org.junit.runner.RunWith
 
 
 @RunWith(AndroidJUnit4::class)
-class EstateDaoTest {
+class EstateDaoTest { // todo: Complete tests
     private lateinit var database: RealEstateManagerDatabase
 
     private val addressForTests = Address(12, "rue de la paix", "Paris", 75000, "France")
