@@ -36,14 +36,10 @@ class AdvancedSearchViewModel(private val estateDataRepository: EstateDataReposi
         }
 
         val finalEstates = matchingEstates.toMutableList()
-        if (ascending) {
-            finalEstates.sortBy {
-                selectOrderByField(orderBy, aroundLocation, it)
-            }
-        } else {
-            finalEstates.sortByDescending {
-                selectOrderByField(orderBy, aroundLocation, it = it)
-            }
+        if (ascending) finalEstates.sortBy {
+            selectOrderByField(orderBy, aroundLocation, it)
+        } else finalEstates.sortByDescending {
+            selectOrderByField(orderBy, aroundLocation, it = it)
         }
         return finalEstates
     }
