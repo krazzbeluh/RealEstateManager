@@ -7,6 +7,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.openclassrooms.realestatemanager.model.estate.Estate
 import com.openclassrooms.realestatemanager.repository.EstateDataRepository
 import com.openclassrooms.realestatemanager.repository.LocationRepository
+import com.openclassrooms.realestatemanager.utils.NetworkUtils
 import com.openclassrooms.realestatemanager.utils.Utils
 import com.openclassrooms.realestatemanager.utils.distanceWith
 
@@ -26,7 +27,7 @@ class AdvancedSearchViewModel(private val estateDataRepository: EstateDataReposi
         matchingEstates = getEstatesWithMatchingSurface(matchingEstates, surfaceRange)
         matchingEstates = getEstatesWithMatchingRooms(matchingEstates, roomsRange)
 
-        if (around != null && distance != null && Utils.isInternetAvailable(getApplication<Application>().applicationContext)) {
+        if (around != null && distance != null && Utils.isInternetAvailable(NetworkUtils(), getApplication<Application>().applicationContext)) {
             try {
                 aroundLocation = locationRepository.getLocation(around).getLatLnt()
                 matchingEstates = getEstatesWithMatchingLocation(matchingEstates, aroundLocation, distance * 1000)

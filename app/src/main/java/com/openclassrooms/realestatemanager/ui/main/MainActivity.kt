@@ -20,6 +20,7 @@ import com.openclassrooms.realestatemanager.ui.EstatesContainerActivity
 import com.openclassrooms.realestatemanager.ui.add.AddEstateActivity
 import com.openclassrooms.realestatemanager.ui.map.MapActivity
 import com.openclassrooms.realestatemanager.ui.search.AdvancedSearchActivity
+import com.openclassrooms.realestatemanager.utils.NetworkUtils
 import com.openclassrooms.realestatemanager.utils.PREFERENCES_NAME
 import com.openclassrooms.realestatemanager.utils.Utils
 import com.openclassrooms.realestatemanager.utils.showAlert
@@ -98,7 +99,7 @@ class MainActivity : EstatesContainerActivity() {
     private fun openMapActivity() {
         if (EasyPermissions.hasPermissions(this, LOCATION_PERM)) {
             if (Utils.isLocationEnabled(this)) {
-                if (Utils.isInternetAvailable(this)) {
+                if (Utils.isInternetAvailable(NetworkUtils(), this)) {
                     val intent = Intent(this, MapActivity::class.java)
                     startActivity(intent)
                 } else {
@@ -131,7 +132,7 @@ class MainActivity : EstatesContainerActivity() {
 
     private fun checkAddressForEstates() {
         viewModel.getEstates().observe(this, Observer { estates ->
-            if (!Utils.isInternetAvailable(this)) return@Observer
+            if (!Utils.isInternetAvailable(NetworkUtils(), this)) return@Observer
             val estatesToGetLocation = mutableListOf<Estate>()
             for (estate in estates) if (estate.estate.address.getLocation() == null) {
                 estatesToGetLocation.add(estate)

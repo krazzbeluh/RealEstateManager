@@ -44,10 +44,10 @@ class EstateContentProviderTest {
 
     @Before
     fun setUp() {
-        database = Room.inMemoryDatabaseBuilder(InstrumentationRegistry.getInstrumentation().context, RealEstateManagerDatabase::class.java)
+        database = Room.inMemoryDatabaseBuilder(InstrumentationRegistry.getInstrumentation().targetContext, RealEstateManagerDatabase::class.java)
                 .allowMainThreadQueries()
                 .build()
-        contentResolver = InstrumentationRegistry.getInstrumentation().context.contentResolver // TODO: 18/08/2020 ask Nicolas
+        contentResolver = InstrumentationRegistry.getInstrumentation().context.contentResolver
     }
 
     @Test

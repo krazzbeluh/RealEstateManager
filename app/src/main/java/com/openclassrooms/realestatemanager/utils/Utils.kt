@@ -36,17 +36,19 @@ object Utils {
      * @param context context object
      * @return if internet is available
      */
-    fun isInternetAvailable(context: Context): Boolean {
+    fun isInternetAvailable(networkUtils: NetworkUtils, context: Context): Boolean {
         val connectivityManager = context.applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
                 ?: return false
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val network = connectivityManager.activeNetwork ?: return false
-            val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
-                    ?: return false
-            return networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
-                    || networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
-                    || networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
+            networkUtils.apply {
+                val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
+                        ?: return false
+                return hasTransport(networkCapabilities, NetworkCapabilities.TRANSPORT_WIFI)
+                        || hasTransport(networkCapabilities, NetworkCapabilities.TRANSPORT_CELLULAR)
+                        || hasTransport(networkCapabilities, NetworkCapabilities.TRANSPORT_ETHERNET)
+            }
         } else {
             connectivityManager.run {
                 @Suppress("DEPRECATION")
