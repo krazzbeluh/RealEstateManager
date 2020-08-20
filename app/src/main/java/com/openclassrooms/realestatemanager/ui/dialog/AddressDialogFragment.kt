@@ -12,7 +12,7 @@ import androidx.fragment.app.DialogFragment
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.model.Address
 
-class AddressDialogFragment private constructor(val completionHandler: (Address) -> Unit) : DialogFragment() {
+class AddressDialogFragment(private val completionHandler: ((Address) -> Unit)? = null) : DialogFragment() {
     companion object {
         fun newInstance(completionHandler: (Address) -> Unit) = AddressDialogFragment(completionHandler)
     }
@@ -50,7 +50,7 @@ class AddressDialogFragment private constructor(val completionHandler: (Address)
         val country = if (countryEditText.text.isNotEmpty()) countryEditText.text.toString() else null
 
         if (number != null && postcode != null && route != null && city != null && country != null) {
-            completionHandler(Address(number, route, city, postcode, country))
+            completionHandler?.invoke(Address(number, route, city, postcode, country))
         }
 
         super.onDismiss(dialog)

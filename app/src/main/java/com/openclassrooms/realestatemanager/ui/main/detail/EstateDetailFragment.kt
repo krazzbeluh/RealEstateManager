@@ -17,7 +17,7 @@ import com.openclassrooms.realestatemanager.ui.PhotosRecyclerViewAdapter
 import com.openclassrooms.realestatemanager.ui.loan.LoanActivity
 import com.openclassrooms.realestatemanager.utils.convertToEuro
 
-class EstateDetailFragment(private val isInitiallyDollar: Boolean) : androidx.fragment.app.Fragment() {
+class EstateDetailFragment(private val isInitiallyDollar: Boolean = true) : androidx.fragment.app.Fragment() {
     companion object {
         const val ARG_ESTATE = "estate"
     }

@@ -29,8 +29,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.util.*
 
-class PhotoDialogFragment
-private constructor(val completionHandler: (Photo) -> Unit) : DialogFragment() {
+class PhotoDialogFragment(private var completionHandler: ((Photo) -> Unit)? = null) : DialogFragment() {
     companion object {
         fun newInstance(completionHandler: (Photo) -> Unit) = PhotoDialogFragment(completionHandler)
 
@@ -131,7 +130,7 @@ private constructor(val completionHandler: (Photo) -> Unit) : DialogFragment() {
     override fun onDismiss(dialog: DialogInterface) {
         val description = descriptionTextView.text.toString()
         if (image != null && description.isNotEmpty())
-            completionHandler(Photo(0, 0, image.toString(), description))
+            completionHandler?.let { it(Photo(0, 0, image.toString(), description)) }
 
         super.onDismiss(dialog)
     }
