@@ -2,12 +2,12 @@ package com.openclassrooms.realestatemanager.viewmodel
 
 import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.nhaarman.mockitokotlin2.mock
 import com.openclassrooms.realestatemanager.repository.EstateDataRepository
 import com.openclassrooms.realestatemanager.repository.LocationRepository
 import com.openclassrooms.realestatemanager.ui.search.AdvancedSearchViewModel
 import com.openclassrooms.realestatemanager.ui.search.EstateOrderField
 import com.openclassrooms.realestatemanager.utils.estate
+import io.mockk.mockk
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.runBlocking
@@ -23,9 +23,9 @@ class AdvancedSearchViewModelTest {
 
     @Before
     fun setUp() {
-        val estateDataRepository = mock<EstateDataRepository>()
-        val locationRepository = mock<LocationRepository>()
-        val application = mock<Application>()
+        val estateDataRepository = mockk<EstateDataRepository>()
+        val locationRepository = mockk<LocationRepository>()
+        val application = mockk<Application>()
         viewModel = AdvancedSearchViewModel(estateDataRepository, locationRepository, application)
     }
 

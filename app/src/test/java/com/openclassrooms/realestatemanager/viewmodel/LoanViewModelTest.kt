@@ -2,8 +2,8 @@ package com.openclassrooms.realestatemanager.viewmodel
 
 import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.nhaarman.mockitokotlin2.mock
 import com.openclassrooms.realestatemanager.ui.loan.LoanViewModel
+import io.mockk.mockk
 import junit.framework.TestCase.*
 import org.junit.Before
 import org.junit.Rule
@@ -13,7 +13,7 @@ class LoanViewModelTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private val application = mock<Application>()
+    private val application = mockk<Application>()
     private lateinit var viewModel: LoanViewModel
 
     @Before

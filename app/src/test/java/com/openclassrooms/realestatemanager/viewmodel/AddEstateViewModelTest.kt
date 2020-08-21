@@ -2,15 +2,15 @@ package com.openclassrooms.realestatemanager.viewmodel
 
 import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.never
-import com.nhaarman.mockitokotlin2.spy
-import com.nhaarman.mockitokotlin2.verify
 import com.openclassrooms.realestatemanager.database.dao.EstateDao
 import com.openclassrooms.realestatemanager.model.estate.AssociatedPOI
 import com.openclassrooms.realestatemanager.repository.EstateDataRepository
 import com.openclassrooms.realestatemanager.ui.add.AddEstateViewModel
 import com.openclassrooms.realestatemanager.utils.estate
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.spyk
+import io.mockk.verify
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -23,12 +23,14 @@ class AddEstateViewModelTest {
     private val executor: Executor = Executor {
         it.run()
     }
-    private var application = mock<Application> { }
+    private var application = mockk<Application> { }
     private lateinit var viewModel: AddEstateViewModel
 
-    private val estateDao = mock<EstateDao>()
+    private val estateDao = mockk<EstateDao>()
 
-    private val estateDataRepository: EstateDataRepository = spy(EstateDataRepository(estateDao))
+    private val estateDataRepository: EstateDataRepository = spyk(EstateDataRepository(estateDao)) {
+        every { addEstate(any()) } returns 0L
+    }
 
     @Before
     fun setUp() {
@@ -38,9 +40,9 @@ class AddEstateViewModelTest {
     @Test
     fun testAddEstateShouldNotDoAnyThingIfADataIsNull() {
         viewModel.addEstate(null, null, null, null, null, "", listOf(), "", listOf(), true, null)
-        verify(estateDataRepository, never()).getEstates()
-        verify(estateDataRepository, never()).addEstate(estate)
-        verify(estateDataRepository, never()).updateEstate(estate)
+        verify(exactly = 0) { estateDataRepository.getEstates() }
+        verify(exactly = 0) { estateDataRepository.addEstate(estate) }
+        verify(exactly = 0) { estateDataRepository.updateEstate(estate) }
     }
 
     @Test
@@ -60,8 +62,8 @@ class AddEstateViewModelTest {
                 estate.estate.sold,
                 null
         )
-        verify(estateDataRepository, never()).getEstates()
-        verify(estateDataRepository).addEstate(estate)
-        verify(estateDataRepository, never()).updateEstate(estate)
+        verify(exactly = 0) { estateDataRepository.getEstates() }
+        verify(exactly = 1) { estateDataRepository.addEstate(estate) }
+        verify(exactly = 0) { estateDataRepository.updateEstate(estate) }
     }
 }

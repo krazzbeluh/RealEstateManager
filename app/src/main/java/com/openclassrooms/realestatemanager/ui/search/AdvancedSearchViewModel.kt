@@ -11,7 +11,6 @@ import com.openclassrooms.realestatemanager.utils.NetworkUtils
 import com.openclassrooms.realestatemanager.utils.Utils
 import com.openclassrooms.realestatemanager.utils.distanceWith
 
-// TODO: 18/08/2020 test
 class AdvancedSearchViewModel(private val estateDataRepository: EstateDataRepository, private val locationRepository: LocationRepository, application: Application) : AndroidViewModel(application) {
     companion object {
         private val TAG = AdvancedSearchViewModel::class.java.simpleName
@@ -51,11 +50,8 @@ class AdvancedSearchViewModel(private val estateDataRepository: EstateDataReposi
         EstateOrderField.SURFACE -> it.estate.area
         EstateOrderField.DISTANCE -> {
             val location = it.estate.address.getLocation()
-            if (location != null && baseLocation != null) {
-                baseLocation.distanceWith(location)
-            } else {
-                it.estate.price
-            }
+            if (location != null && baseLocation != null) baseLocation.distanceWith(location)
+            else it.estate.price
         }
     }
 

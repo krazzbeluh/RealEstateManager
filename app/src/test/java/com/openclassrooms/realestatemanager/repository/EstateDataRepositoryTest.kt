@@ -2,10 +2,10 @@ package com.openclassrooms.realestatemanager.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
-import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.mock
 import com.openclassrooms.realestatemanager.database.dao.EstateDao
 import com.openclassrooms.realestatemanager.utils.estate
+import io.mockk.every
+import io.mockk.mockk
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -23,10 +23,10 @@ class EstateDataRepositoryTest {
     }
 
     private val estateList = listOf(estate)
-    private val estateDao = mock<EstateDao> {
-        on { getEstates() } doReturn MutableLiveData(estateList)
-        on { insertEstate(estate) } doReturn 1234567890L
-        on { updateEstate(estate) } doReturn 1234567890
+    private val estateDao = mockk<EstateDao> {
+        every { getEstates() } returns MutableLiveData(estateList)
+        every { insertEstate(estate) } returns 1234567890L
+        every { updateEstate(estate) } returns 1234567890
     }
 
     @Test

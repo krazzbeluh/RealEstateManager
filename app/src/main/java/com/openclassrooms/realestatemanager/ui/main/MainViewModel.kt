@@ -1,7 +1,6 @@
 package com.openclassrooms.realestatemanager.ui.main
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.google.android.gms.maps.model.LatLng
@@ -18,16 +17,14 @@ class MainViewModel(private val estateDataRepository: EstateDataRepository, priv
         return estateDataRepository.getEstates()
     }
 
-    suspend fun checkAddresses(estates: List<Estate>) { // TODO: 18/08/2020 test
+    suspend fun checkAddresses(estates: List<Estate>) {
         estates.forEach { estate ->
             val locationResponse = locationRepository.checkAddress(estate.estate.address)
             if (!locationResponse.isValid()) return@forEach
             val location: LatLng
             try {
                 location = locationResponse.getLatLnt()
-                Log.d(TAG, "checkAddresses: $location")
             } catch (e: NumberFormatException) {
-                Log.e(TAG, "checkAddresses: ", e)
                 return@forEach
             }
             estate.estate.address.setLocation(location)

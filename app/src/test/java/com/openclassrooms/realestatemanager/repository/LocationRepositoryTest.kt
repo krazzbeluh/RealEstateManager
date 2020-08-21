@@ -1,11 +1,11 @@
 package com.openclassrooms.realestatemanager.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.mock
 import com.openclassrooms.realestatemanager.network.LocationClient
 import com.openclassrooms.realestatemanager.utils.address
 import com.openclassrooms.realestatemanager.utils.locationResponse
+import io.mockk.coEvery
+import io.mockk.mockk
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
@@ -22,10 +22,10 @@ class LocationRepositoryTest {
 
     @Before
     fun setUp() {
-        locationClient = mock {
-            onBlocking { // TODO: 19/08/2020 Ask Nicolas
+        locationClient = mockk {
+            coEvery {
                 getLocation(address)
-            } doReturn locationResponse
+            } returns locationResponse
         }
         locationRepository = LocationRepository(locationClient)
     }

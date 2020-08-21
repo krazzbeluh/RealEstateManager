@@ -3,7 +3,7 @@ package com.openclassrooms.realestatemanager.model
 import com.google.android.gms.maps.model.LatLng
 import java.io.Serializable
 
-data class Address(val number: Int, val route: String, val city: String, val postCode: Int, val country: String, private var lat: Double? = null, private var lng: Double? = null) : Serializable {
+open class Address(val number: Int, val route: String, val city: String, val postCode: Int, val country: String, private var lat: Double? = null, private var lng: Double? = null) : Serializable {
 
     fun format(): String {
         return "$number $route" +
