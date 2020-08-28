@@ -6,7 +6,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.openclassrooms.realestatemanager.database.RealEstateManagerDatabase
 import com.openclassrooms.realestatemanager.model.Address
-import com.openclassrooms.realestatemanager.model.estate.AssociatedPOI
 import com.openclassrooms.realestatemanager.model.estate.Estate
 import com.openclassrooms.realestatemanager.model.estate.SimpleEstate
 import com.openclassrooms.realestatemanager.utils.LiveDataTestUtil
@@ -19,11 +18,11 @@ import org.junit.runner.RunWith
 
 
 @RunWith(AndroidJUnit4::class)
-class EstateDaoTest { // todo: Complete tests
+class EstateDaoTest {
     private lateinit var database: RealEstateManagerDatabase
 
     private val addressForTests = Address(12, "rue de la paix", "Paris", 75000, "France")
-    private val simpleEstate = SimpleEstate(0, addressForTests, Estate.EstateType.FLAT, 987654, 3, 234, "Little apartment in Paris", "Paul Leclerc", false)
+    private val simpleEstate = SimpleEstate(1, addressForTests, Estate.EstateType.FLAT, 987654, 3, 234, "Little apartment in Paris", "Paul Leclerc", false)
     private val estateForTests = Estate(simpleEstate)
 
     @get:Rule
@@ -39,20 +38,30 @@ class EstateDaoTest { // todo: Complete tests
     }
 
     @Test
-    fun insertAndGetEstate() {
+    fun testInsertAndGetEstate() {
         database.estateDao().insertEstate(estateForTests)
 
         val estates = LiveDataTestUtil.getValue(database.estateDao().getEstates())
         assertEquals(estates?.first(), estateForTests)
     }
 
+    @Test
+    fun testUpdateEstate() {
+        database.estateDao().insertEstate(estateForTests)
+
+        val updatedEstate = estateForTests.apply {
+            estate = SimpleEstate(1, addressForTests, Estate.EstateType.HOUSE, 9876543, 2, 1234, "Little apartment", "RealEstateManager", true)
+        }
+
+        database.estateDao().updateEstate(updatedEstate)
+
+        val estates = LiveDataTestUtil.getValue(database.estateDao().getEstates())
+        assertEquals(estates?.first(), updatedEstate)
+    }
+
     @After
     @Throws(java.lang.Exception::class)
     fun closeDb() {
         database.close()
-    }
-
-    init {
-        estateForTests.nearbyPointsOfInterests = mutableListOf(AssociatedPOI(0, 0, AssociatedPOI.POI.SCHOOL), AssociatedPOI(0, 0, AssociatedPOI.POI.PARK))
     }
 }

@@ -39,7 +39,6 @@ class MainActivity : EstatesContainerActivity() {
         private const val LOCATION_PERM = Manifest.permission.ACCESS_FINE_LOCATION
     }
 
-    override var isDollar = true
     override val context: Context = this
     override lateinit var preferences: SharedPreferences
     private lateinit var viewModel: MainViewModel
@@ -58,7 +57,7 @@ class MainActivity : EstatesContainerActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        preferences = getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE) // TODO: 18/08/2020 Ask Nicolas
+        preferences = getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE) // TODO: 18/08/2020 Call isDollar
         val viewModelFactory = Injection.provideViewModelFactory(application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 

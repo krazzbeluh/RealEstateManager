@@ -24,7 +24,9 @@ data class Estate(@Embedded var estate: SimpleEstate) : Serializable {
         return s
     }
 
-    override fun equals(other: Any?) = other is Estate && estate == other.estate && nearbyPointsOfInterests == other.nearbyPointsOfInterests
+    override fun equals(other: Any?) = other is Estate
+            && estate == other.estate
+            && nearbyPointsOfInterests == other.nearbyPointsOfInterests
 
     override fun hashCode(): Int {
         var result = estate.hashCode()
