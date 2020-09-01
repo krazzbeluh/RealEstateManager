@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -57,7 +58,7 @@ class MainActivity : EstatesContainerActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        preferences = getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE) // TODO: 18/08/2020 Call isDollar
+        preferences = getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
         val viewModelFactory = Injection.provideViewModelFactory(application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
@@ -68,6 +69,7 @@ class MainActivity : EstatesContainerActivity() {
         recyclerView = findViewById(R.id.item_list)
         setupRecyclerView(recyclerView)
         checkAddressForEstates()
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

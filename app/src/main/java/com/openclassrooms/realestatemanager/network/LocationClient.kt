@@ -1,6 +1,7 @@
 package com.openclassrooms.realestatemanager.network
 
 import com.openclassrooms.realestatemanager.model.Address
+import com.openclassrooms.realestatemanager.network.response.LocationResponse
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -17,6 +18,9 @@ open class LocationClient {
             .build()
     private val service = retrofit.create(LocationDao::class.java)
 
-    suspend fun getLocation(address: Address) = service.getLocationWithAddress("${address.number} ${address.route}", address.city, address.country, address.postCode.toString())
+    suspend fun getLocation(address: Address): LocationResponse {
+        return service.getLocationWithAddress("${address.number} ${address.route}", address.city, address.country, address.postCode.toString())
+    }
+
     suspend fun getLocation(city: String) = service.getLocationWithCityName(city)
 }
