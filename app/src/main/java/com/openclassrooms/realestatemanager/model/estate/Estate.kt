@@ -1,7 +1,9 @@
 package com.openclassrooms.realestatemanager.model.estate
 
+import android.content.ContentValues
 import androidx.room.Embedded
 import androidx.room.Relation
+import com.openclassrooms.realestatemanager.model.Address
 import com.openclassrooms.realestatemanager.model.Photo
 import java.io.Serializable
 import java.util.*
@@ -40,5 +42,28 @@ data class Estate(@Embedded var estate: SimpleEstate) : Serializable {
         HOUSE,
         DUPLEX,
         PENTHOUSE
+    }
+
+    companion object {
+        fun fromContentValues(values: ContentValues): Estate {
+            values.apply {
+                val address = Address(
+                        getAsInteger("addressNumber"),
+                        getAsString("addressRoute"),
+                        getAsString("addressCity"),
+                        getAsInteger("addressPostCode"),
+                        getAsString("addressCountry")
+                )
+                val type = EstateType.valueOf(getAsString("estateType"))
+                val price = getAsInteger("estatePrice")
+                val rooms = getAsInteger("estateRooms")
+                val area = getAsInteger("estateArea")
+                val description = getAsString("estateDescription")
+                val agent = getAsString("estateAgent")
+                val sold = getAsBoolean("isEstateSold")
+
+                return Estate(SimpleEstate(0, address, type, price, rooms, area, description, agent, sold))
+            }
+        }
     }
 }

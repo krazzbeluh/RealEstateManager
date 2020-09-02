@@ -10,7 +10,6 @@ import com.openclassrooms.realestatemanager.model.estate.Estate
 
 class EstateContentProvider : ContentProvider() {
     override fun onCreate() = true
-    override fun insert(uri: Uri, values: ContentValues?): Nothing? = null
     override fun update(uri: Uri, values: ContentValues?, selection: String?, selectionArgs: Array<out String>?) = 0
     override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?) = 0
 
@@ -23,11 +22,20 @@ class EstateContentProvider : ContentProvider() {
         }
     }
 
+    override fun insert(uri: Uri, values: ContentValues?): Nothing? {
+        RealEstateManagerDatabase.getInstance(context
+                ?: return null).estateDao().insertEstate(Estate.fromContentValues(values
+                ?: return null))
+        return null
+    }
+
     override fun getType(uri: Uri): String? = "vnd.android.cursor.item/$AUTHORITY.${Estate::class.java.simpleName}"
 
     companion object {
         const val AUTHORITY = "com.openclassrooms.realestatemanager.provider"
         private val TABLE_NAME = Estate::class.java.simpleName
+
+        @Suppress("HasPlatformType", "unused")
         val URI_ITEM = Uri.parse("content://$AUTHORITY/$TABLE_NAME")
     }
 }

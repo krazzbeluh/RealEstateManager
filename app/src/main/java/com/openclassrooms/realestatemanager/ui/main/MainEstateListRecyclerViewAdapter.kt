@@ -75,11 +75,11 @@ class MainEstateListRecyclerViewAdapter internal constructor(private val parentA
         return estates.size
     }
 
-    private fun fetchPhoto(position: Int): Bitmap? {
+    private fun fetchPhoto(position: Int): Bitmap? = if (estates[position].photos.isNotEmpty()) {
         val directory = parentActivity.filesDir
         val file = File(directory, estates[position].photos[0].fileName)
-        return BitmapFactory.decodeFile(file.toString())
-    }
+        BitmapFactory.decodeFile(file.toString())
+    } else null
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         lateinit var estate: Estate
