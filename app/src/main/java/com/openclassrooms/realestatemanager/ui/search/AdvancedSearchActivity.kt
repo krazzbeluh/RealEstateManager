@@ -19,6 +19,7 @@ import com.openclassrooms.realestatemanager.ui.ConvertibleActivity
 import com.openclassrooms.realestatemanager.ui.main.detail.EstateDetailFragment.Companion.ARG_ESTATE
 import com.openclassrooms.realestatemanager.ui.search.result.SearchResultListActivity
 import com.openclassrooms.realestatemanager.utils.PREFERENCES_NAME
+import com.openclassrooms.realestatemanager.utils.convertToDollar
 import com.openclassrooms.realestatemanager.utils.convertToEuro
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -120,9 +121,13 @@ class AdvancedSearchActivity : AppCompatActivity(), ConvertibleActivity {
         val orderBy = orderBySpinner.selectedItem as? EstateOrderField
         val city = cityEditText.text.toString()
         val distance = distanceEditText.text.toString().toIntOrNull()
+
+        val priceRange = if (isDollar) priceRangeSeekBar.currentRange[0].toInt()..priceRangeSeekBar.currentRange[1].toInt()
+        else priceRangeSeekBar.currentRange[0].toInt().convertToDollar()..priceRangeSeekBar.currentRange[1].toInt().convertToDollar()
+
         coroutineScope.launch(Dispatchers.IO) {
             val filteredEstates = viewModel.search(estates,
-                    priceRangeSeekBar.currentRange[0].toInt()..priceRangeSeekBar.currentRange[1].toInt(),
+                    priceRange,
                     surfaceRangeSeekBar.currentRange[0].toInt()..surfaceRangeSeekBar.currentRange[1].toInt(),
                     roomsRangeSeekBar.currentRange[0].toInt()..roomsRangeSeekBar.currentRange[1].toInt(),
                     if (city.isNotEmpty() && distance != null) city else null,
